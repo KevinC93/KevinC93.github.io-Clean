@@ -1,1 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CACLEAN — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
+  <meta name="description" content="CACLEAN — 24/7 family-run cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
+  <meta name="keywords" content="cleaning, house cleaning, deep clean, move out clean, post construction, CACLEAN" />
+  <meta property="og:title" content="CACLEAN — 24/7 Cleaning" />
+  <meta property="og:description" content="Detail-oriented OCD cleaning freaks. We treat every home like our own. Call or text to book." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://example.com/" />
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 
+  <style>
+    :root{
+      /* Palette inspired by classic cleaning brand navy/pink */
+      --ink:#0f1a3a;        /* deep navy */
+      --ink-2:#1a2240;
+      --bg:#f9fbff;        /* soft near-white */
+      --accent:#ff4fa3;    /* pink accent */
+      --accent-2:#ff86c3;  /* softer pink */
+      --mint:#e8fff3;      /* subtle success */
+      --muted:#60708f;     /* slate */
+      --card:#ffffff;
+      --ok:#0e9f6e;
+      --warn:#f59e0b;
+      --shadow: 0 10px 30px rgba(15,26,58,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background: radial-gradient(1200px 600px at 80% -10%, #ffe6f3 0%, transparent 60%) no-repeat,
+                  radial-gradient(1000px 500px at -10% 10%, #e6ecff 0%, transparent 60%) no-repeat,
+                  var(--bg);
+      line-height:1.6;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(249,251,255,.75);
+      backdrop-filter: saturate(180%) blur(10px);
+      border-bottom:1px solid rgba(26,34,64,.08);
+    }
+    .row{display:flex; gap:16px; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background:
+        radial-gradient(circle at 70% 30%, #ffffff 0 40%, transparent 41%),
+        linear-gradient(135deg, var(--accent) 0%, #ff4f7a 100%);
+      box-shadow: var(--shadow);
+    }
+    .nav{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .tag{font-size:12px; font-weight:700; background:var(--mint); color:#083b2b; padding:4px 8px; border-radius:999px}
+    .lang-toggle{display:inline-flex; border:1px solid rgba(26,34,64,.15); border-radius:999px; overflow:hidden}
+    .lang-toggle button{
+      background:#fff; border:0; padding:6px 10px; cursor:pointer; font-weight:700; font-size:12px;
+    }
+    .lang-toggle button.active{background:var(--ink); color:#fff}
+
+    /* Hero */
+    .hero{position:relative; overflow:hidden; isolation:isolate}
+    .hero-inner{padding:64px 24px 84px}
+    .h1{
+      font-size: clamp(28px, 4vw, 46px);
+      line-height:1.15; margin:0 0 12px; font-weight:900; letter-spacing:-.3px;
+    }
+    .lead{font-size: clamp(16px, 2.2vw, 20px); color:var(--muted); margin-bottom:18px}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 24px}
+    .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:700; box-shadow: var(--shadow)}
+    .cta{display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:12px 16px;
+      border-radius:14px; font-weight:800; letter-spacing:.2px; text-decoration:none;
+      box-shadow: var(--shadow); will-change: transform;
+      transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0)}
+    .btn-primary{background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%); color:#fff}
+    .btn-outline{background:#fff; color:var(--ink); border:1px solid rgba(15,26,58,.12)}
+    .small{font-size:12px; color:var(--muted)}
+    .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
+    .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:14px; text-align:center}
+
+    /* Sections */
+    section{padding:56px 24px}
+    .grid{display:grid; gap:20px}
+    .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+    .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:18px; padding:20px; box-shadow: var(--shadow)}
+    .list{margin:0; padding:0; list-style:none}
+    .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
+    .pill{display:inline-block; background:rgba(255,79,163,.1); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px}
+
+    /* Footer */
+    footer{padding:32px 24px 64px; background:#0d1634; color:#d7dbef}
+    footer a{color:#fff}
+    .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
+    .copyright{opacity:.75; font-size:12px}
+
+    /* Animated tools background */
+    .scene{position:absolute; inset:0; z-index:-1; overflow:hidden}
+    .sprite{
+      position:absolute; opacity:.09; filter:drop-shadow(0 6px 20px rgba(15,26,58,.18));
+      will-change: transform, opacity;
+      animation: float linear forwards;
+    }
+    @keyframes float{
+      from{ transform: translate(var(--x,0), 110vh) rotate(var(--r,0deg)) scale(var(--s,1)); opacity:.0; }
+      10%{ opacity:.10 }
+      90%{ opacity:.10 }
+      to{ transform: translate(var(--x,0), -20vh) rotate(calc(var(--r,0deg) + 90deg)) scale(var(--s,1)); opacity:0; }
+    }
+    /* Accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .sprite{animation: none; opacity:.06}
+    }
+
+    /* Responsive */
+    @media (max-width: 800px){
+      .grid-2{grid-template-columns: 1fr}
+      .kpis{grid-template-columns: 1fr 1fr 1fr}
+      .foot-grid{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div style="font-size:18px">CACLEAN</div>
+          <div class="small" data-i18n="tagline">Detail-oriented cleaning, 24/7</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <span class="tag" data-i18n="available247">Available 24/7</span>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
+          <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+        <a class="btn btn-outline" href="sms:+10000000000?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs">Text us</a>
+        <a class="btn btn-primary" href="tel:+10000000000" data-i18n="callNow">Call now</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="scene" aria-hidden="true" id="scene">
+        <!-- SVG sprites template (spray, towel, bottle, broom, bubbles) -->
+        <svg width="0" height="0" style="position:absolute">
+          <defs>
+            <g id="spray">
+              <path d="M10 0 h24 a4 4 0 0 1 4 4 v8 h-6 v8 a6 6 0 0 1 -6 6 h-8 a6 6 0 0 1 -6 -6 v-20 a4 4 0 0 1 4 -4z" fill="currentColor"/>
+              <rect x="16" y="4" width="12" height="5" rx="2" fill="#ffffff" opacity=".5"/>
+            </g>
+            <g id="bottle">
+              <path d="M18 2 h12 v6 a10 10 0 0 1 6 10 v18 a8 8 0 0 1 -8 8 h-8 a8 8 0 0 1 -8 -8 v-18 a10 10 0 0 1 6 -10z" fill="currentColor"/>
+              <rect x="20" y="4" width="8" height="4" rx="2" fill="#ffffff" opacity=".4"/>
+            </g>
+            <g id="broom">
+              <rect x="22" y="-10" width="4" height="40" fill="currentColor"/>
+              <path d="M8 26 h32 c2 0 3 2 2 3 l-3 6 a4 4 0 0 1 -4 2 H13 a4 4 0 0 1 -4 -2 l-3 -6 c-1 -1 0 -3 2 -3z" fill="currentColor"/>
+            </g>
+            <g id="towel">
+              <rect x="6" y="6" width="36" height="24" rx="6" fill="currentColor"/>
+              <rect x="10" y="10" width="28" height="4" rx="2" fill="#ffffff" opacity=".45"/>
+              <rect x="10" y="18" width="16" height="4" rx="2" fill="#ffffff" opacity=".35"/>
+            </g>
+            <g id="wipe">
+              <path d="M6 18 q14 -18 36 0 v10 q-18 12 -36 0 z" fill="currentColor"/>
+            </g>
+            <g id="bubbles">
+              <circle cx="10" cy="10" r="6" fill="currentColor"/>
+              <circle cx="24" cy="14" r="4" fill="currentColor" opacity=".7"/>
+              <circle cx="18" cy="24" r="3" fill="currentColor" opacity=".5"/>
+            </g>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="container hero-inner">
+        <h1 class="h1" data-i18n="hero">Obsessively clean. Delightfully easy.</h1>
+        <p class="lead" data-i18n="subhero">
+          Family-run “OCD cleaning freaks.” We treat your home like our own—if you’re not happy, we’re not done.
+        </p>
+        <div class="badges">
+          <span class="badge" data-i18n="promo">$100 service fee + $25/h (first hour included)</span>
+          <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
+          <span class="badge" data-i18n="licensed">Insured • Trusted • Friendly</span>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="tel:+10000000000">
+            <span aria-hidden="true">📞</span><span data-i18n="ctaCall">Call CACLEAN</span>
+          </a>
+          <a class="btn btn-outline" href="sms:+10000000000?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
+            <span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span>
+          </a>
+          <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
+        </div>
+        <div class="kpis" role="list">
+          <div class="kpi" role="listitem"><strong>24/7</strong><div class="small" data-i18n="availability">Availability</div></div>
+          <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small" data-i18n="sameDay">Often available</div></div>
+          <div class="kpi" role="listitem"><strong>Family</strong><div class="small" data-i18n="familyRun">Run business</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid grid-2">
+        <div class="card">
+          <h2 style="margin-top:0" data-i18n="servicesTitle">Core services</h2>
+          <ul class="list">
+            <li><span class="pill" data-i18n="svcStandard">Standard Clean</span></li>
+            <li><span class="pill" data-i18n="svcDeep">Deep Clean</span></li>
+            <li><span class="pill" data-i18n="svcMove">Move-In / Move-Out</span></li>
+            <li><span class="pill" data-i18n="svcPost">Post-Construction</span></li>
+          </ul>
+          <p class="small" data-i18n="pricingNote">Transparent pricing: $100 service fee + $25/h. First hour included.</p>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0" data-i18n="aboutTitle">Trust & about us</h2>
+          <p data-i18n="aboutBody">
+            Team of detail-oriented OCD cleaning freaks! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.
+          </p>
+          <ul class="list">
+            <li>✅ <span data-i18n="insured">Insured & dependable</span></li>
+            <li>✅ <span data-i18n="eco">Microfiber towels & eco-friendly options available</span></li>
+            <li>✅ <span data-i18n="customPlans">Custom plans for homes & sites</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="contact">
+      <div class="container grid grid-2">
+        <div class="card">
+          <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
+          <!-- Netlify-ready contact form placeholder. Replace phone/email below in the footer too. -->
+          <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="quote" />
+            <p style="display:none">
+              <label>Don’t fill this out if you’re human: <input name="bot-field"/></label>
+            </p>
+            <div class="row" style="gap:10px; align-items:stretch">
+              <input name="name" required placeholder="Name" aria-label="Name"
+                style="flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px">
+              <input name="phone" required placeholder="Phone" aria-label="Phone"
+                style="flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px">
+            </div>
+            <div style="height:10px"></div>
+            <input name="email" type="email" placeholder="Email (optional)" aria-label="Email"
+              style="width:100%; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px">
+            <div style="height:10px"></div>
+            <textarea name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…"
+              aria-label="Project details"
+              style="width:100%; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px"></textarea>
+            <div style="height:14px"></div>
+            <button class="btn btn-primary" type="submit" data-i18n="submit">Request quote</button>
+            <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
+          </form>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
+          <ul class="list">
+            <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
+            <li>❓ <strong data-i18n="q2">Are you available today?</strong><br><span class="small" data-i18n="a2">Often! Text or call for a slot—24/7.</span></li>
+            <li>❓ <strong data-i18n="q3">How do you price?</strong><br><span class="small" data-i18n="a3">$100 service fee + $25/h. First hour included.</span></li>
+            <li>❓ <strong data-i18n="q4">What areas do you serve?</strong><br><span class="small" data-i18n="a4">[Add cities/neighborhoods here]</span></li>
+          </ul>
+          <p class="small" data-i18n="ctaAlt">Prefer phone? <a href="tel:+10000000000">Call</a> or <a href="sms:+10000000000">text</a> anytime.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container foot-grid">
+      <div>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div style="font-weight:800">CACLEAN</div>
+        </div>
+        <p class="small" style="max-width:42ch" data-i18n="footerBlurb">
+          Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
+        </p>
+      </div>
+      <div>
+        <strong data-i18n="contact">Contact</strong><br>
+        <a href="tel:+10000000000">+1 (000) 000-0000</a><br>
+        <a href="mailto:hello@example.com">hello@example.com</a><br>
+        <span data-i18n="hours">Open 24/7</span>
+      </div>
+      <div>
+        <strong data-i18n="areas">Service areas</strong><br>
+        <span class="small">[Add your cities / radius]</span>
+      </div>
+    </div>
+    <div class="container" style="margin-top:16px">
+      <div class="copyright">© <span id="year"></span> CACLEAN. <span data-i18n="rights">All rights reserved.</span></div>
+    </div>
+  </footer>
+
+  <!-- Local Business Schema (update placeholders) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CACLEAN",
+    "image": "https://example.com/og.jpg",
+    "telephone": "+1-000-000-0000",
+    "areaServed": ["Your City"],
+    "openingHours": "Mo-Su 00:00-23:59",
+    "priceRange": "$$",
+    "url": "https://example.com",
+    "description": "Family-run, 24/7 cleaning: standard, deep, move-in/out, post-construction. $100 service fee + $25/h. First hour included. 100% satisfaction guarantee."
+  }
+  </script>
+
+  <!-- i18n + animated background -->
+  <script>
+    // ===== Tiny i18n =====
+    const dict = {
+      en: {
+        tagline: "Detail-oriented cleaning, 24/7",
+        available247: "Available 24/7",
+        textUs: "Text us",
+        callNow: "Call now",
+        hero: "Obsessively clean. Delightfully easy.",
+        subhero: "Family-run “OCD cleaning freaks.” We treat your home like our own—if you’re not happy, we’re not done.",
+        promo: "$100 service fee + $25/h (first hour included)",
+        guarantee: "100% satisfaction guaranteed",
+        licensed: "Insured • Trusted • Friendly",
+        ctaCall: "Call CACLEAN",
+        ctaText: "Text for a quote",
+        serving: "Standard • Deep • Move-In/Out • Post-Construction",
+        availability: "Availability",
+        sameDay: "Often available",
+        familyRun: "Run business",
+        servicesTitle: "Core services",
+        svcStandard: "Standard Clean",
+        svcDeep: "Deep Clean",
+        svcMove: "Move-In / Move-Out",
+        svcPost: "Post-Construction",
+        pricingNote: "Transparent pricing: $100 service fee + $25/h. First hour included.",
+        aboutTitle: "Trust & about us",
+        aboutBody:
+          "Team of detail-oriented OCD cleaning freaks! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.",
+        insured: "Insured & dependable",
+        eco: "Microfiber towels & eco-friendly options available",
+        customPlans: "Custom plans for homes & sites",
+        contactTitle: "Get a quick quote",
+        submit: "Request quote",
+        disclaimer: "We reply fast. No spam.",
+        faqTitle: "Quick FAQs",
+        q1: "Do you bring supplies?",
+        a1: "Yes—pro tools, microfiber towels & eco-friendly options.",
+        q2: "Are you available today?",
+        a2: "Often! Text or call for a slot—24/7.",
+        q3: "How do you price?",
+        a3: "$100 service fee + $25/h. First hour included.",
+        q4: "What areas do you serve?",
+        a4: "[Add cities/neighborhoods here]",
+        ctaAlt: "Prefer phone? Call or text anytime.",
+        footerBlurb: "Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
+        contact: "Contact",
+        hours: "Open 24/7",
+        areas: "Service areas",
+        rights: "All rights reserved."
+      },
+      fr: {
+        tagline: "Nettoyage minutieux, 24/7",
+        available247: "Disponible 24/7",
+        textUs: "Textez-nous",
+        callNow: "Appelez maintenant",
+        hero: "Obsessivement propre. Tellement simple.",
+        subhero: "Entreprise familiale de « maniaques du ménage ». On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
+        promo: "Frais de service 100 $ + 25 $/h (1re heure incluse)",
+        guarantee: "Satisfaction 100 % garantie",
+        licensed: "Assuré • Fiable • Sympathique",
+        ctaCall: "Appeler CACLEAN",
+        ctaText: "Texter pour une soumission",
+        serving: "Entretien • Grand ménage • Déménagement • Après construction",
+        availability: "Disponibilité",
+        sameDay: "Souvent aujourd’hui",
+        familyRun: "Entreprise familiale",
+        servicesTitle: "Services principaux",
+        svcStandard: "Entretien régulier",
+        svcDeep: "Grand ménage",
+        svcMove: "Entrée / Sortie",
+        svcPost: "Après construction",
+        pricingNote: "Tarif clair : frais de service 100 $ + 25 $/h. 1re heure incluse.",
+        aboutTitle: "Confiance & à propos",
+        aboutBody:
+          "Équipe minutieuse! Nos entretiens surpassent la norme parce qu’on traite chaque maison comme la nôtre. Pas satisfaits? On revient. Entreprise familiale. Satisfaction garantie.",
+        insured: "Assuré & fiable",
+        eco: "Linges microfibres & options éco disponibles",
+        customPlans: "Plans sur mesure pour maisons & chantiers",
+        contactTitle: "Obtenir une soumission rapide",
+        submit: "Envoyer la demande",
+        disclaimer: "Réponse rapide. Aucun pourriel.",
+        faqTitle: "FAQ express",
+        q1: "Fournissez-vous le matériel?",
+        a1: "Oui—outils pros, linges microfibres & options éco.",
+        q2: "Êtes-vous disponible aujourd’hui?",
+        a2: "Souvent! Texto ou appel—24/7.",
+        q3: "Comment tarifez-vous?",
+        a3: "100 $ de frais + 25 $/h. 1re heure incluse.",
+        q4: "Quelles zones desservez-vous?",
+        a4: "[Ajoutez vos villes/quartiers ici]",
+        ctaAlt: "Préférez le téléphone? Appelez ou textez à tout moment.",
+        footerBlurb: "Entreprise familiale sympathique. Ponctuels, efficaces, étincelant garanti.",
+        contact: "Contact",
+        hours: "Ouvert 24/7",
+        areas: "Zones desservies",
+        rights: "Tous droits réservés."
+      }
+    };
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const setLang = lang => {
+      $$("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        const text = dict?.[lang]?.[key];
+        if (typeof text === "string") el.textContent = text;
+      });
+      $("#lang-en").classList.toggle("active", lang==="en");
+      $("#lang-fr").classList.toggle("active", lang==="fr");
+      $("#lang-en").setAttribute("aria-pressed", lang==="en");
+      $("#lang-fr").setAttribute("aria-pressed", lang==="fr");
+      document.documentElement.lang = lang;
+      localStorage.setItem("lang", lang);
+    };
+    $("#lang-en").addEventListener("click", ()=>setLang("en"));
+    $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
+    setLang(localStorage.getItem("lang") || "en");
+
+    // ===== Animated background sprites =====
+    const scene = document.getElementById("scene");
+    const sprites = ["spray","bottle","broom","towel","wipe","bubbles"];
+    const colors = ["#1a2240","#ff4fa3","#60708f"];
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function spawn(){
+      if (!scene || prefersReduced) return;
+      const el = document.createElementNS("http://www.w3.org/2000/svg","svg");
+      const use = document.createElementNS("http://www.w3.org/2000/svg","use");
+      const id = sprites[Math.floor(Math.random()*sprites.length)];
+      const size = 30 + Math.random()*90; // 30–120px
+      const x = Math.random()*100;        // vw
+      const dur = 16 + Math.random()*18;  // seconds
+      const rot = Math.floor(Math.random()*360) + "deg";
+      const scale = 0.8 + Math.random()*1.4;
+
+      el.setAttribute("class","sprite");
+      el.setAttribute("width", size);
+      el.setAttribute("height", size);
+      el.style.left = x + "vw";
+      el.style.setProperty("--x", "0");
+      el.style.setProperty("--r", rot);
+      el.style.setProperty("--s", scale);
+      el.style.animationDuration = dur + "s";
+      el.style.color = colors[Math.floor(Math.random()*colors.length)];
+
+      use.setAttributeNS("http://www.w3.org/1999/xlink","href","#"+id);
+      el.appendChild(use);
+      scene.appendChild(el);
+
+      // cleanup after animation
+      setTimeout(()=> { el.remove(); }, (dur+0.2)*1000);
+    }
+    // Spawn initial field
+    for (let i=0;i<16;i++) setTimeout(spawn, i*250);
+    // Continuous stream
+    setInterval(spawn, 700);
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Optional analytics (privacy-friendly). Replace with your Plausible domain and uncomment.
+  <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script> -->
+</body>
+</html>
