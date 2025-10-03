@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CACLEAN — 24/7 Cleaning Services</title>
+  <title>CACLEAN — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
   <meta name="description" content="CACLEAN — 24/7 family-run cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
   <meta name="keywords" content="cleaning, house cleaning, deep clean, move out clean, post construction, CACLEAN" />
+
   <style>
     :root{
       --ink:#0f1a3a;
@@ -30,7 +31,6 @@
       display:flex; justify-content:space-between; align-items:center;
     }
     .brand{font-weight:900; font-size:20px; color:var(--accent)}
-    .lang-toggle button{margin:0 4px; padding:6px 10px; border:none; cursor:pointer; font-weight:bold}
     .hero{padding:80px 24px; text-align:center}
     .hero h1{font-size:2.5rem; margin-bottom:10px; position:relative; z-index:2}
     .hero p{color:#555; font-size:1.1rem; margin-bottom:20px}
@@ -64,20 +64,18 @@
   </style>
 </head>
 <body>
+  <!-- Animated floating cleaning tools & bubbles across full page -->
   <div class="scene" id="scene"></div>
 
   <header>
     <div class="brand">CACLEAN</div>
-    <div class="lang-toggle">
-      <button id="lang-en" class="active">EN</button>
-      <button id="lang-fr">FR</button>
-    </div>
+    <a href="tel:+10000000000" class="btn btn-primary">📞 Call Now</a>
   </header>
 
   <main>
     <section class="hero">
       <h1>Spotless Results. Stress-Free Living.</h1>
-      <p>Family-run cleaning specialists. Trusted & professional. 100% satisfaction guaranteed.</p>
+      <p>Family-run cleaning specialists. Trusted & Professional. 100% satisfaction guaranteed.</p>
       <a href="tel:+10000000000" class="btn btn-primary">📞 Call Now</a>
       <a href="sms:+10000000000" class="btn btn-outline">💬 Text Us</a>
       <p>$100 service fee + $25/h — first hour included</p>
@@ -110,10 +108,15 @@
     <section>
       <h2>Request a Quote</h2>
       <div class="bubble-box" style="background:radial-gradient(circle at top,var(--purple),var(--accent));">
-        <form>
-          <input type="text" placeholder="Name" required style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"><br>
-          <input type="tel" placeholder="Phone" required style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"><br>
-          <textarea placeholder="Tell us about your cleaning needs…" rows="4" style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"></textarea><br>
+        <!-- Netlify-ready form -->
+        <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quote" />
+          <p style="display:none">
+            <label>Don’t fill this out if you’re human: <input name="bot-field"/></label>
+          </p>
+          <input type="text" name="name" placeholder="Name" required style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"><br>
+          <input type="tel" name="phone" placeholder="Phone" required style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"><br>
+          <textarea name="details" placeholder="Tell us about your cleaning needs…" rows="4" style="padding:10px;border-radius:8px;border:none;width:100%;margin-bottom:10px"></textarea><br>
           <button type="submit" class="btn btn-primary">Send Request</button>
         </form>
       </div>
@@ -126,7 +129,7 @@
   </footer>
 
   <script>
-    // Floating background items
+    // Floating background items (spray, bubbles, sparkles, towels, bottles)
     const scene=document.getElementById("scene");
     const shapes=["💧","🫧","✨","🧽","🧴"];
     function spawn(){
@@ -142,8 +145,7 @@
       setTimeout(()=>el.remove(),dur*1000);
     }
     for(let i=0;i<25;i++){setTimeout(spawn,i*400)}
-    setInterval(spawn,1500);
-
+    setInterval(spawn,1200);
     // year
     document.getElementById("year").textContent=new Date().getFullYear();
   </script>
