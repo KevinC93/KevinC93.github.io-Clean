@@ -3,81 +3,77 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CACLEAN — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
-<meta name="description" content="CACLEAN — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
+<title>Ca Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
+<meta name="description" content="Ca Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 <style>
   :root{
     --ink:#0f1a3a;
     --muted:#6b7694;
-    --blue:#1a5fff;   /* fashion blue text (over pink) */
-    --pink:#ff4fa3;   /* fashion pink text (over blue) */
+    --blue:#1a5fff;
+    --pink:#ff4fa3;
     --card:#ffffff;
     --shadow:0 12px 30px rgba(15,26,58,.16);
     --radius:18px;
-    --bgimg: url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
+    --bgimg:url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
+    --hdrH:78px;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     color:var(--ink); line-height:1.6; overflow-x:hidden; background:#fff;
+    padding-top:var(--hdrH); /* make room for fixed header */
   }
 
-  /* Static sponge background (hide bottom 15%) */
+  /* Background sponge (hide bottom 15%) */
   .bg-sponge{
     position:fixed; inset:0; z-index:-2; pointer-events:none;
-    background:var(--bgimg) center top / cover no-repeat;
+    background:var(--bgimg) center top/cover no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
             mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
   }
 
   .container{max-width:1100px; margin:0 auto; padding:24px}
 
-  /* ===== HEADER: center brand, actions to the right ===== */
+  /* ===== Fixed header: logo left, popout banner centered, Call Now right ===== */
   header{
-    position:sticky; top:0; z-index:10; color:#e8ecff;
-    background:rgba(10,14,32,.55); backdrop-filter: saturate(160%) blur(12px);
-    border-bottom:1px solid rgba(255,255,255,.12);
+    position:fixed; inset:0 0 auto 0; height:var(--hdrH); z-index:100;
+    background:transparent; /* same as page background */
+    display:block;
   }
-  .hdr{
-    display:grid; align-items:center; gap:16px;
-    grid-template-columns: 1fr auto 1fr; /* left spacer | CENTER BRAND | right actions */
-  }
-  .brand-center{
-    display:flex; align-items:center; gap:10px; justify-self:center;
-  }
-  .brand-center img{width:38px; height:38px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
-  .brand-title{font-weight:900; letter-spacing:.3px; font-size:18px}
+  .hdr{position:relative; height:var(--hdrH); display:flex; align-items:center; justify-content:space-between}
+  .hdr-left{display:flex; align-items:center; gap:10px}
+  .hdr-left img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
 
-  .actions{
-    justify-self:end; display:flex; align-items:center; gap:12px; flex-wrap:nowrap;
+  /* Center banner */
+  .center-banner{
+    position:absolute; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:8px 18px; border-radius:18px;
+    background:rgba(255,255,255,.9);
+    border:1px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 24px rgba(15,26,58,.18);
+    backdrop-filter: blur(6px);
+    text-align:center;
+    min-width:220px;
   }
-  .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px; white-space:nowrap}
+  .center-banner .title{font-weight:900; letter-spacing:.3px; font-size:18px; color:#0e1230}
+  .center-banner .phone{font-weight:800; font-size:12px; color:#0e1230; text-decoration:none; opacity:.9}
 
-  .btn{display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
-       border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; box-shadow: var(--shadow);
-       white-space:nowrap; transition:transform .15s ease}
+  .hdr-right{display:flex; align-items:center; gap:12px}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:12px 18px;
+    border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap;
+    transition:transform .15s ease;
+  }
   .btn:hover{transform:translateY(-1px)}
-  .btn-white{background:#fff; border:1px solid rgba(0,0,0,.08); color:#101635}
-  .btn-call{min-width:210px}
-  .btn-text{min-width:140px}
-
-  /* Image-filled buttons using the same background image */
-  .btn-img{
-    color:#fff; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
-    background: var(--bgimg) center/cover no-repeat;
-  }
-  .btn-img::before{
-    content:""; position:absolute; inset:0;
-    background:radial-gradient(120% 140% at 20% 0%, rgba(0,0,0,.35), rgba(0,0,0,.25));
-    pointer-events:none;
-  }
-
-  /* Language toggle far right inside actions */
-  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden; flex:0 0 auto}
-  .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
-  .lang-toggle button.active{background:#fff; color:#0d1533}
+  /* Image-filled buttons (use sponge image) */
+  .btn-img{color:#fff; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
+           background:var(--bgimg) center/cover no-repeat;}
+  .btn-img::before{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.35), rgba(0,0,0,.25)); pointer-events:none;}
+  .btn-call{min-width:160px}
 
   /* ===== Main ===== */
   .hero{position:relative}
@@ -103,25 +99,28 @@
   .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
   .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-  footer{padding:40px 24px 80px; background:linear-gradient(#0c1536,#0a1230); color:#d7dbef}
+  /* Footer (shorter, same background) */
+  footer{padding:20px 24px 40px; background:transparent; color:#d7dbef}
   footer a{color:#fff}
-  .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
-  .copyright{opacity:.75; font-size:12px}
+  .foot-grid{display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr))}
+  .copyright{opacity:.8; font-size:12px}
 
   /* Inputs */
   .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none}
   .field:focus{border-color:#ff4fa3; box-shadow:0 0 0 6px rgba(255,79,163,.15)}
 
   /* Responsive */
+  @media (max-width:900px){
+    .center-banner{padding:6px 14px}
+    .center-banner .phone{display:none}
+  }
   @media (max-width:800px){
     .grid-2{grid-template-columns: 1fr}
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
-    .btn-call{min-width:0}
-    .hdr{grid-template-columns:.5fr auto .5fr}
   }
 
-  /* Fashion color (blue text on pink side, pink text on blue side) */
+  /* Optional: fashion coloring for subheadings elsewhere */
   .fashion{transition: color .2s ease}
   .fashion.on-blue{color:var(--pink)}
   .fashion.on-pink{color:var(--blue)}
@@ -133,29 +132,22 @@
 
 <header>
   <div class="container hdr">
-    <!-- left spacer column is automatic -->
-
-    <!-- CENTERED brand -->
-    <div class="brand-center">
-      <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="CACLEAN logo">
-      <div class="brand-title fashion">Ca Clean</div>
+    <!-- Left: logo -->
+    <div class="hdr-left">
+      <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca Clean logo">
     </div>
 
-    <!-- Right actions: Call/Text + Lang toggle at the end -->
-    <div class="actions">
-      <span class="tag" data-i18n="available247">Available 24/7</span>
+    <!-- Center: popout banner with name + phone -->
+    <div class="center-banner" role="heading" aria-level="1">
+      <div class="title">Ca Clean</div>
+      <a class="phone" href="tel:+15146007514">514-600-7514</a>
+    </div>
 
-      <a class="btn btn-img btn-call" href="tel:+15146007514">
-        <span aria-hidden="true">📞</span><span data-i18n="callNow">Call now</span>
+    <!-- Right: Call Now -->
+    <div class="hdr-right">
+      <a class="btn btn-img btn-call" href="tel:+15146007514" aria-label="Call now">
+        📞 Call Now
       </a>
-      <a class="btn btn-white btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
-        <span aria-hidden="true">💬</span><span data-i18n="textUs">Text us</span>
-      </a>
-
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
-        <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
-      </div>
     </div>
   </div>
 </header>
@@ -163,56 +155,24 @@
 <main>
   <section class="hero">
     <div class="container hero-inner">
-      <h1 class="h1 fashion" data-i18n="hero">Obsessively clean. Delightfully easy.</h1>
-      <p class="lead" data-i18n="subhero">Family-run. We treat your home like our own! If you’re not happy, we’re not done.</p>
+      <h1 class="h1">Obsessively clean. So simple.</h1>
+      <p class="lead">Family business. We treat your home like our own—if you’re not satisfied, we continue.</p>
 
       <div class="badges">
-        <span class="badge" data-i18n="promo">$100 service fee + $25/h (first hour included)</span>
-        <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
-        <span class="badge" data-i18n="licensed">Professional • Trusted • Friendly</span>
+        <span class="badge">Service Fee $100 + $25/hr (1st hour included)</span>
+        <span class="badge">100% satisfaction guaranteed</span>
+        <span class="badge">Insured • Reliable • Friendly</span>
       </div>
 
       <div class="cta">
-        <a class="btn btn-img btn-call" href="tel:+15146007514">
-          <span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span>
-        </a>
-        <a class="btn btn-white btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
-          <span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span>
-        </a>
-        <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
+        <a class="btn btn-img btn-call" href="tel:+15146007514">✨ Call Ca Clean</a>
+        <span class="small">Standard • Deep • Move-In/Out • Post-Construction</span>
       </div>
 
       <div class="kpis" role="list">
-        <div class="kpi" role="listitem"><strong>24/7</strong><div class="small" data-i18n="availability">Availability</div></div>
-        <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small" data-i18n="sameDay">Often available</div></div>
-        <div class="kpi" role="listitem"><strong>Family</strong><div class="small" data-i18n="familyRun">Run business</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container grid grid-2">
-      <div class="card">
-        <h2 class="fashion" style="margin-top:0" data-i18n="servicesTitle">Core services</h2>
-        <ul class="list">
-          <li><span class="pill">Standard Clean</span></li>
-          <li><span class="pill">Deep Clean</span></li>
-          <li><span class="pill">Move-In / Move-Out</span></li>
-          <li><span class="pill">Post-Construction</span></li>
-        </ul>
-        <p class="small" data-i18n="pricingNote">Transparent pricing: $100 service fee + $25/h. First hour included.</p>
-      </div>
-
-      <div class="card">
-        <h2 class="fashion" style="margin-top:0" data-i18n="aboutTitle">Trust & about us</h2>
-        <p data-i18n="aboutBody">
-          Team of detail-oriented cleaning pros! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.
-        </p>
-        <ul class="list">
-          <li>✅ <span data-i18n="insured">Dependable</span></li>
-          <li>✅ <span data-i18n="eco">Eco-friendly options available</span></li>
-          <li>✅ <span data-i18n="customPlans">Custom plans for homes & sites</span></li>
-        </ul>
+        <div class="kpi" role="listitem"><strong>24/7</strong><div class="small">Availability</div></div>
+        <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small">Often available</div></div>
+        <div class="kpi" role="listitem"><strong>Family</strong><div class="small">Run business</div></div>
       </div>
     </div>
   </section>
@@ -220,10 +180,11 @@
   <section aria-labelledby="contact">
     <div class="container grid grid-2">
       <div class="card">
-        <h2 id="contact" class="fashion" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
+        <h2 class="fashion" style="margin-top:0">Send inquiry</h2>
+        <!-- Netlify form -->
         <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote" />
-          <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
+          <p style="display:none"><label>Don’t fill this out: <input name="bot-field"/></label></p>
           <div class="row" style="gap:10px; align-items:stretch; display:flex">
             <input class="field" name="name" required placeholder="Name" aria-label="Name">
             <input class="field" name="phone" required placeholder="Phone" aria-label="Phone">
@@ -233,19 +194,18 @@
           <div style="height:10px"></div>
           <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
           <div style="height:14px"></div>
-          <!-- Send inquiry button uses image background too -->
-          <button class="btn btn-img btn-text" type="submit" data-i18n="submit">Request quote</button>
-          <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
+          <button class="btn btn-img btn-call" type="submit">Send inquiry</button>
+          <div class="small" style="margin-top:8px">We reply fast. No spam.</div>
         </form>
       </div>
 
       <div class="card">
-        <h2 class="fashion" style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
+        <h2 class="fashion" style="margin-top:0">Quick FAQs</h2>
         <ul class="list">
-          <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
-          <li>❓ <strong data-i18n="q2">Are you available today?</strong><br><span class="small" data-i18n="a2">Often! Text or call for a slot—24/7.</span></li>
-          <li>❓ <strong data-i18n="q3">How do you price?</strong><br><span class="small" data-i18n="a3">$100 service fee + $25/h. First hour included.</span></li>
-          <li>❓ <strong data-i18n="q4">What areas do you serve?</strong><br><span class="small" data-i18n="a4">Greater Montréal • Laval • South Shore</span></li>
+          <li>❓ <strong>Do you bring supplies?</strong><br><span class="small">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
+          <li>❓ <strong>Are you available today?</strong><br><span class="small">Often! Call for a slot—24/7.</span></li>
+          <li>❓ <strong>How do you price?</strong><br><span class="small">$100 service fee + $25/h. First hour included.</span></li>
+          <li>❓ <strong>What areas do you serve?</strong><br><span class="small">Greater Montréal • Laval • South Shore</span></li>
         </ul>
       </div>
     </div>
@@ -255,116 +215,41 @@
 <footer role="contentinfo">
   <div class="container foot-grid">
     <div>
-      <div class="brand-center" style="justify-self:start">
-        <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" aria-hidden="true">
-        <div class="brand-title fashion" style="font-weight:800">Ca Clean</div>
+      <div style="display:flex; align-items:center; gap:10px">
+        <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" width="36" height="36" style="border-radius:10px; box-shadow:var(--shadow)">
+        <strong>Ca Clean</strong>
       </div>
-      <p class="small" data-i18n="footerBlurb" style="max-width:42ch">
+      <p class="small" style="max-width:42ch">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
       </p>
     </div>
     <div>
-      <strong data-i18n="contact">Contact</strong><br>
+      <strong>Contact</strong><br>
       <a href="tel:+15146007514">+1 (514) 600-7514</a><br>
       <a href="mailto:cacleanmontreal@gmail.com">cacleanmontreal@gmail.com</a><br>
-      <span data-i18n="hours">Open 24/7</span>
+      <span>Open 24/7</span>
     </div>
     <div>
-      <strong data-i18n="areas">Service areas</strong><br>
+      <strong>Service areas</strong><br>
       <span class="small">Greater Montréal • Laval • South Shore</span>
     </div>
   </div>
-  <div class="container" style="margin-top:16px">
-    <div class="copyright">© <span id="year"></span> CACLEAN. <span data-i18n="rights">All rights reserved.</span></div>
+  <div class="container" style="margin-top:8px">
+    <div class="copyright">© <span id="year"></span> Ca Clean. All rights reserved.</div>
   </div>
 </footer>
 
-<!-- Local Business Schema -->
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","name":"CACLEAN",
-"image":"https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png",
-"telephone":"+1-514-600-7514","areaServed":["Montreal"],
-"openingHours":"Mo-Su 00:00-23:59","priceRange":"$$","url":"https://example.com",
-"description":"Family-run, 24/7 cleaning: standard, deep, move-in/out, post-construction. $100 service fee + $25/h. First hour included. 100% satisfaction guarantee."}
-</script>
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // i18n (stable)
-  const dict = {
-    en: {
-      tagline:"Detail-oriented cleaning, 24/7", available247:"Available 24/7",
-      callNow:"Call now", textUs:"Text us",
-      hero:"Obsessively clean. Delightfully easy.",
-      subhero:"Family-run. We treat your home like our own—if you’re not happy, we’re not done.",
-      promo:"$100 service fee + $25/h (first hour included)", guarantee:"100% satisfaction guaranteed",
-      licensed:"Insured • Trusted • Friendly", ctaCall:"Call CACLEAN", ctaText:"Text for a quote",
-      serving:"Standard • Deep • Move-In/Out • Post-Construction",
-      availability:"Availability", sameDay:"Often available", familyRun:"Run business",
-      servicesTitle:"Core services", pricingNote:"Transparent pricing: $100 service fee + $25/h. First hour included.",
-      aboutTitle:"Trust & about us", aboutBody:"Detail-oriented! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.",
-      insured:"Insured & dependable", eco:"Eco-friendly options available", customPlans:"Custom plans for homes & sites",
-      contactTitle:"Get a quick quote", submit:"Request quote", disclaimer:"We reply fast. No spam.",
-      faqTitle:"Quick FAQs", q1:"Do you bring supplies?", a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
-      q2:"Are you available today?", a2:"Often! Text or call for a slot—24/7.",
-      q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
-      q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
-      footerBlurb:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
-      contact:"Contact", hours:"Open 24/7", areas:"Service areas", rights:"All rights reserved."
-    },
-    fr: {
-      tagline:"Nettoyage minutieux, 24/7", available247:"Disponible 24/7",
-      callNow:"Appelez maintenant", textUs:"Textez-nous",
-      hero:"Obsessivement propre. Tellement simple.",
-      subhero:"Entreprise familiale. On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
-      promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)", guarantee:"Satisfaction 100 % garantie",
-      licensed:"Assuré • Fiable • Sympathique", ctaCall:"Appeler CACLEAN", ctaText:"Texter pour une soumission",
-      serving:"Entretien • Grand ménage • Déménagement • Après construction",
-      availability:"Disponibilité", sameDay:"Souvent aujourd’hui", familyRun:"Entreprise familiale",
-      servicesTitle:"Services principaux", pricingNote:"Tarif clair : frais de service 100 $ + 25 $/h. 1re heure incluse.",
-      aboutTitle:"Confiance & à propos", aboutBody:"Équipe minutieuse! Nos entretiens surpassent la norme parce qu’on traite chaque maison comme la nôtre. Pas satisfaits? On revient. Entreprise familiale. Satisfaction garantie.",
-      insured:"Assuré & fiable", eco:"Options éco disponibles", customPlans:"Plans sur mesure pour maisons & chantiers",
-      contactTitle:"Obtenir une soumission rapide", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
-      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres & options éco.",
-      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent! Texto ou appel—24/7.",
-      q3:"Comment tarifez-vous?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
-      q4:"Quelles zones desservez-vous?", a4:"Grand Montréal • Laval • Rive-Sud",
-      footerBlurb:"Entreprise familiale sympathique. Ponctuels, efficaces, étincelant garanti.",
-      contact:"Contact", hours:"Ouvert 24/7", areas:"Zones desservies", rights:"Tous droits réservés."
-    }
-  };
+  // Year
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-  const $ = s => document.querySelector(s);
+  // Optional: fashion color for any headings that should flip pink/blue by side (not the main H1 which is white)
   const $$ = s => Array.from(document.querySelectorAll(s));
-
-  function applyLang(lang){
-    $$("[data-i18n]").forEach(el=>{
-      const key = el.getAttribute("data-i18n");
-      const txt = dict?.[lang]?.[key];
-      if (typeof txt === "string") el.textContent = txt;
-    });
-    $("#lang-en").classList.toggle("active", lang==="en");
-    $("#lang-fr").classList.toggle("active", lang==="fr");
-    $("#lang-en").setAttribute("aria-pressed", String(lang==="en"));
-    $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
-    document.documentElement.lang = lang;
-  }
-
-  const saved = localStorage.getItem("lang") || "en";
-  applyLang(saved);
-
-  $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); updateFashionColors(); });
-  $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); updateFashionColors(); });
-
-  $("#year").textContent = new Date().getFullYear();
-
-  // Fashion color auto (blue on pink side, pink on blue side)
   function updateFashionColors(){
     const mid = window.innerWidth/2;
     $$(".fashion").forEach(el=>{
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width/2;
-      const onLeft = cx < mid; // assume image blue-left, pink-right
+      const r = el.getBoundingClientRect(); const cx = r.left + r.width/2;
+      const onLeft = cx < mid; // assume blue-left, pink-right in the image
       el.classList.toggle("on-blue", onLeft);
       el.classList.toggle("on-pink", !onLeft);
     });
@@ -372,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
   updateFashionColors();
   addEventListener("resize", updateFashionColors);
   addEventListener("scroll", updateFashionColors, {passive:true});
-});
 </script>
 </body>
 </html>
