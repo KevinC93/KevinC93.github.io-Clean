@@ -9,16 +9,16 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 <style>
   :root{
-    --ink:#0f1a3a; --muted:#2a3a74; /* deepened for contrast */
+    --ink:#0f1a3a; --muted:#2a3a74;
     --blue:#1a5fff; --pink:#ff4fa3;
     --card:#ffffff; --shadow:0 12px 30px rgba(15,26,58,.16); --radius:18px;
     --bgimg:url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
-    --hdrH:86px; /* header height desktop */
+    --hdrH:90px;
     --grad: linear-gradient(135deg, var(--blue), var(--pink));
     --focus: 0 0 0 6px rgba(26,95,255,.18), 0 0 0 2px rgba(255,79,163,.22) inset;
   }
   @media (max-width: 720px){
-    :root{ --hdrH: 96px; } /* a tad taller on mobile */
+    :root{ --hdrH: 100px; }
   }
 
   *{box-sizing:border-box}
@@ -29,7 +29,6 @@
     padding-top:var(--hdrH); text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
   }
 
-  /* Global sponge background (hide bottom 15%) */
   .bg-sponge{
     position:fixed; inset:0; z-index:-3; pointer-events:none;
     background:var(--bgimg) center top/cover no-repeat;
@@ -39,75 +38,41 @@
 
   .container{max-width:1100px; margin:0 auto; padding:24px}
 
-  /* ===== Fixed HEADER ===== */
+  /* ===== HEADER ===== */
   header{
-    position:fixed; left:0; right:0; top:0; height:var(--hdrH); z-index:100;
-    background:transparent;
+    position:fixed; left:0; right:0; top:0; height:var(--hdrH); z-index:100; background:transparent;
+    color:#fff; /* on image */
   }
   .hdr{position:relative; height:100%; display:flex; align-items:center; justify-content:space-between; gap:12px}
-  /* left: logo */
   .hdr-left{display:flex; align-items:center; gap:12px}
-  .hdr-left img{width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  .hdr-left img{width:56px; height:56px; border-radius:14px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  @media (max-width:520px){ .hdr-left img{width:48px; height:48px} }
 
-  /* center: pop-out banner with bg image */
+  /* Center banner becomes the ONLY callout in header */
   .center-banner{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:8px 18px; border-radius:18px; min-width:220px;
-    color:#fff; text-align:center; box-shadow: 0 10px 24px rgba(15,26,58,.25);
-    background: var(--bgimg) center/cover no-repeat;
-    border:1px solid rgba(255,255,255,.35); overflow:hidden;
+    padding:10px 18px; border-radius:18px; min-width:260px; text-align:center; color:#fff;
+    box-shadow: 0 10px 24px rgba(15,26,58,.25);
+    background: var(--bgimg) center/cover no-repeat; border:1px solid rgba(255,255,255,.35); overflow:hidden;
   }
   .center-banner::before{
-    content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.38), rgba(0,0,0,.22));
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(120deg, rgba(0,0,0,.45), rgba(0,0,0,.28));
     pointer-events:none;
   }
-  .center-banner .title{position:relative; font-weight:900; letter-spacing:.3px; font-size:20px}
-  .center-banner .phone{position:relative; margin-top:2px; font-weight:900; font-size:15px; text-decoration:none; color:#fff}
+  .center-banner .title{position:relative; font-weight:900; letter-spacing:.2px; font-size:18px}
+  .center-banner .subtitle{position:relative; margin-top:2px; font-weight:900; font-size:16px}
+  .center-banner .phone{position:relative; margin-top:4px; font-weight:900; font-size:18px; text-decoration:none; color:#fff}
 
-  /* right: Call + Lang toggle */
+  /* Right: only language toggle now */
   .hdr-right{display:flex; align-items:center; gap:10px; flex-shrink:0}
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; cursor:pointer; padding:14px 20px;
-    border-radius:18px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap; font-size:16px;
-    transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
-  }
-  .btn:hover{transform:translateY(-1px)}
-  .btn:focus-visible{outline:none; box-shadow:var(--focus)}
-  .btn-img{
-    position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
-    background: var(--bgimg) center/cover no-repeat; color:#fff;
-  }
-  .btn-img::before{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.35), rgba(0,0,0,.25)); pointer-events:none;}
-
-  /* SUPER POP Call Now */
-  .btn-call{
-    min-width:150px; background:var(--grad); color:#fff; border:0; position:relative;
-    box-shadow: 0 10px 24px rgba(26,95,255,.35), 0 6px 16px rgba(255,79,163,.22);
-  }
-  .btn-call::after{
-    /* soft glow ring */
-    content:""; position:absolute; inset:-3px; border-radius:inherit; pointer-events:none;
-    box-shadow: 0 0 0 8px rgba(255,79,163,.12), 0 0 0 16px rgba(26,95,255,.08);
-    opacity:.9; filter:blur(1px);
-    animation: pulse 2.2s ease-in-out infinite;
-  }
-  .btn-call .only-icon{display:none}
-  @keyframes pulse{
-    0%,100%{ transform:scale(1); opacity:.9}
-    50%{ transform:scale(1.02); opacity:.7}
-  }
-  @media (prefers-reduced-motion: reduce){
-    .btn-call::after{animation:none}
-    .btn, .btn:hover{transform:none}
-  }
-
   .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden; backdrop-filter:saturate(120%) blur(2px);}
   .lang-toggle button{background:transparent; border:0; padding:8px 12px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
   .lang-toggle button.active{background:#fff; color:#0d1533}
 
   /* ===== Main ===== */
-  .hero{position:relative}
+  .hero{position:relative; color:#fff;} /* make on-image text white */
   .hero-inner{padding:72px 24px 96px}
   .h1{
     font-size: clamp(32px, 6.2vw, 56px);
@@ -115,29 +80,48 @@
     color:#fff; text-shadow: 0 3px 18px rgba(83,48,186,.45), 0 1px 0 rgba(75,0,130,.35);
     text-wrap: balance;
   }
-  .lead{font-size: clamp(17px, 2.6vw, 21px); color:#1b2650; margin-bottom:18px}
+  .lead{font-size: clamp(17px, 2.6vw, 21px); color:#f1f4ff; margin-bottom:18px}
   .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
-  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:10px 14px; border-radius:14px; font-weight:800; box-shadow: var(--shadow); font-size:15px}
+  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:10px 14px; border-radius:14px; font-weight:800; box-shadow: var(--shadow); font-size:15px; color:var(--ink)}
   .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-  .small{font-size:14px; color:var(--muted)}
+  .small{font-size:14px}
+  .hero .small{color:#e9eeff} /* white-ish on image */
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; cursor:pointer; padding:14px 20px;
+    border-radius:18px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap; font-size:16px;
+    transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:focus-visible{outline:none; box-shadow:var(--focus)}
+  .btn-call{
+    min-width:150px; background:var(--grad); color:#fff; border:0; position:relative;
+    box-shadow: 0 10px 24px rgba(26,95,255,.35), 0 6px 16px rgba(255,79,163,.22);
+  }
+  .btn-call::after{
+    content:""; position:absolute; inset:-3px; border-radius:inherit; pointer-events:none;
+    box-shadow: 0 0 0 8px rgba(255,79,163,.12), 0 0 0 16px rgba(26,95,255,.08);
+    opacity:.9; filter:blur(1px); animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.02);opacity:.7} }
+  @media (prefers-reduced-motion: reduce){ .btn-call::after{animation:none} .btn, .btn:hover{transform:none} }
+
   .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
-  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:16px; text-align:center}
+  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:16px; text-align:center; color:var(--ink)}
   .kpi strong{font-size:18px}
 
-  section{padding:56px 24px}
+  section{padding:56px 24px; color:var(--ink)} /* default sections use dark on light */
   .grid{display:grid; gap:20px}
   .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
-  .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow)}
+  .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow); color:var(--ink)}
+  .card .small{color:var(--muted)}
   .list{margin:0; padding:0; list-style:none}
   .list li{display:flex; gap:10px; align-items:flex-start; margin:12px 0}
   .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
   /* ===== Footer ===== */
   footer{position:relative; padding:24px 24px 28px; background:transparent; color:#e7ebff}
-  footer::before{
-    content:""; position:absolute; inset:0; z-index:-1;
-    background: var(--bgimg) center bottom / cover no-repeat;
-  }
+  footer::before{content:""; position:absolute; inset:0; z-index:-1; background: var(--bgimg) center bottom / cover no-repeat;}
   footer a{color:#fff}
   .foot-grid{display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr))}
   .copyright{opacity:.9; font-size:12px}
@@ -146,31 +130,27 @@
   .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none; font-size:16px}
   .field:focus{border-color:#ff4fa3; box-shadow:var(--focus)}
 
-  /* === Mobile optimizations === */
+  /* === Mobile === */
   @media (max-width: 900px){
     .grid-2{grid-template-columns: 1fr}
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
     .hero-inner{padding:64px 20px 80px}
-    .center-banner{min-width:200px; padding:6px 14px}
-    .center-banner .title{font-size:18px}
-    .center-banner .phone{font-size:15px}
+    .center-banner{min-width:240px; padding:8px 14px}
+    .center-banner .title{font-size:16px}
+    .center-banner .subtitle{font-size:15px}
+    .center-banner .phone{font-size:17px}
   }
   @media (max-width: 520px){
-    .hdr-left img{width:40px; height:40px}
     .hdr-right{gap:8px}
     .btn{padding:12px 16px; font-size:15px}
     .btn-call{min-width:0}
-    .btn-call span.txt{display:none}           /* keep icon + short text on tiny screens */
-    .btn-call .only-icon{display:inline}
     .badges .badge{font-size:14px}
     .cta{gap:10px}
     .kpis{grid-template-columns: 1fr 1fr}
     .kpi strong{font-size:17px}
   }
-  @media (max-width: 360px){
-    .kpis{grid-template-columns: 1fr}
-  }
+  @media (max-width: 360px){ .kpis{grid-template-columns: 1fr} }
 </style>
 </head>
 <body>
@@ -179,22 +159,20 @@
 
 <header>
   <div class="container hdr">
-    <!-- Left: logo -->
+    <!-- Left: logo (slightly bigger) -->
     <div class="hdr-left">
       <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca-Clean logo">
     </div>
 
-    <!-- Center: popout banner with brand + phone (uses background image) -->
+    <!-- Center: ONLY phone section -->
     <div class="center-banner" role="heading" aria-level="1">
-      <div class="title">Ca-Clean</div>
+      <div class="title">Home looking mean?</div>
+      <div class="subtitle">Call Ca-Clean</div>
       <a class="phone" href="tel:+15146007514" aria-label="Call Ca-Clean 514-600-7514">514-600-7514</a>
     </div>
 
-    <!-- Right: Call + Lang -->
+    <!-- Right: language toggle (call button removed) -->
     <div class="hdr-right">
-      <a class="btn btn-call" href="tel:+15146007514" aria-label="Call now">
-        📞 <span class="txt">Call Now</span><span class="only-icon" aria-hidden="true">Call</span>
-      </a>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
         <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
@@ -338,6 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
+
   function applyLang(lang){
     $$("[data-i18n]").forEach(el=>{
       const key = el.getAttribute("data-i18n");
@@ -350,8 +329,11 @@ document.addEventListener('DOMContentLoaded', () => {
     $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
     document.documentElement.lang = lang;
   }
+
+  // Persist language across refresh
   const saved = localStorage.getItem("lang") || "en";
   applyLang(saved);
+
   $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); });
   $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); });
 
