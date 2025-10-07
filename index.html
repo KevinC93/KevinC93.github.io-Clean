@@ -3,32 +3,31 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ca Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
-<meta name="description" content="Ca Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
+<title>Ca-Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
+<meta name="description" content="Ca-Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 <style>
   :root{
-    --ink:#0f1a3a;
-    --muted:#6b7694;
-    --blue:#1a5fff;
-    --pink:#ff4fa3;
-    --card:#ffffff;
-    --shadow:0 12px 30px rgba(15,26,58,.16);
-    --radius:18px;
+    --ink:#0f1a3a; --muted:#6b7694;
+    --blue:#1a5fff; --pink:#ff4fa3;
+    --card:#ffffff; --shadow:0 12px 30px rgba(15,26,58,.16); --radius:18px;
     --bgimg:url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
-    --hdrH:78px;
+    --hdrH:86px; /* header height desktop */
+  }
+  @media (max-width: 720px){
+    :root{ --hdrH: 96px; } /* a tad taller for the banner on mobile */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     color:var(--ink); line-height:1.6; overflow-x:hidden; background:#fff;
-    padding-top:var(--hdrH); /* make room for fixed header */
+    padding-top:var(--hdrH); /* space for fixed header */
   }
 
-  /* Background sponge (hide bottom 15%) */
+  /* Global sponge background (hide bottom 15%) */
   .bg-sponge{
-    position:fixed; inset:0; z-index:-2; pointer-events:none;
+    position:fixed; inset:0; z-index:-3; pointer-events:none;
     background:var(--bgimg) center top/cover no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
             mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
@@ -36,50 +35,53 @@
 
   .container{max-width:1100px; margin:0 auto; padding:24px}
 
-  /* ===== Fixed header: logo left, popout banner centered, Call Now right ===== */
+  /* ===== Fixed HEADER ===== */
   header{
-    position:fixed; inset:0 0 auto 0; height:var(--hdrH); z-index:100;
-    background:transparent; /* same as page background */
-    display:block;
+    position:fixed; left:0; right:0; top:0; height:var(--hdrH); z-index:100;
+    background:transparent; /* same as background */
   }
-  .hdr{position:relative; height:var(--hdrH); display:flex; align-items:center; justify-content:space-between}
-  .hdr-left{display:flex; align-items:center; gap:10px}
-  .hdr-left img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  .hdr{position:relative; height:100%; display:flex; align-items:center; justify-content:space-between}
+  /* left: logo */
+  .hdr-left{display:flex; align-items:center; gap:12px}
+  .hdr-left img{width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
 
-  /* Center banner */
+  /* center: pop-out banner with bg image */
   .center-banner{
-    position:absolute; left:50%; transform:translateX(-50%);
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:8px 18px; border-radius:18px;
-    background:rgba(255,255,255,.9);
-    border:1px solid rgba(0,0,0,.08);
-    box-shadow: 0 10px 24px rgba(15,26,58,.18);
-    backdrop-filter: blur(6px);
-    text-align:center;
-    min-width:220px;
+    padding:8px 18px; border-radius:18px; min-width:240px;
+    color:#fff; text-align:center; box-shadow: 0 10px 24px rgba(15,26,58,.25);
+    background: var(--bgimg) center/cover no-repeat;
+    border:1px solid rgba(255,255,255,.35); overflow:hidden;
   }
-  .center-banner .title{font-weight:900; letter-spacing:.3px; font-size:18px; color:#0e1230}
-  .center-banner .phone{font-weight:800; font-size:12px; color:#0e1230; text-decoration:none; opacity:.9}
+  .center-banner::before{
+    content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.38), rgba(0,0,0,.22));
+    pointer-events:none;
+  }
+  .center-banner .title{position:relative; font-weight:900; letter-spacing:.3px; font-size:20px}
+  .center-banner .phone{position:relative; margin-top:2px; font-weight:900; font-size:14px; text-decoration:none; color:#fff}
 
-  .hdr-right{display:flex; align-items:center; gap:12px}
-
+  /* right: Call + Lang toggle */
+  .hdr-right{display:flex; align-items:center; gap:10px}
   .btn{
     display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:12px 18px;
     border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap;
     transition:transform .15s ease;
   }
   .btn:hover{transform:translateY(-1px)}
-  /* Image-filled buttons (use sponge image) */
   .btn-img{color:#fff; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
-           background:var(--bgimg) center/cover no-repeat;}
+           background: var(--bgimg) center/cover no-repeat;}
   .btn-img::before{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.35), rgba(0,0,0,.25)); pointer-events:none;}
-  .btn-call{min-width:160px}
+  .btn-call{min-width:150px}
+  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden}
+  .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
+  .lang-toggle button.active{background:#fff; color:#0d1533}
 
   /* ===== Main ===== */
   .hero{position:relative}
   .hero-inner{padding:72px 24px 96px}
   .h1{
-    font-size: clamp(32px, 5vw, 56px);
+    font-size: clamp(30px, 5vw, 56px);
     line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px;
     color:#fff; text-shadow: 0 3px 18px rgba(83,48,186,.45), 0 1px 0 rgba(75,0,130,.35);
   }
@@ -99,31 +101,37 @@
   .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
   .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-  /* Footer (shorter, same background) */
-  footer{padding:20px 24px 40px; background:transparent; color:#d7dbef}
+  /* ===== Footer (short + same background; no white strip) ===== */
+  footer{position:relative; padding:24px 24px 28px; background:transparent; color:#e7ebff}
+  footer::before{
+    content:""; position:absolute; inset:0; z-index:-1;
+    background: var(--bgimg) center bottom / cover no-repeat; /* fills any masked gap */
+  }
   footer a{color:#fff}
   .foot-grid{display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr))}
-  .copyright{opacity:.8; font-size:12px}
+  .copyright{opacity:.9; font-size:12px}
 
   /* Inputs */
   .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none}
   .field:focus{border-color:#ff4fa3; box-shadow:0 0 0 6px rgba(255,79,163,.15)}
 
-  /* Responsive */
-  @media (max-width:900px){
-    .center-banner{padding:6px 14px}
-    .center-banner .phone{display:none}
-  }
-  @media (max-width:800px){
+  /* === Mobile optimizations === */
+  @media (max-width: 900px){
     .grid-2{grid-template-columns: 1fr}
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
+    .hero-inner{padding:64px 20px 80px}
+    .btn-call{min-width:0}
+    .center-banner{min-width:200px; padding:6px 14px}
+    .center-banner .title{font-size:18px}
+    .center-banner .phone{font-size:15px}
   }
-
-  /* Optional: fashion coloring for subheadings elsewhere */
-  .fashion{transition: color .2s ease}
-  .fashion.on-blue{color:var(--pink)}
-  .fashion.on-pink{color:var(--blue)}
+  @media (max-width: 520px){
+    .badges .badge{font-size:14px}
+    .cta{gap:10px}
+    .btn{padding:12px 16px}
+    .hdr-left img{width:40px; height:40px}
+  }
 </style>
 </head>
 <body>
@@ -134,20 +142,22 @@
   <div class="container hdr">
     <!-- Left: logo -->
     <div class="hdr-left">
-      <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca Clean logo">
+      <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca-Clean logo">
     </div>
 
-    <!-- Center: popout banner with name + phone -->
+    <!-- Center: popout banner with brand + phone (uses background image) -->
     <div class="center-banner" role="heading" aria-level="1">
-      <div class="title">Ca Clean</div>
+      <div class="title">Ca-Clean</div>
       <a class="phone" href="tel:+15146007514">514-600-7514</a>
     </div>
 
-    <!-- Right: Call Now -->
+    <!-- Right: Call + Lang -->
     <div class="hdr-right">
-      <a class="btn btn-img btn-call" href="tel:+15146007514" aria-label="Call now">
-        📞 Call Now
-      </a>
+      <a class="btn btn-img btn-call" href="tel:+15146007514" aria-label="Call now">📞 Call Now</a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
+        <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
     </div>
   </div>
 </header>
@@ -155,24 +165,24 @@
 <main>
   <section class="hero">
     <div class="container hero-inner">
-      <h1 class="h1">Obsessively clean. So simple.</h1>
-      <p class="lead">Family business. We treat your home like our own—if you’re not satisfied, we continue.</p>
+      <h1 class="h1" data-i18n="hero">Obsessively clean. So simple.</h1>
+      <p class="lead" data-i18n="subhero">Family business. We treat your home like our own—if you’re not satisfied, we continue.</p>
 
       <div class="badges">
-        <span class="badge">Service Fee $100 + $25/hr (1st hour included)</span>
-        <span class="badge">100% satisfaction guaranteed</span>
-        <span class="badge">Insured • Reliable • Friendly</span>
+        <span class="badge" data-i18n="promo">Service Fee $100 + $25/hr (1st hour included)</span>
+        <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
+        <span class="badge" data-i18n="licensed">Insured • Reliable • Friendly</span>
       </div>
 
       <div class="cta">
-        <a class="btn btn-img btn-call" href="tel:+15146007514">✨ Call Ca Clean</a>
-        <span class="small">Standard • Deep • Move-In/Out • Post-Construction</span>
+        <a class="btn btn-img btn-call" href="tel:+15146007514" data-i18n="ctaCall">✨ Call Ca-Clean</a>
+        <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
       </div>
 
       <div class="kpis" role="list">
-        <div class="kpi" role="listitem"><strong>24/7</strong><div class="small">Availability</div></div>
-        <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small">Often available</div></div>
-        <div class="kpi" role="listitem"><strong>Family</strong><div class="small">Run business</div></div>
+        <div class="kpi" role="listitem"><strong>24/7</strong><div class="small" data-i18n="availability">Availability</div></div>
+        <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small" data-i18n="sameDay">Often available</div></div>
+        <div class="kpi" role="listitem"><strong>Family</strong><div class="small" data-i18n="familyRun">Run business</div></div>
       </div>
     </div>
   </section>
@@ -180,7 +190,7 @@
   <section aria-labelledby="contact">
     <div class="container grid grid-2">
       <div class="card">
-        <h2 class="fashion" style="margin-top:0">Send inquiry</h2>
+        <h2 style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
         <!-- Netlify form -->
         <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote" />
@@ -194,18 +204,18 @@
           <div style="height:10px"></div>
           <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
           <div style="height:14px"></div>
-          <button class="btn btn-img btn-call" type="submit">Send inquiry</button>
-          <div class="small" style="margin-top:8px">We reply fast. No spam.</div>
+          <button class="btn btn-img btn-call" type="submit" data-i18n="submit">Send inquiry</button>
+          <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
         </form>
       </div>
 
       <div class="card">
-        <h2 class="fashion" style="margin-top:0">Quick FAQs</h2>
+        <h2 style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
         <ul class="list">
-          <li>❓ <strong>Do you bring supplies?</strong><br><span class="small">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
-          <li>❓ <strong>Are you available today?</strong><br><span class="small">Often! Call for a slot—24/7.</span></li>
-          <li>❓ <strong>How do you price?</strong><br><span class="small">$100 service fee + $25/h. First hour included.</span></li>
-          <li>❓ <strong>What areas do you serve?</strong><br><span class="small">Greater Montréal • Laval • South Shore</span></li>
+          <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
+          <li>❓ <strong data-i18n="q2">Are you available today?</strong><br><span class="small" data-i18n="a2">Often! Call for a slot—24/7.</span></li>
+          <li>❓ <strong data-i18n="q3">How do you price?</strong><br><span class="small" data-i18n="a3">$100 service fee + $25/h. First hour included.</span></li>
+          <li>❓ <strong data-i18n="q4">What areas do you serve?</strong><br><span class="small" data-i18n="a4">Greater Montréal • Laval • South Shore</span></li>
         </ul>
       </div>
     </div>
@@ -217,7 +227,7 @@
     <div>
       <div style="display:flex; align-items:center; gap:10px">
         <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" width="36" height="36" style="border-radius:10px; box-shadow:var(--shadow)">
-        <strong>Ca Clean</strong>
+        <strong>Ca-Clean</strong>
       </div>
       <p class="small" style="max-width:42ch">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
@@ -235,28 +245,78 @@
     </div>
   </div>
   <div class="container" style="margin-top:8px">
-    <div class="copyright">© <span id="year"></span> Ca Clean. All rights reserved.</div>
+    <div class="copyright">© <span id="year"></span> Ca-Clean. <span data-i18n="rights">All rights reserved.</span></div>
   </div>
 </footer>
 
-<script>
-  // Year
-  document.getElementById("year").textContent = new Date().getFullYear();
+<!-- Schema -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Ca-Clean",
+"image":"https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png",
+"telephone":"+1-514-600-7514","areaServed":["Montreal"],
+"openingHours":"Mo-Su 00:00-23:59","priceRange":"$$","url":"https://example.com",
+"description":"Family-run, 24/7 cleaning: standard, deep, move-in/out, post-construction. $100 service fee + $25/h. First hour included. 100% satisfaction guarantee."}
+</script>
 
-  // Optional: fashion color for any headings that should flip pink/blue by side (not the main H1 which is white)
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // i18n
+  const dict = {
+    en: {
+      hero:"Obsessively clean. So simple.",
+      subhero:"Family business. We treat your home like our own—if you’re not satisfied, we continue.",
+      promo:"Service Fee $100 + $25/hr (1st hour included)",
+      guarantee:"100% satisfaction guaranteed",
+      licensed:"Insured • Reliable • Friendly",
+      ctaCall:"Call Ca-Clean",
+      serving:"Standard • Deep • Move-In/Out • Post-Construction",
+      availability:"Availability", sameDay:"Often available", familyRun:"Run business",
+      contactTitle:"Send inquiry", submit:"Send inquiry", disclaimer:"We reply fast. No spam.",
+      faqTitle:"Quick FAQs", q1:"Do you bring supplies?", a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
+      q2:"Are you available today?", a2:"Often! Call for a slot—24/7.",
+      q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
+      q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
+      rights:"All rights reserved."
+    },
+    fr: {
+      hero:"Obsessivement propre. Tellement simple.",
+      subhero:"Entreprise familiale. On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
+      promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)",
+      guarantee:"Satisfaction 100 % garantie",
+      licensed:"Assuré • Fiable • Sympathique",
+      ctaCall:"Appeler Ca-Clean",
+      serving:"Entretien • Grand ménage • Déménagement • Après construction",
+      availability:"Disponibilité", sameDay:"Souvent aujourd’hui", familyRun:"Entreprise familiale",
+      contactTitle:"Envoyer une demande", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
+      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres & options éco.",
+      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent! Appelez pour un créneau—24/7.",
+      q3:"Comment tarifez-vous?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
+      q4:"Quelles zones desservez-vous?", a4:"Grand Montréal • Laval • Rive-Sud",
+      rights:"Tous droits réservés."
+    }
+  };
+  const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
-  function updateFashionColors(){
-    const mid = window.innerWidth/2;
-    $$(".fashion").forEach(el=>{
-      const r = el.getBoundingClientRect(); const cx = r.left + r.width/2;
-      const onLeft = cx < mid; // assume blue-left, pink-right in the image
-      el.classList.toggle("on-blue", onLeft);
-      el.classList.toggle("on-pink", !onLeft);
+  function applyLang(lang){
+    $$("[data-i18n]").forEach(el=>{
+      const key = el.getAttribute("data-i18n");
+      const txt = dict?.[lang]?.[key];
+      if (typeof txt === "string") el.textContent = txt;
     });
+    $("#lang-en").classList.toggle("active", lang==="en");
+    $("#lang-fr").classList.toggle("active", lang==="fr");
+    $("#lang-en").setAttribute("aria-pressed", String(lang==="en"));
+    $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
+    document.documentElement.lang = lang;
   }
-  updateFashionColors();
-  addEventListener("resize", updateFashionColors);
-  addEventListener("scroll", updateFashionColors, {passive:true});
+  const saved = localStorage.getItem("lang") || "en";
+  applyLang(saved);
+  $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); });
+  $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); });
+
+  // Year
+  $("#year").textContent = new Date().getFullYear();
+});
 </script>
 </body>
 </html>
