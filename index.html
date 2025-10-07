@@ -10,11 +10,12 @@
   :root{
     --ink:#0f1a3a;
     --muted:#6b7694;
-    --blue:#1a5fff;           /* fashion blue text (over pink) */
-    --pink:#ff4fa3;           /* fashion pink text (over blue) */
+    --blue:#1a5fff;   /* fashion blue text (over pink) */
+    --pink:#ff4fa3;   /* fashion pink text (over blue) */
     --card:#ffffff;
     --shadow:0 12px 30px rgba(15,26,58,.16);
     --radius:18px;
+    --bgimg: url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -23,54 +24,69 @@
     color:var(--ink); line-height:1.6; overflow-x:hidden; background:#fff;
   }
 
-  /* === Static sponge background (single image), hide bottom 15% === */
+  /* Static sponge background (hide bottom 15%) */
   .bg-sponge{
     position:fixed; inset:0; z-index:-2; pointer-events:none;
-    background:url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp") center top / cover no-repeat;
+    background:var(--bgimg) center top / cover no-repeat;
     -webkit-mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
             mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
   }
 
   .container{max-width:1100px; margin:0 auto; padding:24px}
 
+  /* ===== HEADER: center brand, actions to the right ===== */
   header{
     position:sticky; top:0; z-index:10; color:#e8ecff;
     background:rgba(10,14,32,.55); backdrop-filter: saturate(160%) blur(12px);
     border-bottom:1px solid rgba(255,255,255,.12);
   }
-  .row{display:flex; gap:16px; align-items:center; justify-content:space-between}
-  .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
-  .brand img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  .hdr{
+    display:grid; align-items:center; gap:16px;
+    grid-template-columns: 1fr auto 1fr; /* left spacer | CENTER BRAND | right actions */
+  }
+  .brand-center{
+    display:flex; align-items:center; gap:10px; justify-self:center;
+  }
+  .brand-center img{width:38px; height:38px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  .brand-title{font-weight:900; letter-spacing:.3px; font-size:18px}
 
-  .nav{display:flex; align-items:center; gap:12px; flex-wrap:nowrap}
+  .actions{
+    justify-self:end; display:flex; align-items:center; gap:12px; flex-wrap:nowrap;
+  }
   .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px; white-space:nowrap}
 
   .btn{display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
        border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; box-shadow: var(--shadow);
        white-space:nowrap; transition:transform .15s ease}
   .btn:hover{transform:translateY(-1px)}
-  /* Dual gradient (mix of both like background) */
-  .btn-dual{
-    color:#101635;
-    background: linear-gradient(90deg, #1a5fff 0 50%, #ff4fa3 50% 100%);
-    border:1px solid rgba(0,0,0,.08);
-    color:#fff;
-  }
   .btn-white{background:#fff; border:1px solid rgba(0,0,0,.08); color:#101635}
+  .btn-call{min-width:210px}
+  .btn-text{min-width:140px}
 
-  /* Keep widths stable to avoid FR layout shift */
-  .btn-call{min-width:220px}
-  .btn-text{min-width:150px}
+  /* Image-filled buttons using the same background image */
+  .btn-img{
+    color:#fff; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
+    background: var(--bgimg) center/cover no-repeat;
+  }
+  .btn-img::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(120% 140% at 20% 0%, rgba(0,0,0,.35), rgba(0,0,0,.25));
+    pointer-events:none;
+  }
 
-  /* Language toggle pinned to the far right */
-  .spacer{flex:1} /* pushes the toggle to the right end */
+  /* Language toggle far right inside actions */
   .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden; flex:0 0 auto}
   .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
   .lang-toggle button.active{background:#fff; color:#0d1533}
 
+  /* ===== Main ===== */
   .hero{position:relative}
   .hero-inner{padding:72px 24px 96px}
-  .h1{font-size: clamp(32px, 5vw, 56px); line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px}
+  .h1{
+    font-size: clamp(32px, 5vw, 56px);
+    line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px;
+    color:#fff; text-shadow: 0 3px 18px rgba(83,48,186,.45), 0 1px 0 rgba(75,0,130,.35);
+  }
   .lead{font-size: clamp(16px, 2.2vw, 20px); color:#1b2650; margin-bottom:18px}
   .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
   .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:800; box-shadow: var(--shadow)}
@@ -102,9 +118,10 @@
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
     .btn-call{min-width:0}
+    .hdr{grid-template-columns:.5fr auto .5fr}
   }
 
-  /* === Fashion color (blue text on pink side, pink text on blue side) === */
+  /* Fashion color (blue text on pink side, pink text on blue side) */
   .fashion{transition: color .2s ease}
   .fashion.on-blue{color:var(--pink)}
   .fashion.on-pink{color:var(--blue)}
@@ -115,31 +132,31 @@
 <div class="bg-sponge" aria-hidden="true"></div>
 
 <header>
-  <div class="container row">
-    <div class="brand">
+  <div class="container hdr">
+    <!-- left spacer column is automatic -->
+
+    <!-- CENTERED brand -->
+    <div class="brand-center">
       <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="CACLEAN logo">
-      <div>
-        <div class="fashion" style="font-size:18px">CACLEAN</div>
-        <div class="small" data-i18n="tagline">Detail-oriented cleaning, 24/7</div>
-      </div>
+      <div class="brand-title fashion">Ca Clean</div>
     </div>
 
-    <nav class="nav" style="flex:1; justify-content:flex-end">
+    <!-- Right actions: Call/Text + Lang toggle at the end -->
+    <div class="actions">
       <span class="tag" data-i18n="available247">Available 24/7</span>
 
-      <a class="btn btn-dual btn-call" href="tel:+15146007514">
+      <a class="btn btn-img btn-call" href="tel:+15146007514">
         <span aria-hidden="true">📞</span><span data-i18n="callNow">Call now</span>
       </a>
       <a class="btn btn-white btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
         <span aria-hidden="true">💬</span><span data-i18n="textUs">Text us</span>
       </a>
 
-      <div class="spacer"></div>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
         <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
       </div>
-    </nav>
+    </div>
   </div>
 </header>
 
@@ -156,7 +173,7 @@
       </div>
 
       <div class="cta">
-        <a class="btn btn-dual btn-call" href="tel:+15146007514">
+        <a class="btn btn-img btn-call" href="tel:+15146007514">
           <span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span>
         </a>
         <a class="btn btn-white btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
@@ -207,7 +224,7 @@
         <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote" />
           <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
-          <div class="row" style="gap:10px; align-items:stretch">
+          <div class="row" style="gap:10px; align-items:stretch; display:flex">
             <input class="field" name="name" required placeholder="Name" aria-label="Name">
             <input class="field" name="phone" required placeholder="Phone" aria-label="Phone">
           </div>
@@ -216,7 +233,8 @@
           <div style="height:10px"></div>
           <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
           <div style="height:14px"></div>
-          <button class="btn btn-dual btn-text" type="submit" data-i18n="submit">Request quote</button>
+          <!-- Send inquiry button uses image background too -->
+          <button class="btn btn-img btn-text" type="submit" data-i18n="submit">Request quote</button>
           <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
         </form>
       </div>
@@ -237,9 +255,9 @@
 <footer role="contentinfo">
   <div class="container foot-grid">
     <div>
-      <div class="brand">
+      <div class="brand-center" style="justify-self:start">
         <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" aria-hidden="true">
-        <div class="fashion" style="font-weight:800">CACLEAN</div>
+        <div class="brand-title fashion" style="font-weight:800">Ca Clean</div>
       </div>
       <p class="small" data-i18n="footerBlurb" style="max-width:42ch">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
@@ -272,7 +290,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== i18n (stable, like before) =====
+  // i18n (stable)
   const dict = {
     en: {
       tagline:"Detail-oriented cleaning, 24/7", available247:"Available 24/7",
@@ -332,24 +350,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.lang = lang;
   }
 
-  // Persisted language (default EN)
   const saved = localStorage.getItem("lang") || "en";
   applyLang(saved);
 
-  // Toggle (no focus changes, no mouse move)
   $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); updateFashionColors(); });
   $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); updateFashionColors(); });
 
-  // Year
   $("#year").textContent = new Date().getFullYear();
 
-  // === Fashion color auto (blue on pink side, pink on blue side) ===
+  // Fashion color auto (blue on pink side, pink on blue side)
   function updateFashionColors(){
     const mid = window.innerWidth/2;
     $$(".fashion").forEach(el=>{
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width/2;
-      const onLeft = cx < mid; // assume image is blue-left, pink-right
+      const onLeft = cx < mid; // assume image blue-left, pink-right
       el.classList.toggle("on-blue", onLeft);
       el.classList.toggle("on-pink", !onLeft);
     });
