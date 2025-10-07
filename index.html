@@ -5,168 +5,132 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>CACLEAN | Local Cleaners in Montreal — Standard, Deep, Move-In/Out, Post-Construction</title>
 
-  <!-- Primary SEO -->
+  <!-- SEO -->
   <meta name="description" content="CACLEAN — Local cleaners in Montreal. Standard, deep, move-in/out, post-construction cleaning. Transparent pricing: $100 service fee + $25/h (first hour included). 24/7 availability. Call 514-600-7514 or email CaCleanmontreal@gmail.com." />
   <meta name="keywords" content="Montreal cleaners, residential cleaning Montreal, deep clean Montreal, move out cleaning Montreal, post construction cleaning Montreal, Plateau, Mile End, Outremont, Rosemont, Verdun, NDG, Griffintown" />
   <link rel="canonical" href="https://example.com/" />
-
-  <!-- Open Graph / Twitter -->
   <meta property="og:title" content="CACLEAN — Local Cleaners in Montreal" />
   <meta property="og:description" content="Standard, deep, move-in/out & post-construction. Transparent pricing. 24/7. Call 514-600-7514." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://example.com/" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Font: friendly and playful but professional -->
+  <!-- Fonts: playful/professional -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Fresh, bubbly palette */
-      --ink:#0b1533;          /* deep navy text */
-      --ink-2:#1c2656;
-      --bg:#f5fbff;           /* soft bluish white */
-      --accent:#12b4ff;       /* bright aqua */
-      --accent-2:#38e6ff;     /* lighter aqua */
-      --bubble:#7cd4ff;       /* bubble tint */
-      --muted:#617094;
-      --card:#ffffff;
-      --shadow: 0 12px 40px rgba(16,24,64,.14);
-      --radius:18px;
+      --ink:#0b1533; --ink-2:#1c2656; --bg:#f5fbff;
+      --accent:#12b4ff; --accent-2:#38e6ff; --muted:#617094;
+      --card:#ffffff; --shadow:0 12px 40px rgba(16,24,64,.14); --radius:18px;
+      --foam1: rgba(255,255,255,.55); --foam2: rgba(255,255,255,.2);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0;
-      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      color:var(--ink);
-      background: var(--bg);
-      line-height:1.6;
-      overflow-x:hidden;
-    }
+    body{margin:0;font-family:"Inter",ui-sans-serif,system-ui; color:var(--ink); background:var(--bg); line-height:1.6; overflow-x:hidden}
 
-    /* FULL-PAGE animated bubble background */
-    .bg-bubbles{
-      position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden;
+    /* Full-page animated bubbly background */
+    .bg-bubbles{position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden;
       background:
         radial-gradient(1200px 700px at 90% -10%, rgba(56,230,255,.25), transparent 60%),
         radial-gradient(1000px 600px at -10% 10%, rgba(18,180,255,.22), transparent 60%),
         radial-gradient(1600px 1000px at 50% 120%, rgba(124,212,255,.18), transparent 60%),
-        var(--bg);
-    }
-    .bubble{
-      position:absolute; border-radius:50%;
-      border:1px solid rgba(255,255,255,.7);
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85) 0 35%, rgba(255,255,255,.35) 36% 60%, rgba(255,255,255,.15) 61% 100%);
-      box-shadow: inset 0 0 18px rgba(255,255,255,.55), 0 10px 40px rgba(16,24,64,.15);
-      animation: rise var(--dur) linear infinite;
-      opacity:.55;
-    }
-    @keyframes rise{
-      from{ transform: translateY(110vh) translateX(var(--x,0)); }
-      to{ transform: translateY(-20vh) translateX(calc(var(--x,0) + 10vw)); }
-    }
-    @media (prefers-reduced-motion: reduce){
-      .bubble{animation: none; opacity:.25}
-    }
+        var(--bg);}
+    .bubble{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.7);
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.85) 0 35%, rgba(255,255,255,.35) 36% 60%, rgba(255,255,255,.15) 61% 100%);
+      box-shadow:inset 0 0 18px rgba(255,255,255,.55), 0 10px 40px rgba(16,24,64,.15);
+      animation:rise var(--dur) linear infinite; opacity:.55}
+    @keyframes rise{from{transform:translateY(110vh) translateX(var(--x,0))}to{transform:translateY(-20vh) translateX(calc(var(--x,0)+10vw))}}
+    @media (prefers-reduced-motion:reduce){.bubble{animation:none;opacity:.25}}
 
-    /* Layout */
-    .container{max-width:1120px; margin:0 auto; padding:24px}
-    header{
-      position:sticky; top:0; z-index:20;
-      background:rgba(255,255,255,.75);
-      backdrop-filter: saturate(160%) blur(10px);
-      border-bottom:1px solid rgba(12,20,50,.06);
-    }
-    .row{display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+    /* Layout / header */
+    .container{max-width:1120px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.75);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(12,20,50,.06)}
+    .row{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand-title{font-family:"Fredoka";font-weight:800;letter-spacing:.2px;font-size:20px}
 
-    /* Brand */
-    .brand{display:flex; gap:12px; align-items:center}
-    .brand-title{font-family:"Fredoka", system-ui; font-weight:800; letter-spacing:.2px; font-size:20px}
-    .logo-wrap{display:grid; place-items:center}
-    .logo-img{
-      width:48px; height:48px; object-fit:contain;
-      /* "Remove" black background visually on any bg */
-      mix-blend-mode:screen;
-      image-rendering: -webkit-optimize-contrast;
-      filter: drop-shadow(0 8px 20px rgba(12,20,50,.22));
-    }
+    /* New logo (use provided image) */
+    .logo-img{width:56px;height:56px;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 8px 20px rgba(12,20,50,.22));image-rendering:-webkit-optimize-contrast}
 
-    /* Nav / Lang */
-    .nav{display:flex; gap:10px; align-items:center}
-    .tag{font-size:12px; font-weight:800; background:#e9fbff; color:#054355; padding:6px 10px; border-radius:999px}
-    .lang-toggle{display:inline-flex; border:1px solid rgba(12,20,50,.12); border-radius:999px; overflow:hidden}
-    .lang-toggle button{background:#fff; border:0; padding:6px 12px; cursor:pointer; font-weight:800; font-size:12px}
-    .lang-toggle button.active{background:var(--ink); color:#fff}
+    .nav{display:flex;gap:10px;align-items:center}
+    .tag{font-size:12px;font-weight:800;background:#e9fbff;color:#054355;padding:6px 10px;border-radius:999px}
+    .lang-toggle{display:inline-flex;border:1px solid rgba(12,20,50,.12);border-radius:999px;overflow:hidden}
+    .lang-toggle button{background:#fff;border:0;padding:6px 12px;cursor:pointer;font-weight:800;font-size:12px}
+    .lang-toggle button.active{background:var(--ink);color:#fff}
 
     /* Hero */
-    .hero{position:relative}
     .hero-inner{padding:64px 24px 84px}
-    .h1{
-      font-family:"Fredoka", system-ui; font-weight:900;
-      font-size:clamp(28px,4.4vw,52px);
-      letter-spacing:.2px; line-height:1.1; margin:0 0 10px;
-      background: linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    .lead{font-size:clamp(16px,2.2vw,20px); color:var(--muted); margin:8px 0 16px}
-    .badges{display:flex; gap:10px; flex-wrap:wrap}
-    .badge{background:#fff; border:1px solid rgba(12,20,50,.08); padding:10px 12px; border-radius:14px; font-weight:800; box-shadow:var(--shadow)}
-    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:13px 18px;
-      border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none;
-      box-shadow: var(--shadow); transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-      will-change: transform;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btn-primary{background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%); color:#001b2a}
-    .btn-outline{background:#fff; color:var(--ink); border:1px solid rgba(12,20,50,.12)}
-    .small{font-size:12px; color:var(--muted)}
+    .h1{font-family:"Fredoka";font-weight:900;font-size:clamp(28px,4.4vw,52px);letter-spacing:.2px;line-height:1.1;margin:0 0 10px;
+      background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:8px 0 16px}
+    .badges{display:flex;gap:10px;flex-wrap:wrap}
+    .badge{background:#fff;border:1px solid rgba(12,20,50,.08);padding:10px 12px;border-radius:14px;font-weight:800;box-shadow:var(--shadow)}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;padding:13px 18px;border-radius:16px;font-weight:900;letter-spacing:.2px;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .2s ease,opacity .2s ease;will-change:transform}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:linear-gradient(180deg,var(--accent) 0%,var(--accent-2) 100%);color:#001b2a}
+    .btn-outline{background:#fff;color:var(--ink);border:1px solid rgba(12,20,50,.12)}
+    .small{font-size:12px;color:var(--muted)}
 
-    /* Sections */
+    /* Sections / cards */
     section{padding:56px 24px}
-    .grid{display:grid; gap:20px}
-    .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
-    .card{background:var(--card); border:1px solid rgba(12,20,50,.08); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
-    .list{margin:0; padding:0; list-style:none}
-    .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
-    .pill{display:inline-block; background:rgba(18,180,255,.12); color:#03506a; padding:7px 12px; border-radius:999px; font-weight:900; font-size:12px}
+    .grid{display:grid;gap:20px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card{position:relative;background:var(--card);border:1px solid rgba(12,20,50,.08);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);overflow:hidden}
+    .list{margin:0;padding:0;list-style:none}
+    .list li{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+    .pill{display:inline-block;background:rgba(18,180,255,.12);color:#03506a;padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px}
 
     /* Numbered image placeholders */
-    .ph{
-      position:relative; aspect-ratio: 16/10; border-radius:var(--radius);
-      border:2px dashed rgba(12,20,50,.18); background:linear-gradient(135deg,#f7fdff,#eef7ff);
-      display:grid; place-items:center; color:#5e7899; font-family:"Fredoka"; font-size:36px; font-weight:800;
+    .ph{position:relative;aspect-ratio:16/10;border-radius:var(--radius);border:2px dashed rgba(12,20,50,.18);
+      background:linear-gradient(135deg,#f7fdff,#eef7ff);display:grid;place-items:center;color:#5e7899;font-family:"Fredoka";font-size:36px;font-weight:800;overflow:hidden}
+    .ph::after{content:attr(data-ph);position:absolute;top:10px;left:12px;font-size:12px;color:#3c5680;background:#e9f6ff;padding:4px 8px;border-radius:999px}
+
+    /* === “Cleaning-in-progress” bubble/foam overlays for text areas === */
+    .bubbly::before, .bubbly::after{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(10px 10px at 10% 80%, var(--foam1) 0 50%, transparent 51%),
+        radial-gradient(8px 8px at 30% 85%, var(--foam2) 0 50%, transparent 51%),
+        radial-gradient(12px 12px at 55% 90%, var(--foam1) 0 50%, transparent 51%),
+        radial-gradient(7px 7px at 70% 82%, var(--foam2) 0 50%, transparent 51%),
+        radial-gradient(9px 9px at 85% 88%, var(--foam1) 0 50%, transparent 51%);
+      opacity:.32; mix-blend-mode:screen; mask-image:linear-gradient(180deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      animation:foamSlide 10s linear infinite;
     }
-    .ph::after{
-      content: attr(data-ph);
-      position:absolute; top:10px; left:12px; font-size:12px; color:#3c5680; background:#e9f6ff; padding:4px 8px; border-radius:999px;
+    .bubbly::after{
+      background:
+        radial-gradient(9px 9px at 15% 15%, var(--foam2) 0 50%, transparent 51%),
+        radial-gradient(12px 12px at 40% 10%, var(--foam1) 0 50%, transparent 51%),
+        radial-gradient(8px 8px at 60% 18%, var(--foam2) 0 50%, transparent 51%),
+        radial-gradient(10px 10px at 80% 12%, var(--foam1) 0 50%, transparent 51%);
+      opacity:.26; animation-direction:reverse; animation-duration:12s;
     }
+    @keyframes foamSlide{from{transform:translateY(10%)}to{transform:translateY(-10%)}}
+
+    /* micro bubbles drifting up inside text blocks */
+    .mini-bubble{position:absolute; border:1px solid rgba(255,255,255,.7); border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,.2) 60%, rgba(255,255,255,.1) 100%);
+      opacity:.45; animation:miniRise linear forwards}
+    @keyframes miniRise{from{transform:translateY(40px)}to{transform:translateY(-120px)}}
 
     /* Footer */
     footer{padding:36px 24px 72px; background:#07102a; color:#d8e3ff}
     footer a{color:#fff}
-    .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
-    .copyright{opacity:.75; font-size:12px}
+    .foot-grid{display:grid;gap:20px;grid-template-columns:repeat(3,minmax(0,1fr))}
+    .copyright{opacity:.75;font-size:12px}
 
-    @media (max-width: 860px){
-      .grid-2{grid-template-columns:1fr}
-      .foot-grid{grid-template-columns:1fr}
-    }
+    @media (max-width:860px){.grid-2{grid-template-columns:1fr}.foot-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <!-- full-page animated background -->
   <div class="bg-bubbles" aria-hidden="true" id="bg"></div>
 
   <header>
     <div class="container row">
       <div class="brand">
-        <div class="logo-wrap">
-          <!-- Save your file as brand-logo.png (same folder or /assets/brand-logo.png) -->
-          <img class="logo-img" src="brand-logo.png" alt="CACLEAN bubbly logo" />
-        </div>
+        <img class="logo-img" src="logo-caclean.png" alt="CACLEAN bubbly logo" />
         <div>
           <div class="brand-title">CACLEAN</div>
           <div class="small" data-i18n="tagline">Local cleaners in Montreal • 24/7</div>
@@ -187,41 +151,37 @@
 
   <main>
     <section class="hero">
-      <div class="container hero-inner">
+      <div class="container hero-inner bubbly">
         <h1 class="h1" data-i18n="hero">Spotless homes. Friendly pros. Montreal-local.</h1>
         <p class="lead" data-i18n="subhero">
           Family-run and detail-oriented. We treat your home like our own—if you’re not happy, we’re not done.
         </p>
 
-        <div class="badges" aria-label="Highlights">
+        <div class="badges">
           <span class="badge" data-i18n="promo">$100 service fee + $25/h (first hour included)</span>
           <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
           <span class="badge" data-i18n="trusted">Professional • Trusted • Friendly</span>
         </div>
 
         <div class="cta">
-          <a class="btn btn-primary" href="tel:+15146007514">
-            <span aria-hidden="true">📞</span><span data-i18n="ctaCall">Call CACLEAN</span>
-          </a>
-          <a class="btn btn-outline" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
-            <span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span>
-          </a>
+          <a class="btn btn-primary" href="tel:+15146007514"><span aria-hidden="true">📞</span><span data-i18n="ctaCall">Call CACLEAN</span></a>
+          <a class="btn btn-outline" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote"><span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span></a>
           <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
         </div>
       </div>
     </section>
 
-    <!-- Numbered placeholders you can easily replace (add <img src="..."> inside) -->
+    <!-- Numbered placeholders -->
     <section aria-labelledby="gallery">
       <div class="container grid grid-2">
-        <figure class="ph" data-ph="IMAGE-1"><!-- <img src="your1.jpg" alt="Before & after kitchen deep clean"> --></figure>
-        <figure class="ph" data-ph="IMAGE-2"><!-- <img src="your2.jpg" alt="Bathroom tile scrub & shine"> --></figure>
+        <figure class="ph bubbly" data-ph="IMAGE-1"></figure>
+        <figure class="ph bubbly" data-ph="IMAGE-2"></figure>
       </div>
     </section>
 
     <section>
       <div class="container grid grid-2">
-        <div class="card">
+        <div class="card bubbly">
           <h2 style="margin-top:0" data-i18n="servicesTitle">Residential cleaning services</h2>
           <ul class="list">
             <li>✅ <span class="pill" data-i18n="svcStandard">Standard Clean</span></li>
@@ -232,7 +192,7 @@
           <p class="small" data-i18n="pricingNote">Transparent pricing: $100 service fee + $25/h. First hour included.</p>
         </div>
 
-        <div class="card">
+        <div class="card bubbly">
           <h2 style="margin-top:0" data-i18n="aboutTitle">Why homeowners pick us</h2>
           <p data-i18n="aboutBody">
             Detail-oriented, Montreal-local, friendly pros. We show up on time, work hard, and leave it sparkling. If it’s not perfect, we fix it—100% guaranteed.
@@ -249,30 +209,16 @@
     <!-- Signup form placeholder -->
     <section aria-labelledby="signup">
       <div class="container grid grid-2">
-        <div class="card">
+        <div class="card bubbly">
           <h2 id="signup" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
 
-          <!-- Replace this block with your signup/booking form embed -->
-          <div id="SIGNUP_FORM_PLACEHOLDER" class="ph" data-ph="FORM">
-            <!-- Example Netlify form (keep if useful):
-            <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-              <input type="hidden" name="form-name" value="quote" />
-              <p style="display:none"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-              <input required name="name" placeholder="Name">
-              <input required name="phone" placeholder="Phone">
-              <input type="email" name="email" placeholder="Email (optional)">
-              <textarea name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…"></textarea>
-              <button class="btn btn-primary" type="submit">Request quote</button>
-            </form>
-            -->
-          </div>
+          <!-- Replace this with your embed (Jotform, Tally, Netlify form, etc.) -->
+          <div id="SIGNUP_FORM_PLACEHOLDER" class="ph" data-ph="FORM"></div>
 
-          <p class="small" data-i18n="ctaAlt">
-            Prefer phone? <a href="tel:+15146007514">Call</a> or <a href="sms:+15146007514">text</a> anytime.
-          </p>
+          <p class="small" data-i18n="ctaAlt">Prefer phone? <a href="tel:+15146007514">Call</a> or <a href="sms:+15146007514">text</a> anytime.</p>
         </div>
 
-        <div class="card">
+        <div class="card bubbly">
           <h2 style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
           <ul class="list">
             <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
@@ -285,7 +231,7 @@
     </section>
 
     <section aria-labelledby="areas">
-      <div class="container card">
+      <div class="container card bubbly">
         <h2 id="areas" style="margin-top:0" data-i18n="areasTitle">Local cleaners in Montreal — neighborhoods we cover</h2>
         <p class="small" data-i18n="areasDesc">
           We serve central Montreal and nearby neighborhoods. Tell us your cross-streets and we’ll match the schedule.
@@ -293,11 +239,10 @@
       </div>
     </section>
 
-    <!-- More placeholders for your photos -->
     <section>
       <div class="container grid grid-2">
-        <figure class="ph" data-ph="IMAGE-3"></figure>
-        <figure class="ph" data-ph="IMAGE-4"></figure>
+        <figure class="ph bubbly" data-ph="IMAGE-3"></figure>
+        <figure class="ph bubbly" data-ph="IMAGE-4"></figure>
       </div>
     </section>
   </main>
@@ -306,7 +251,7 @@
     <div class="container foot-grid">
       <div>
         <div class="brand">
-          <img class="logo-img" src="brand-logo.png" alt="CACLEAN bubbly logo" />
+          <img class="logo-img" src="logo-caclean.png" alt="CACLEAN bubbly logo" />
           <div class="brand-title" style="color:#e7f7ff">CACLEAN</div>
         </div>
         <p class="small" style="max-width:48ch" data-i18n="footerBlurb">
@@ -329,185 +274,98 @@
     </div>
   </footer>
 
-  <!-- LocalBusiness + FAQ schema for SEO -->
+  <!-- LocalBusiness + FAQ schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     "name": "CACLEAN",
-    "image": "https://example.com/og.jpg",
     "telephone": "+1-514-600-7514",
     "email": "CaCleanmontreal@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Montreal",
-      "addressRegion": "QC",
-      "addressCountry": "CA"
-    },
+    "address": {"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
     "areaServed": ["Montreal"],
     "openingHours": "Mo-Su 00:00-23:59",
     "priceRange": "$$",
     "url": "https://example.com",
-    "description": "Local cleaners in Montreal for residential homes: standard, deep, move-in/out, post-construction. Transparent pricing. 24/7.",
-    "sameAs": []
+    "description": "Local cleaners in Montreal for residential homes: standard, deep, move-in/out, post-construction. Transparent pricing. 24/7."
   }
   </script>
-
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Do you bring supplies?",
-        "acceptedAnswer":{"@type":"Answer","text":"Yes—professional tools, microfiber towels and eco-friendly options."}
-      },
-      {
-        "@type":"Question",
-        "name":"Are you available today?",
-        "acceptedAnswer":{"@type":"Answer","text":"Often! Text or call for a slot—24/7."}
-      },
-      {
-        "@type":"Question",
-        "name":"How do you price?",
-        "acceptedAnswer":{"@type":"Answer","text":"$100 service fee + $25/h with the first hour included."}
-      }
-    ]
-  }
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Do you bring supplies?","acceptedAnswer":{"@type":"Answer","text":"Yes—professional tools, microfiber towels and eco-friendly options."}},
+    {"@type":"Question","name":"Are you available today?","acceptedAnswer":{"@type":"Answer","text":"Often! Text or call for a slot—24/7."}},
+    {"@type":"Question","name":"How do you price?","acceptedAnswer":{"@type":"Answer","text":"$100 service fee + $25/h with the first hour included."}}
+  ]}
   </script>
 
-  <!-- i18n + background bubble generator + year -->
   <script>
-    // ===== i18n (EN/FR mirrors exactly; "insured" removed) =====
-    const dict = {
-      en: {
-        tagline: "Local cleaners in Montreal • 24/7",
-        available247: "Available 24/7",
-        textUs: "Text us",
-        callNow: "Call now",
-        hero: "Spotless homes. Friendly pros. Montreal-local.",
-        subhero: "Family-run and detail-oriented. We treat your home like our own—if you’re not happy, we’re not done.",
-        promo: "$100 service fee + $25/h (first hour included)",
-        guarantee: "100% satisfaction guaranteed",
-        trusted: "Professional • Trusted • Friendly",
-        ctaCall: "Call CACLEAN",
-        ctaText: "Text for a quote",
-        serving: "Standard • Deep • Move-In/Out • Post-Construction",
-        servicesTitle: "Residential cleaning services",
-        svcStandard: "Standard Clean",
-        svcDeep: "Deep Clean",
-        svcMove: "Move-In / Move-Out",
-        svcPost: "Post-Construction",
-        pricingNote: "Transparent pricing: $100 service fee + $25/h. First hour included.",
-        aboutTitle: "Why homeowners pick us",
-        aboutBody: "Detail-oriented, Montreal-local, friendly pros. We show up on time, work hard, and leave it sparkling. If it’s not perfect, we fix it—100% guaranteed.",
-        eco: "Eco-friendly options available",
-        supplies: "We bring pro-grade supplies & microfiber",
-        flex: "Flexible scheduling—often same-day",
-        contactTitle: "Get a quick quote",
-        ctaAlt: "Prefer phone? Call or text anytime.",
-        faqTitle: "Quick FAQs",
-        q1: "Do you bring supplies?",
-        a1: "Yes—pro tools, microfiber towels & eco-friendly options.",
-        q2: "Are you available today?",
-        a2: "Often! Text or call for a slot—24/7.",
-        q3: "How do you price?",
-        a3: "$100 service fee + $25/h. First hour included.",
-        q4: "What areas do you serve?",
-        a4: "Montreal: Outremont, Plateau, Mile End, Rosemont, Villeray, NDG, Verdun, Saint-Henri, Griffintown, Ville-Marie, more.",
-        footerBlurb: "Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
-        contact: "Contact",
-        hours: "Open 24/7",
-        areas: "Service areas",
-        areasTitle: "Local cleaners in Montreal — neighborhoods we cover",
-        areasDesc: "We serve central Montreal and nearby neighborhoods. Tell us your cross-streets and we’ll match the schedule.",
-        rights: "All rights reserved."
-      },
-      fr: {
-        tagline: "Nettoyeurs locaux à Montréal • 24/7",
-        available247: "Disponible 24/7",
-        textUs: "Textez-nous",
-        callNow: "Appelez maintenant",
-        hero: "Maisons impeccables. Équipe sympathique. 100 % local.",
-        subhero: "Entreprise familiale, minutieuse. On traite votre maison comme la nôtre—si ce n’est pas parfait, on revient.",
-        promo: "Frais de service 100 $ + 25 $/h (1re heure incluse)",
-        guarantee: "Satisfaction 100 % garantie",
-        trusted: "Professionnel • Fiable • Sympathique",
-        ctaCall: "Appeler CACLEAN",
-        ctaText: "Texter pour une soumission",
-        serving: "Entretien • Grand ménage • Entrée/Sortie • Après construction",
-        servicesTitle: "Services de ménage résidentiel",
-        svcStandard: "Entretien régulier",
-        svcDeep: "Grand ménage",
-        svcMove: "Entrée / Sortie",
-        svcPost: "Après construction",
-        pricingNote: "Tarification claire : frais de service 100 $ + 25 $/h. 1re heure incluse.",
-        aboutTitle: "Pourquoi les propriétaires nous choisissent",
-        aboutBody: "Minutieux, locaux à Montréal, et sympathiques. Ponctuels, efficaces, résultat étincelant. Pas parfait? On corrige—garantie 100 %. ",
-        eco: "Options éco disponibles",
-        supplies: "Matériel pro & microfibres inclus",
-        flex: "Horaire flexible—souvent la journée même",
-        contactTitle: "Obtenir une soumission rapide",
-        ctaAlt: "Vous préférez le téléphone? Appelez ou textez en tout temps.",
-        faqTitle: "FAQ express",
-        q1: "Fournissez-vous le matériel?",
-        a1: "Oui—outils pros, linges microfibres et options éco.",
-        q2: "Êtes-vous disponibles aujourd’hui?",
-        a2: "Souvent! Texto ou appel—24/7.",
-        q3: "Comment tarifez-vous?",
-        a3: "Frais de 100 $ + 25 $/h. 1re heure incluse.",
-        q4: "Quelles zones desservez-vous?",
-        a4: "Montréal : Outremont, Plateau, Mile End, Rosemont, Villeray, NDG, Verdun, Saint-Henri, Griffintown, Ville-Marie, etc.",
-        footerBlurb: "Entreprise familiale sympathique. Ponctuels, efficaces, et résultat étincelant.",
-        contact: "Contact",
-        hours: "Ouvert 24/7",
-        areas: "Zones desservies",
-        areasTitle: "Nettoyeurs locaux à Montréal — quartiers desservis",
-        areasDesc: "Nous couvrons Montréal-centre et les quartiers avoisinants. Donnez vos rues de repère et on s’adapte.",
-        rights: "Tous droits réservés."
-      }
-    };
-    const $ = s => document.querySelector(s);
-    const $$ = s => Array.from(document.querySelectorAll(s));
-    function setLang(lang){
-      $$("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        const text = dict?.[lang]?.[key];
-        if (typeof text === "string") el.textContent = text;
-      });
-      $("#lang-en").classList.toggle("active", lang==="en");
-      $("#lang-fr").classList.toggle("active", lang==="fr");
-      $("#lang-en").setAttribute("aria-pressed", lang==="en");
-      $("#lang-fr").setAttribute("aria-pressed", lang==="fr");
-      document.documentElement.lang = lang;
-      localStorage.setItem("lang", lang);
-    }
-    $("#lang-en").addEventListener("click", ()=>setLang("en"));
-    $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
-    setLang(localStorage.getItem("lang") || "en");
+    // i18n (mirrored EN/FR; "insured" removed)
+    const dict={en:{tagline:"Local cleaners in Montreal • 24/7",available247:"Available 24/7",textUs:"Text us",callNow:"Call now",
+      hero:"Spotless homes. Friendly pros. Montreal-local.",subhero:"Family-run and detail-oriented. We treat your home like our own—if you’re not happy, we’re not done.",
+      promo:"$100 service fee + $25/h (first hour included)",guarantee:"100% satisfaction guaranteed",trusted:"Professional • Trusted • Friendly",
+      ctaCall:"Call CACLEAN",ctaText:"Text for a quote",serving:"Standard • Deep • Move-In/Out • Post-Construction",
+      servicesTitle:"Residential cleaning services",svcStandard:"Standard Clean",svcDeep:"Deep Clean",svcMove:"Move-In / Move-Out",svcPost:"Post-Construction",
+      pricingNote:"Transparent pricing: $100 service fee + $25/h. First hour included.",aboutTitle:"Why homeowners pick us",
+      aboutBody:"Detail-oriented, Montreal-local, friendly pros. We show up on time, work hard, and leave it sparkling. If it’s not perfect, we fix it—100% guaranteed.",
+      eco:"Eco-friendly options available",supplies:"We bring pro-grade supplies & microfiber",flex:"Flexible scheduling—often same-day",
+      contactTitle:"Get a quick quote",ctaAlt:"Prefer phone? Call or text anytime.",faqTitle:"Quick FAQs",
+      q1:"Do you bring supplies?",a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
+      q2:"Are you available today?",a2:"Often! Text or call for a slot—24/7.",
+      q3:"How do you price?",a3:"$100 service fee + $25/h. First hour included.",
+      q4:"What areas do you serve?",a4:"Montreal: Outremont, Plateau, Mile End, Rosemont, Villeray, NDG, Verdun, Saint-Henri, Griffintown, Ville-Marie, more.",
+      footerBlurb:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
+      contact:"Contact",hours:"Open 24/7",areas:"Service areas",areasTitle:"Local cleaners in Montreal — neighborhoods we cover",
+      areasDesc:"We serve central Montreal and nearby neighborhoods. Tell us your cross-streets and we’ll match the schedule.",rights:"All rights reserved."},
+      fr:{tagline:"Nettoyeurs locaux à Montréal • 24/7",available247:"Disponible 24/7",textUs:"Textez-nous",callNow:"Appelez maintenant",
+      hero:"Maisons impeccables. Équipe sympathique. 100 % local.",subhero:"Entreprise familiale, minutieuse. On traite votre maison comme la nôtre—si ce n’est pas parfait, on revient.",
+      promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)",guarantee:"Satisfaction 100 % garantie",trusted:"Professionnel • Fiable • Sympathique",
+      ctaCall:"Appeler CACLEAN",ctaText:"Texter pour une soumission",serving:"Entretien • Grand ménage • Entrée/Sortie • Après construction",
+      servicesTitle:"Services de ménage résidentiel",svcStandard:"Entretien régulier",svcDeep:"Grand ménage",svcMove:"Entrée / Sortie",svcPost:"Après construction",
+      pricingNote:"Tarification claire : frais de service 100 $ + 25 $/h. 1re heure incluse.",aboutTitle:"Pourquoi les propriétaires nous choisissent",
+      aboutBody:"Minutieux, locaux à Montréal, et sympathiques. Ponctuels, efficaces, résultat étincelant. Pas parfait? On corrige—garantie 100 %.",
+      eco:"Options éco disponibles",supplies:"Matériel pro & microfibres inclus",flex:"Horaire flexible—souvent la journée même",
+      contactTitle:"Obtenir une soumission rapide",ctaAlt:"Vous préférez le téléphone? Appelez ou textez en tout temps.",faqTitle:"FAQ express",
+      q1:"Fournissez-vous le matériel?",a1:"Oui—outils pros, linges microfibres et options éco.",
+      q2:"Êtes-vous disponibles aujourd’hui?",a2:"Souvent! Texto ou appel—24/7.",
+      q3:"Comment tarifez-vous?",a3:"Frais de 100 $ + 25 $/h. 1re heure incluse.",
+      q4:"Quelles zones desservez-vous?",a4:"Montréal : Outremont, Plateau, Mile End, Rosemont, Villeray, NDG, Verdun, Saint-Henri, Griffintown, Ville-Marie, etc.",
+      footerBlurb:"Entreprise familiale sympathique. Ponctuels, efficaces, et résultat étincelant.",
+      contact:"Contact",hours:"Ouvert 24/7",areas:"Zones desservies",areasTitle:"Nettoyeurs locaux à Montréal — quartiers desservis",
+      areasDesc:"Nous couvrons Montréal-centre et les quartiers avoisinants. Donnez vos rues de repère et on s’adapte.",rights:"Tous droits réservés."}};
+    const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+    function setLang(lang){$$("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"), t=dict?.[lang]?.[k]; if(typeof t==="string") el.textContent=t;});
+      $("#lang-en").classList.toggle("active",lang==="en"); $("#lang-fr").classList.toggle("active",lang==="fr");
+      $("#lang-en").setAttribute("aria-pressed",lang==="en"); $("#lang-fr").setAttribute("aria-pressed",lang==="fr");
+      document.documentElement.lang=lang; localStorage.setItem("lang",lang);}
+    $("#lang-en").addEventListener("click",()=>setLang("en")); $("#lang-fr").addEventListener("click",()=>setLang("fr"));
+    setLang(localStorage.getItem("lang")||"en");
 
-    // ===== Bubble background generator across the FULL page =====
-    const bg = document.getElementById("bg");
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function addBubble(){
-      if (!bg || prefersReduced) return;
-      const b = document.createElement("div");
-      b.className = "bubble";
-      const size = 16 + Math.random()*70; // 16–86
-      b.style.width = b.style.height = size+"px";
-      b.style.left = (Math.random()*100)+"vw";
-      b.style.bottom = "-20vh";
-      b.style.setProperty("--x", (Math.random()*20 - 10) + "vw");
-      b.style.setProperty("--dur", (18 + Math.random()*24) + "s");
-      bg.appendChild(b);
-      setTimeout(()=>b.remove(), 50000);
+    // Full-page rising bubbles
+    const bg=document.getElementById("bg");
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function addBubble(){ if(!bg||reduce) return; const b=document.createElement("div"); b.className="bubble";
+      const size=16+Math.random()*70; b.style.width=b.style.height=size+"px";
+      b.style.left=(Math.random()*100)+"vw"; b.style.bottom="-20vh"; b.style.setProperty("--x",(Math.random()*20-10)+"vw");
+      b.style.setProperty("--dur",(18+Math.random()*24)+"s"); bg.appendChild(b); setTimeout(()=>b.remove(),50000);}
+    for(let i=0;i<26;i++) setTimeout(addBubble,i*200); setInterval(addBubble,900);
+
+    // Micro-bubbles inside each .bubbly text area
+    function seedMiniBubbles(host){
+      if(reduce) return;
+      const n = 6 + Math.floor(Math.random()*6);
+      for(let i=0;i<n;i++){
+        const s = 5 + Math.random()*10, x = Math.random()*100, d = 3000 + Math.random()*5000;
+        const mb = document.createElement("span");
+        mb.className="mini-bubble"; mb.style.width=mb.style.height=s+"px";
+        mb.style.left=x+"%"; mb.style.bottom="-20px"; mb.style.animationDuration = (2 + Math.random()*2)+"s";
+        host.appendChild(mb); setTimeout(()=>mb.remove(), d);
+      }
     }
-    for (let i=0;i<26;i++) setTimeout(addBubble, i*200);
-    setInterval(addBubble, 900);
+    const bubblyAreas = $$(".bubbly");
+    bubblyAreas.forEach(el=>{ seedMiniBubbles(el); setInterval(()=>seedMiniBubbles(el), 3500); });
 
     // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
