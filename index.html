@@ -2,27 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>Ca-Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
 <meta name="description" content="Ca-Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
+<meta name="theme-color" content="#1a5fff" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 <style>
   :root{
-    --ink:#0f1a3a; --muted:#6b7694;
+    --ink:#0f1a3a; --muted:#2a3a74; /* deepened for contrast */
     --blue:#1a5fff; --pink:#ff4fa3;
     --card:#ffffff; --shadow:0 12px 30px rgba(15,26,58,.16); --radius:18px;
     --bgimg:url("https://i.postimg.cc/HLj70W8d/pinkblue-sponge.webp");
     --hdrH:86px; /* header height desktop */
+    --grad: linear-gradient(135deg, var(--blue), var(--pink));
+    --focus: 0 0 0 6px rgba(26,95,255,.18), 0 0 0 2px rgba(255,79,163,.22) inset;
   }
   @media (max-width: 720px){
-    :root{ --hdrH: 96px; } /* a tad taller for the banner on mobile */
+    :root{ --hdrH: 96px; } /* a tad taller on mobile */
   }
+
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     color:var(--ink); line-height:1.6; overflow-x:hidden; background:#fff;
-    padding-top:var(--hdrH); /* space for fixed header */
+    padding-top:var(--hdrH); text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
   }
 
   /* Global sponge background (hide bottom 15%) */
@@ -38,9 +42,9 @@
   /* ===== Fixed HEADER ===== */
   header{
     position:fixed; left:0; right:0; top:0; height:var(--hdrH); z-index:100;
-    background:transparent; /* same as background */
+    background:transparent;
   }
-  .hdr{position:relative; height:100%; display:flex; align-items:center; justify-content:space-between}
+  .hdr{position:relative; height:100%; display:flex; align-items:center; justify-content:space-between; gap:12px}
   /* left: logo */
   .hdr-left{display:flex; align-items:center; gap:12px}
   .hdr-left img{width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
@@ -49,7 +53,7 @@
   .center-banner{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:8px 18px; border-radius:18px; min-width:240px;
+    padding:8px 18px; border-radius:18px; min-width:220px;
     color:#fff; text-align:center; box-shadow: 0 10px 24px rgba(15,26,58,.25);
     background: var(--bgimg) center/cover no-repeat;
     border:1px solid rgba(255,255,255,.35); overflow:hidden;
@@ -59,61 +63,88 @@
     pointer-events:none;
   }
   .center-banner .title{position:relative; font-weight:900; letter-spacing:.3px; font-size:20px}
-  .center-banner .phone{position:relative; margin-top:2px; font-weight:900; font-size:14px; text-decoration:none; color:#fff}
+  .center-banner .phone{position:relative; margin-top:2px; font-weight:900; font-size:15px; text-decoration:none; color:#fff}
 
   /* right: Call + Lang toggle */
-  .hdr-right{display:flex; align-items:center; gap:10px}
+  .hdr-right{display:flex; align-items:center; gap:10px; flex-shrink:0}
   .btn{
-    display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:12px 18px;
-    border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap;
-    transition:transform .15s ease;
+    display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; cursor:pointer; padding:14px 20px;
+    border-radius:18px; font-weight:900; letter-spacing:.2px; text-decoration:none; white-space:nowrap; font-size:16px;
+    transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
   }
   .btn:hover{transform:translateY(-1px)}
-  .btn-img{color:#fff; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
-           background: var(--bgimg) center/cover no-repeat;}
+  .btn:focus-visible{outline:none; box-shadow:var(--focus)}
+  .btn-img{
+    position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.35);
+    background: var(--bgimg) center/cover no-repeat; color:#fff;
+  }
   .btn-img::before{content:""; position:absolute; inset:0; background:linear-gradient(120deg, rgba(0,0,0,.35), rgba(0,0,0,.25)); pointer-events:none;}
-  .btn-call{min-width:150px}
-  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden}
-  .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
+
+  /* SUPER POP Call Now */
+  .btn-call{
+    min-width:150px; background:var(--grad); color:#fff; border:0; position:relative;
+    box-shadow: 0 10px 24px rgba(26,95,255,.35), 0 6px 16px rgba(255,79,163,.22);
+  }
+  .btn-call::after{
+    /* soft glow ring */
+    content:""; position:absolute; inset:-3px; border-radius:inherit; pointer-events:none;
+    box-shadow: 0 0 0 8px rgba(255,79,163,.12), 0 0 0 16px rgba(26,95,255,.08);
+    opacity:.9; filter:blur(1px);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  .btn-call .only-icon{display:none}
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); opacity:.9}
+    50%{ transform:scale(1.02); opacity:.7}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .btn-call::after{animation:none}
+    .btn, .btn:hover{transform:none}
+  }
+
+  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden; backdrop-filter:saturate(120%) blur(2px);}
+  .lang-toggle button{background:transparent; border:0; padding:8px 12px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
   .lang-toggle button.active{background:#fff; color:#0d1533}
 
   /* ===== Main ===== */
   .hero{position:relative}
   .hero-inner{padding:72px 24px 96px}
   .h1{
-    font-size: clamp(30px, 5vw, 56px);
-    line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px;
+    font-size: clamp(32px, 6.2vw, 56px);
+    line-height:1.12; margin:0 0 12px; font-weight:900; letter-spacing:-.3px;
     color:#fff; text-shadow: 0 3px 18px rgba(83,48,186,.45), 0 1px 0 rgba(75,0,130,.35);
+    text-wrap: balance;
   }
-  .lead{font-size: clamp(16px, 2.2vw, 20px); color:#1b2650; margin-bottom:18px}
+  .lead{font-size: clamp(17px, 2.6vw, 21px); color:#1b2650; margin-bottom:18px}
   .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
-  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:800; box-shadow: var(--shadow)}
+  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:10px 14px; border-radius:14px; font-weight:800; box-shadow: var(--shadow); font-size:15px}
   .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-  .small{font-size:12px; color:#2a3a74}
+  .small{font-size:14px; color:var(--muted)}
   .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
-  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:14px; text-align:center}
+  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:16px; text-align:center}
+  .kpi strong{font-size:18px}
 
   section{padding:56px 24px}
   .grid{display:grid; gap:20px}
   .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
   .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow)}
   .list{margin:0; padding:0; list-style:none}
-  .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
+  .list li{display:flex; gap:10px; align-items:flex-start; margin:12px 0}
   .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-  /* ===== Footer (short + same background; no white strip) ===== */
+  /* ===== Footer ===== */
   footer{position:relative; padding:24px 24px 28px; background:transparent; color:#e7ebff}
   footer::before{
     content:""; position:absolute; inset:0; z-index:-1;
-    background: var(--bgimg) center bottom / cover no-repeat; /* fills any masked gap */
+    background: var(--bgimg) center bottom / cover no-repeat;
   }
   footer a{color:#fff}
   .foot-grid{display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr))}
   .copyright{opacity:.9; font-size:12px}
 
   /* Inputs */
-  .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none}
-  .field:focus{border-color:#ff4fa3; box-shadow:0 0 0 6px rgba(255,79,163,.15)}
+  .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none; font-size:16px}
+  .field:focus{border-color:#ff4fa3; box-shadow:var(--focus)}
 
   /* === Mobile optimizations === */
   @media (max-width: 900px){
@@ -121,16 +152,24 @@
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
     .hero-inner{padding:64px 20px 80px}
-    .btn-call{min-width:0}
     .center-banner{min-width:200px; padding:6px 14px}
     .center-banner .title{font-size:18px}
     .center-banner .phone{font-size:15px}
   }
   @media (max-width: 520px){
+    .hdr-left img{width:40px; height:40px}
+    .hdr-right{gap:8px}
+    .btn{padding:12px 16px; font-size:15px}
+    .btn-call{min-width:0}
+    .btn-call span.txt{display:none}           /* keep icon + short text on tiny screens */
+    .btn-call .only-icon{display:inline}
     .badges .badge{font-size:14px}
     .cta{gap:10px}
-    .btn{padding:12px 16px}
-    .hdr-left img{width:40px; height:40px}
+    .kpis{grid-template-columns: 1fr 1fr}
+    .kpi strong{font-size:17px}
+  }
+  @media (max-width: 360px){
+    .kpis{grid-template-columns: 1fr}
   }
 </style>
 </head>
@@ -148,12 +187,14 @@
     <!-- Center: popout banner with brand + phone (uses background image) -->
     <div class="center-banner" role="heading" aria-level="1">
       <div class="title">Ca-Clean</div>
-      <a class="phone" href="tel:+15146007514">514-600-7514</a>
+      <a class="phone" href="tel:+15146007514" aria-label="Call Ca-Clean 514-600-7514">514-600-7514</a>
     </div>
 
     <!-- Right: Call + Lang -->
     <div class="hdr-right">
-      <a class="btn btn-img btn-call" href="tel:+15146007514" aria-label="Call now">📞 Call Now</a>
+      <a class="btn btn-call" href="tel:+15146007514" aria-label="Call now">
+        📞 <span class="txt">Call Now</span><span class="only-icon" aria-hidden="true">Call</span>
+      </a>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
         <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
@@ -163,19 +204,19 @@
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" aria-label="Hero">
     <div class="container hero-inner">
       <h1 class="h1" data-i18n="hero">Obsessively clean. So simple.</h1>
       <p class="lead" data-i18n="subhero">Family business. We treat your home like our own—if you’re not satisfied, we continue.</p>
 
-      <div class="badges">
-        <span class="badge" data-i18n="promo">Service Fee $100 + $25/hr (1st hour included)</span>
-        <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
-        <span class="badge" data-i18n="licensed">Insured • Reliable • Friendly</span>
+      <div class="badges" role="list">
+        <span class="badge" role="listitem" data-i18n="promo">Service Fee $100 + $25/hr (1st hour included)</span>
+        <span class="badge" role="listitem" data-i18n="guarantee">100% satisfaction guaranteed</span>
+        <span class="badge" role="listitem" data-i18n="licensed">Insured • Reliable • Friendly</span>
       </div>
 
       <div class="cta">
-        <a class="btn btn-img btn-call" href="tel:+15146007514" data-i18n="ctaCall">✨ Call Ca-Clean</a>
+        <a class="btn btn-call" href="tel:+15146007514" data-i18n="ctaCall" aria-label="Call Ca-Clean">✨ Call Ca-Clean</a>
         <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
       </div>
 
@@ -190,21 +231,21 @@
   <section aria-labelledby="contact">
     <div class="container grid grid-2">
       <div class="card">
-        <h2 style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
+        <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
         <!-- Netlify form -->
         <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote" />
           <p style="display:none"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-          <div class="row" style="gap:10px; align-items:stretch; display:flex">
-            <input class="field" name="name" required placeholder="Name" aria-label="Name">
-            <input class="field" name="phone" required placeholder="Phone" aria-label="Phone">
+          <div class="row" style="gap:10px; align-items:stretch; display:flex; flex-wrap:wrap">
+            <input class="field" name="name" required placeholder="Name" aria-label="Name" autocomplete="name">
+            <input class="field" name="phone" required placeholder="Phone" aria-label="Phone" inputmode="tel" autocomplete="tel">
           </div>
           <div style="height:10px"></div>
-          <input class="field" name="email" type="email" placeholder="Email (optional)" aria-label="Email" style="width:100%">
+          <input class="field" name="email" type="email" placeholder="Email (optional)" aria-label="Email" style="width:100%" autocomplete="email">
           <div style="height:10px"></div>
           <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
           <div style="height:14px"></div>
-          <button class="btn btn-img btn-call" type="submit" data-i18n="submit">Send inquiry</button>
+          <button class="btn btn-call" type="submit" data-i18n="submit">Send inquiry</button>
           <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
         </form>
       </div>
