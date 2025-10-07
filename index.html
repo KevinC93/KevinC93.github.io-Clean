@@ -10,10 +10,8 @@
   :root{
     --ink:#0f1a3a;
     --muted:#6b7694;
-    --blue:#1a5fff;      /* brand blue for fashion text on pink */
-    --blue-bg:#0f1e7a;   /* deep blue background */
-    --pink:#ff4fa3;      /* brand pink for fashion text on blue */
-    --pink-bg:#ff5aa9;   /* deep pink background */
+    --blueText:#1a5fff;   /* “fashion” blue text over pink side */
+    --pinkText:#ff4fa3;   /* “fashion” pink text over blue side */
     --card:#ffffff;
     --shadow:0 12px 30px rgba(15,26,58,.16);
     --radius:18px;
@@ -23,39 +21,49 @@
   body{
     margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     color:var(--ink); line-height:1.6; overflow-x:hidden;
+    background:#fff; /* fallback behind sponges */
   }
 
-  /* === TWO SPONGE TEXTURES (animated, fixed) === */
-  .texture{
-    position:fixed; inset:0 auto 0 0; width:50vw; height:100vh; z-index:-2; pointer-events:none;
+  /* === Static Sponge Backgrounds (no motion). Left=Blue, Right=Pink === */
+  .sponge{
+    position:fixed; top:0; width:50vw; height:100vh; z-index:-2; pointer-events:none;
+    background-size:cover; background-repeat:no-repeat; background-position:center top;
+    /* hide bottom 15% while the image still covers the page */
+    -webkit-mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
+            mask-image: linear-gradient(to bottom, #000 0 85%, transparent 85% 100%);
   }
-  .texture.right{left:auto; right:0}
-  .texture svg{display:block; width:100%; height:100%}
-  /* soft “come together” reveal so the halves blend on load */
-  .merge-glow{
+  .sponge.left{ left:0;  background-image:url("https://i.postimg.cc/pTjLswLv/sponge.jpg"); }
+  .sponge.right{ right:0; background-image:url("https://i.postimg.cc/TYf3cHMM/sponge2.webp"); }
+  /* soft blend at the center seam */
+  .seam{
     position:fixed; inset:0; z-index:-1; pointer-events:none;
-    background:
-      radial-gradient(50% 120% at 50% 50%, rgba(255,255,255,.18), transparent 60%),
-      linear-gradient(90deg, rgba(255,255,255,.14), rgba(255,255,255,0) 40%, rgba(255,255,255,.14));
-    opacity:0; animation:reveal .9s ease-out forwards .15s;
+    background: linear-gradient(90deg, transparent 49.4%, rgba(255,255,255,.35) 50%, transparent 50.6%);
+    mix-blend-mode: soft-light;
   }
-  @keyframes reveal{from{opacity:0; filter:blur(12px)} to{opacity:1; filter:blur(0)}}
 
   .container{max-width:1100px; margin:0 auto; padding:24px}
   header{
     position:sticky; top:0; z-index:10; color:#e8ecff;
     background:rgba(10,14,32,.55); backdrop-filter: saturate(160%) blur(12px);
-    border-bottom:1px solid rgba(255,255,255,.12); overflow:hidden;
+    border-bottom:1px solid rgba(255,255,255,.12);
   }
   .row{display:flex; gap:16px; align-items:center; justify-content:space-between}
   .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
   .brand img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
 
-  .nav{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-  .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px}
-  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden}
+  .nav{display:flex; gap:12px; align-items:center; flex-wrap:nowrap}
+  .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px; white-space:nowrap}
+  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden; flex:0 0 auto}
   .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
   .lang-toggle button.active{background:#fff; color:#0d1533}
+  /* Prevent layout shift when switching EN/FR */
+  .btn{display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
+       border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none; box-shadow: var(--shadow);
+       white-space:nowrap}
+  .btn-primary{color:#101635; background:#fff; border:1px solid rgba(0,0,0,.08)}
+  .btn-accent{color:#fff; background: linear-gradient(180deg, #ff4fa3 0%, #ff86c3 100%)}
+  .btn-call{min-width:210px}   /* wide enough for “Appelez maintenant” */
+  .btn-text{min-width:140px}
 
   .hero{position:relative}
   .hero-inner{padding:72px 24px 96px}
@@ -63,18 +71,7 @@
   .lead{font-size: clamp(16px, 2.2vw, 20px); color:#1b2650; margin-bottom:18px}
   .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
   .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:800; box-shadow: var(--shadow)}
-
   .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-  .btn{
-    display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
-    border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none;
-    box-shadow: var(--shadow); position:relative; overflow:hidden; transform: translateZ(0);
-    transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-  }
-  .btn:hover{transform: translateY(-1px)}
-  .btn:active{transform: translateY(0)}
-  .btn-accent{color:#fff; background: linear-gradient(180deg, var(--pink) 0%, #ff86c3 100%)}
-  .btn-primary{color:#101635; background:linear-gradient(180deg, #fff 0%, #f6f7ff 100%); border:1px solid rgba(0,0,0,.08)}
   .small{font-size:12px; color:#2a3a74}
   .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
   .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:14px; text-align:center}
@@ -85,92 +82,37 @@
   .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow)}
   .list{margin:0; padding:0; list-style:none}
   .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
-  .pill{display:inline-block; background:rgba(255,79,163,.1); color:var(--pink); padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
+  .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-  footer{padding:40px 24px 80px; background:linear-gradient(#0c1536,#0a1230); color:#d7dbef; position:relative}
+  footer{padding:40px 24px 80px; background:linear-gradient(#0c1536,#0a1230); color:#d7dbef}
   footer a{color:#fff}
   .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
   .copyright{opacity:.75; font-size:12px}
 
   /* Inputs */
-  .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline: none}
-  .field:focus{border-color: var(--pink); box-shadow: 0 0 0 6px rgba(255,79,163,.15)}
+  .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline:none}
+  .field:focus{border-color:#ff4fa3; box-shadow:0 0 0 6px rgba(255,79,163,.15)}
 
   /* Responsive */
   @media (max-width:800px){
     .grid-2{grid-template-columns: 1fr}
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
+    .btn-call{min-width:0}
   }
 
-  /* === “Fashion” title coloring depending on side === */
-  .fashion{transition: color .2s ease, text-shadow .2s ease}
-  .fashion.on-blue{color:var(--pink); text-shadow: 0 2px 0 rgba(255,255,255,.35)}
-  .fashion.on-pink{color:var(--blue); text-shadow: 0 2px 0 rgba(255,255,255,.35)}
+  /* === Fashion title color depending on side === */
+  .fashion{transition: color .2s ease}
+  .fashion.on-blue{color:var(--pinkText)}
+  .fashion.on-pink{color:var(--blueText)}
 </style>
 </head>
 <body>
 
-<!-- LEFT sponge (BLUE) -->
-<div class="texture left" aria-hidden="true">
-  <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Blue sponge texture background">
-    <defs>
-      <!-- Make blobby mask with turbulence + threshold -->
-      <filter id="spongeBlue" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="9" result="noise">
-          <animate attributeName="baseFrequency" values="0.012;0.018;0.012" dur="12s" repeatCount="indefinite" />
-        </feTurbulence>
-        <!-- Threshold the noise to get pores -->
-        <feColorMatrix in="noise" type="matrix"
-          values="1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 0 35 -15" result="holes"/>
-        <feGaussianBlur stdDeviation="0.4" />
-      </filter>
-      <mask id="maskBlue">
-        <rect x="0" y="0" width="100" height="100" fill="white"/>
-        <!-- Darker dots cut out -->
-        <rect x="0" y="0" width="100" height="100" filter="url(#spongeBlue)" fill="black" opacity="0.55"/>
-      </mask>
-      <linearGradient id="blueDepth" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#132a9a"/>
-        <stop offset="1" stop-color="var(--blue-bg)"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="100" height="100" fill="url(#blueDepth)" mask="url(#maskBlue)"/>
-  </svg>
-</div>
-
-<!-- RIGHT sponge (PINK) -->
-<div class="texture right" aria-hidden="true">
-  <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Pink sponge texture background">
-    <defs>
-      <filter id="spongePink" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="3" seed="15" result="noise">
-          <animate attributeName="baseFrequency" values="0.013;0.02;0.013" dur="12s" repeatCount="indefinite" />
-        </feTurbulence>
-        <feColorMatrix in="noise" type="matrix"
-          values="1 0 0 0 0
-                  0 1 0 0 0
-                  0 0 1 0 0
-                  0 0 0 35 -15" result="holes"/>
-        <feGaussianBlur stdDeviation="0.4" />
-      </filter>
-      <mask id="maskPink">
-        <rect x="0" y="0" width="100" height="100" fill="white"/>
-        <rect x="0" y="0" width="100" height="100" filter="url(#spongePink)" fill="black" opacity="0.55"/>
-      </mask>
-      <linearGradient id="pinkDepth" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#ff7dbd"/>
-        <stop offset="1" stop-color="var(--pink-bg)"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="0" width="100" height="100" fill="url(#pinkDepth)" mask="url(#maskPink)"/>
-  </svg>
-</div>
-
-<div class="merge-glow" aria-hidden="true"></div>
+<!-- Static sponges -->
+<div class="sponge left" aria-hidden="true"></div>
+<div class="sponge right" aria-hidden="true"></div>
+<div class="seam" aria-hidden="true"></div>
 
 <header>
   <div class="container row">
@@ -187,8 +129,8 @@
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
         <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
       </div>
-      <a class="btn btn-primary" href="tel:+15146007514" data-i18n="callNow"><span aria-hidden="true">📞</span>Call now</a>
-      <a class="btn btn-accent" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs"><span aria-hidden="true">💬</span>Text us</a>
+      <a class="btn btn-primary btn-call" href="tel:+15146007514"><span aria-hidden="true">📞</span><span data-i18n="callNow">Call now</span></a>
+      <a class="btn btn-accent btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote"><span aria-hidden="true">💬</span><span data-i18n="textUs">Text us</span></a>
     </nav>
   </div>
 </header>
@@ -204,8 +146,8 @@
         <span class="badge" data-i18n="licensed">Professional • Trusted • Friendly</span>
       </div>
       <div class="cta">
-        <a class="btn btn-accent" href="tel:+15146007514"><span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span></a>
-        <a class="btn btn-primary" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote"><span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span></a>
+        <a class="btn btn-accent btn-call" href="tel:+15146007514"><span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span></a>
+        <a class="btn btn-primary btn-text" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote"><span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span></a>
         <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
       </div>
       <div class="kpis" role="list">
@@ -246,6 +188,7 @@
     <div class="container grid grid-2">
       <div class="card">
         <h2 id="contact" class="fashion" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
+        <!-- Netlify form (works when site is on Netlify) -->
         <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="quote" />
           <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
@@ -258,25 +201,20 @@
           <div style="height:10px"></div>
           <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
           <div style="height:14px"></div>
-          <button class="btn btn-accent" type="submit" data-i18n="submit">Request quote</button>
+          <button class="btn btn-accent btn-text" type="submit" data-i18n="submit">Request quote</button>
           <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
         </form>
       </div>
 
+      <!-- (Netlify build showcase removed as requested) -->
       <div class="card">
-        <h2 class="fashion" style="margin-top:0">Built for Netlify + Git</h2>
+        <h2 class="fashion" style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
         <ul class="list">
-          <li>🔁 Continuous deploys from GitHub (PRs ➜ Deploy Previews)</li>
-          <li>📮 Form handling via <code>data-netlify</code> (no backend needed)</li>
-          <li>⚙️ Add <code>netlify.toml</code> later for functions/redirects</li>
+          <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
+          <li>❓ <strong data-i18n="q2">Are you available today?</strong><br><span class="small" data-i18n="a2">Often! Text or call for a slot—24/7.</span></li>
+          <li>❓ <strong data-i18n="q3">How do you price?</strong><br><span class="small" data-i18n="a3">$100 service fee + $25/h. First hour included.</span></li>
+          <li>❓ <strong data-i18n="q4">What areas do you serve?</strong><br><span class="small" data-i18n="a4">Greater Montréal • Laval • South Shore</span></li>
         </ul>
-        <div class="small" style="opacity:.85">
-          <!-- Uncomment with your site ID to show the live status badge -->
-          <!-- <img src="https://api.netlify.com/api/v1/badges/SITE_ID/deploy-status" alt="Netlify Status" /> -->
-          <pre style="background:#0f1533; color:#e8ecff; padding:12px; border-radius:12px; white-space:pre-wrap">npm i -g netlify-cli
-netlify init         # link to your Netlify site
-netlify deploy --prod</pre>
-        </div>
       </div>
     </div>
   </section>
@@ -289,7 +227,7 @@ netlify deploy --prod</pre>
         <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" aria-hidden="true">
         <div class="fashion" style="font-weight:800">CACLEAN</div>
       </div>
-      <p class="small" style="max-width:42ch" data-i18n="footerBlurb">
+      <p class="small" data-i18n="footerBlurb" style="max-width:42ch">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
       </p>
     </div>
@@ -319,9 +257,12 @@ netlify deploy --prod</pre>
 </script>
 
 <script>
-  // ===== Tiny i18n (EN/FR) =====
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== i18n =====
   const dict = {
-    en: { tagline:"Detail-oriented cleaning, 24/7", available247:"Available 24/7", callNow:"Call now", textUs:"Text us",
+    en: {
+      tagline:"Detail-oriented cleaning, 24/7", available247:"Available 24/7",
+      callNow:"Call now", textUs:"Text us",
       hero:"Obsessively clean. Delightfully easy.",
       subhero:"Family-run. We treat your home like our own—if you’re not happy, we’re not done.",
       promo:"$100 service fee + $25/h (first hour included)", guarantee:"100% satisfaction guaranteed",
@@ -332,9 +273,16 @@ netlify deploy --prod</pre>
       aboutTitle:"Trust & about us", aboutBody:"Detail-oriented! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.",
       insured:"Insured & dependable", eco:"Eco-friendly options available", customPlans:"Custom plans for homes & sites",
       contactTitle:"Get a quick quote", submit:"Request quote", disclaimer:"We reply fast. No spam.",
+      faqTitle:"Quick FAQs", q1:"Do you bring supplies?", a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
+      q2:"Are you available today?", a2:"Often! Text or call for a slot—24/7.",
+      q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
+      q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
       footerBlurb:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
-      contact:"Contact", hours:"Open 24/7", areas:"Service areas", rights:"All rights reserved." },
-    fr: { tagline:"Nettoyage minutieux, 24/7", available247:"Disponible 24/7", callNow:"Appelez maintenant", textUs:"Textez-nous",
+      contact:"Contact", hours:"Open 24/7", areas:"Service areas", rights:"All rights reserved."
+    },
+    fr: {
+      tagline:"Nettoyage minutieux, 24/7", available247:"Disponible 24/7",
+      callNow:"Appelez maintenant", textUs:"Textez-nous",
       hero:"Obsessivement propre. Tellement simple.",
       subhero:"Entreprise familiale de « maniaques du ménage ». On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
       promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)", guarantee:"Satisfaction 100 % garantie",
@@ -345,51 +293,58 @@ netlify deploy --prod</pre>
       aboutTitle:"Confiance & à propos", aboutBody:"Équipe minutieuse! Nos entretiens surpassent la norme parce qu’on traite chaque maison comme la nôtre. Pas satisfaits? On revient. Entreprise familiale. Satisfaction garantie.",
       insured:"Assuré & fiable", eco:"Options éco disponibles", customPlans:"Plans sur mesure pour maisons & chantiers",
       contactTitle:"Obtenir une soumission rapide", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
+      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres & options éco.",
+      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent! Texto ou appel—24/7.",
+      q3:"Comment tarifez-vous?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
+      q4:"Quelles zones desservez-vous?", a4:"Grand Montréal • Laval • Rive-Sud",
       footerBlurb:"Entreprise familiale sympathique. Ponctuels, efficaces, étincelant garanti.",
-      contact:"Contact", hours:"Ouvert 24/7", areas:"Zones desservies", rights:"Tous droits réservés." }
+      contact:"Contact", hours:"Ouvert 24/7", areas:"Zones desservies", rights:"Tous droits réservés."
+    }
   };
   const $ = s => document.querySelector(s);
   const $$ = s => Array.from(document.querySelectorAll(s));
-  function setLang(lang){
+
+  function applyLang(lang){
+    // swap all data-i18n text nodes
     $$("[data-i18n]").forEach(el=>{
-      const k = el.getAttribute("data-i18n"); const t = dict?.[lang]?.[k];
-      if (typeof t==="string") el.textContent = t;
+      const key = el.getAttribute("data-i18n");
+      const txt = dict?.[lang]?.[key];
+      if (typeof txt === "string") el.textContent = txt;
     });
+    // button active states (no focus/scroll)
     $("#lang-en").classList.toggle("active", lang==="en");
     $("#lang-fr").classList.toggle("active", lang==="fr");
-    $("#lang-en").setAttribute("aria-pressed", lang==="en");
-    $("#lang-fr").setAttribute("aria-pressed", lang==="fr");
-    document.documentElement.lang = lang; localStorage.setItem("lang", lang);
+    $("#lang-en").setAttribute("aria-pressed", String(lang==="en"));
+    $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
+    document.documentElement.lang = lang;
   }
-  $("#lang-en").addEventListener("click", ()=>setLang("en"));
-  $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
-  setLang(localStorage.getItem("lang") || "en");
-  document.getElementById("year").textContent = new Date().getFullYear();
 
-  // ===== Fashion title auto-color (blue text over pink side, pink text over blue side) =====
+  // Persisted language (default EN)
+  const saved = localStorage.getItem("lang") || "en";
+  applyLang(saved);
+
+  // Click handlers (no layout shifts, no focus jumps)
+  $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); updateFashionColors(); });
+  $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); updateFashionColors(); });
+
+  // Year stamp
+  $("#year").textContent = new Date().getFullYear();
+
+  // ===== Fashion title auto-color (blue text on pink side, pink on blue side) =====
   function updateFashionColors(){
-    const mid = window.innerWidth / 2;
+    const mid = window.innerWidth/2;
     $$(".fashion").forEach(el=>{
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width/2;
-      const onLeftHalf = cx < mid; // left = BLUE background
-      el.classList.toggle("on-blue", onLeftHalf);
-      el.classList.toggle("on-pink", !onLeftHalf);
-      // Keep contrast if inside dark header/footer: allow manual override if needed later
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width/2;
+      const onLeft = cx < mid; // left = BLUE background
+      el.classList.toggle("on-blue", onLeft);
+      el.classList.toggle("on-pink", !onLeft);
     });
   }
   updateFashionColors();
   addEventListener("resize", updateFashionColors);
   addEventListener("scroll", updateFashionColors, {passive:true});
-
-  // If user has reduced motion enabled, stop texture animation but keep visuals
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (reduced.matches) {
-    document.querySelectorAll("animate").forEach(a => a.parentNode.removeChild(a));
-  }
+});
 </script>
-
-<!-- Optional analytics (privacy-friendly). Replace with your Plausible domain and uncomment.
-<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script> -->
 </body>
 </html>
