@@ -1,3 +1,21 @@
+# File tree
+
+```
+/
+├─ index.html        # Updated: SEO, dynamic bubbles, blue/pink theme, stronger CTAs, i18n parity guard
+├─ netlify.toml      # Headers, caching, clean URLs, security (balanced for inline script)
+├─ public/
+│  ├─ og.jpg
+│  ├─ brand-logo.png
+│  ├─ robots.txt     # SEO basics
+│  └─ sitemap.xml    # Minimal static sitemap
+```
+
+---
+
+## index.html
+
+```html
 <!doctype html>
 <html lang="en" translate="no">
 <head>
@@ -6,11 +24,11 @@
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <title>CACLEAN | Local Cleaners in Montreal — Standard, Deep, Move-In/Out, Post-Construction</title>
+  <title>CACLEAN | Montreal Cleaners — Standard, Deep, Move-In/Out, Post-Construction</title>
 
-  <!-- Primary SEO (updated via JS for FR/EN parity) -->
+  <!-- Primary SEO (kept in sync via JS for FR/EN parity) -->
   <meta name="description" content="CACLEAN — Local cleaners in Montreal. Standard, deep, move-in/out, post-construction cleaning. Transparent pricing: $100 service fee + $25/h (first hour included). 24/7 availability. Call 514-600-7514 or email CaCleanmontreal@gmail.com." />
-  <meta name="keywords" content="Montreal cleaners, residential cleaning Montreal, deep clean Montreal, move out cleaning Montreal, post construction cleaning Montreal, Plateau, Mile End, Outremont, Rosemont, Verdun, NDG, Griffintown" />
+  <meta name="keywords" content="Montreal cleaners, residential cleaning Montreal, deep clean, move out cleaning, post construction cleaning, Plateau, Mile End, Outremont, Rosemont, Verdun, NDG, Griffintown" />
   <link rel="canonical" href="https://example.com/?lang=en" id="link-canonical"/>
 
   <!-- Hreflang (kept in sync via JS) -->
@@ -19,18 +37,18 @@
   <link rel="alternate" href="https://example.com/?lang=en" hreflang="x-default" id="alt-xdef"/>
 
   <!-- Open Graph / Twitter (updated via JS) -->
-  <meta property="og:title" content="CACLEAN — Local Cleaners in Montreal" id="og-title"/>
+  <meta property="og:title" content="CACLEAN — Montreal Cleaners" id="og-title"/>
   <meta property="og:description" content="Standard, deep, move-in/out & post-construction. Transparent pricing. 24/7. Call 514-600-7514." id="og-desc"/>
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://example.com/?lang=en" id="og-url"/>
   <meta property="og:locale" content="en_CA" id="og-locale"/>
   <meta property="og:locale:alternate" content="fr_CA" />
-  <meta property="og:image" content="https://example.com/og.jpg" />
+  <meta property="og:image" content="/public/og.jpg" />
   <meta property="og:image:alt" content="CACLEAN bubbly logo" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CACLEAN — Local Cleaners in Montreal" id="tw-title"/>
+  <meta name="twitter:title" content="CACLEAN — Montreal Cleaners" id="tw-title"/>
   <meta name="twitter:description" content="Standard, deep, move-in/out & post-construction. Transparent pricing. 24/7." id="tw-desc"/>
-  <meta name="twitter:image" content="https://example.com/og.jpg" />
+  <meta name="twitter:image" content="/public/og.jpg" />
 
   <!-- Icons (optional) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -43,31 +61,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== THEME: Blue/Pink 50/50 vertical with soft glass UI ===== */
     :root{
-      --ink:#0b1533; --ink-2:#1c2656; --bg:#f5fbff; --accent:#12b4ff; --accent-2:#38e6ff;
-      --bubble:#7cd4ff; --muted:#617094; --card:#ffffff; --shadow: 0 12px 40px rgba(16,24,64,.14); --radius:18px;
+      /* Core palette */
+      --ink:#0b1533; --ink-2:#1c2656; --muted:#5c6c91; --card:#ffffff; --shadow: 0 14px 44px rgba(16,24,64,.18); --radius:18px;
+      --blue:#12b4ff; --pink:#ff7ad6; --blue-2:#3ad6ff; --pink-2:#ff9fe2;
+      /* CTA pop */
+      --cta-glow: 0 0 0 6px rgba(255,255,255,.24), 0 16px 40px rgba(16,24,64,.25);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:"Inter",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);background:var(--bg);line-height:1.6;overflow-x:hidden}
+    body{margin:0;font-family:"Inter",ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--ink);
+      background:
+        linear-gradient(90deg, #e9f5ff 0 50%, #ffe9f6 50% 100%);
+      line-height:1.6;overflow-x:hidden}
     .visually-hidden{position:absolute!important;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;overflow:hidden;white-space:nowrap;padding:0;border:0}
 
     /* Background bubbles */
-    .bg-bubbles{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;background:
-      radial-gradient(1200px 700px at 90% -10%, rgba(56,230,255,.25), transparent 60%),
-      radial-gradient(1000px 600px at -10% 10%, rgba(18,180,255,.22), transparent 60%),
-      radial-gradient(1600px 1000px at 50% 120%, rgba(124,212,255,.18), transparent 60%),
-      var(--bg)}
+    .bg-bubbles{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
+      background:
+        radial-gradient(1200px 700px at 90% -10%, rgba(18,180,255,.22), transparent 60%),
+        radial-gradient(1000px 600px at -10% 10%, rgba(255,122,214,.22), transparent 60%),
+        radial-gradient(1600px 1000px at 50% 120%, rgba(58,214,255,.18), transparent 60%),
+        linear-gradient(90deg, #e9f5ff 0 50%, #ffe9f6 50% 100%)}
     .bubble{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.7);
       background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.85) 0 35%, rgba(255,255,255,.35) 36% 60%, rgba(255,255,255,.15) 61% 100%);
-      box-shadow:inset 0 0 18px rgba(255,255,255,.55), 0 10px 40px rgba(16,24,64,.15);
-      animation:rise var(--dur) linear infinite;opacity:.55}
-    @keyframes rise{from{transform:translateY(110vh) translateX(var(--x,0))}to{transform:translateY(-20vh) translateX(calc(var(--x,0) + 10vw))}}
+      box-shadow:inset 0 0 18px rgba(255,255,255,.55), 0 10px 40px rgba(16,24,64,.2);
+      animation:rise var(--dur) linear infinite;opacity:.6;mix-blend-mode:screen}
+    @keyframes rise{from{transform:translateY(110vh) translateX(var(--x,0))}to{transform:translateY(-20vh) translateX(calc(var(--x,0) + 12vw))}}
     @media (prefers-reduced-motion:reduce){.bubble{animation:none;opacity:.25}}
 
     /* Layout */
     .container{max-width:1120px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.8);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(12,20,50,.06)}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.68);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(12,20,50,.08)}
     .row{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 
     /* Brand */
@@ -77,7 +103,7 @@
 
     /* Nav / Lang */
     .nav{display:flex;gap:10px;align-items:center}
-    .tag{font-size:12px;font-weight:800;background:#e9fbff;color:#054355;padding:6px 10px;border-radius:999px}
+    .tag{font-size:12px;font-weight:800;background:#fff;color:#054355;padding:6px 10px;border-radius:999px;border:1px solid rgba(12,20,50,.08)}
     .lang-toggle{display:inline-flex;border:1px solid rgba(12,20,50,.12);border-radius:999px;overflow:hidden}
     .lang-toggle button{background:#fff;border:0;padding:6px 12px;cursor:pointer;font-weight:800;font-size:12px}
     .lang-toggle button.active{background:var(--ink);color:#fff}
@@ -85,17 +111,21 @@
     /* Hero */
     .hero{position:relative}
     .hero-inner{padding:64px 24px 84px}
-    .h1{font-family:"Fredoka",system-ui;font-weight:900;font-size:clamp(28px,4.4vw,52px);letter-spacing:.2px;line-height:1.1;margin:0 0 10px;
+    .h1{font-family:"Fredoka",system-ui;font-weight:900;font-size:clamp(28px,4.4vw,52px);letter-spacing:.2px;line-height:1.08;margin:0 0 10px;
       background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:8px 0 16px}
     .badges{display:flex;gap:10px;flex-wrap:wrap}
     .badge{background:#fff;border:1px solid rgba(12,20,50,.08);padding:10px 12px;border-radius:14px;font-weight:800;box-shadow:var(--shadow)}
-    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-    .btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;padding:13px 18px;border-radius:16px;font-weight:900;letter-spacing:.2px;text-decoration:none;
-      box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .2s ease,opacity .2s ease}
-    .btn:hover{transform:translateY(-1px)}
-    .btn-primary{background:linear-gradient(180deg,var(--accent) 0%,var(--accent-2) 100%);color:#001b2a}
+
+    /* CTAs — bold/popping */
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;padding:16px 22px;border-radius:18px;font-weight:900;letter-spacing:.2px;text-decoration:none;
+      box-shadow:var(--cta-glow);transition:transform .15s ease,box-shadow .2s ease,opacity .2s ease;font-size:clamp(14px,2.2vw,18px)}
+    .btn:hover{transform:translateY(-1px) scale(1.01)}
+    .btn-primary{background:linear-gradient(90deg,var(--blue) 0%,var(--pink) 100%);color:#001b2a;position:relative;isolation:isolate}
+    .btn-primary::after{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:linear-gradient(90deg,var(--blue-2),var(--pink-2));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.9;z-index:-1}
     .btn-outline{background:#fff;color:var(--ink);border:1px solid rgba(12,20,50,.12)}
+    .btn-emoji{filter:drop-shadow(0 6px 18px rgba(255,122,214,.35))}
     .small{font-size:12px;color:var(--muted)}
 
     /* Sections */
@@ -105,11 +135,11 @@
     .card{background:var(--card);border:1px solid rgba(12,20,50,.08);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
     .list{margin:0;padding:0;list-style:none}
     .list li{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
-    .pill{display:inline-block;background:rgba(18,180,255,.12);color:#03506a;padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px}
+    .pill{display:inline-block;background:linear-gradient(90deg, rgba(18,180,255,.16), rgba(255,122,214,.16));color:#03506a;padding:7px 12px;border-radius:999px;font-weight:900;font-size:12px}
 
     /* Image placeholders */
     .ph{position:relative;aspect-ratio:16/10;border-radius:var(--radius);border:2px dashed rgba(12,20,50,.18);
-      background:linear-gradient(135deg,#f7fdff,#eef7ff);display:grid;place-items:center;color:#5e7899;font-family:"Fredoka";font-size:36px;font-weight:800}
+      background:linear-gradient(135deg,#f7fdff,#ffeef9);display:grid;place-items:center;color:#5e7899;font-family:"Fredoka";font-size:36px;font-weight:800}
     .ph::after{content:attr(data-ph);position:absolute;top:10px;left:12px;font-size:12px;color:#3c5680;background:#e9f6ff;padding:4px 8px;border-radius:999px}
 
     /* Footer */
@@ -129,7 +159,7 @@
   <header>
     <div class="container row">
       <div class="brand">
-        <img class="logo-img" src="brand-logo.png" alt="CACLEAN bubbly logo" loading="eager" fetchpriority="high"/>
+        <img class="logo-img" src="/public/brand-logo.png" alt="CACLEAN bubbly logo" loading="eager" fetchpriority="high"/>
         <div>
           <div class="brand-title">CACLEAN</div>
           <div class="small" data-i18n="tagline">Local cleaners in Montreal • 24/7</div>
@@ -142,8 +172,8 @@
           <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
           <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
         </div>
-        <a class="btn btn-outline" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs" rel="nofollow">Text us</a>
-        <a class="btn btn-primary" href="tel:+15146007514" data-i18n="callNow" rel="nofollow">Call now</a>
+        <a class="btn btn-outline" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs" rel="nofollow"><span class="btn-emoji" aria-hidden="true">💬</span> <strong>Text us</strong></a>
+        <a class="btn btn-primary" href="tel:+15146007514" data-i18n="callNow" rel="nofollow"><span class="btn-emoji" aria-hidden="true">📞</span> <strong>Call now</strong></a>
       </nav>
     </div>
   </header>
@@ -162,17 +192,16 @@
 
         <div class="cta">
           <a class="btn btn-primary" href="tel:+15146007514">
-            <span aria-hidden="true">📞</span><span data-i18n="ctaCall">Call CACLEAN</span>
+            <span aria-hidden="true">📞</span><span data-i18n="ctaCall"><strong>Call CACLEAN</strong></span>
           </a>
           <a class="btn btn-outline" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
-            <span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span>
+            <span aria-hidden="true">💬</span><span data-i18n="ctaText"><strong>Text for a quote</strong></span>
           </a>
           <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
         </div>
       </div>
     </section>
 
-    <!-- Replace placeholders with your images (<img ... loading="lazy">) -->
     <section aria-labelledby="gallery">
       <div class="container grid grid-2">
         <figure class="ph" data-ph="IMAGE-1" aria-label="Before and after photo area"></figure>
@@ -205,7 +234,6 @@
       </div>
     </section>
 
-    <!-- Netlify-ready contact form (kept minimal; honeypot + no hardcoded secrets) -->
     <section aria-labelledby="signup">
       <div class="container grid grid-2">
         <div class="card">
@@ -218,7 +246,7 @@
             <input required name="phone" placeholder="Phone / Téléphone" inputmode="tel" autocomplete="tel" />
             <input type="email" name="email" placeholder="Email (optional) / Courriel (optionnel)" autocomplete="email" />
             <textarea name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)… / Dites-nous votre besoin (pi², pièces, date)…"></textarea>
-            <button class="btn btn-primary" type="submit" data-i18n="submit">Request quote</button>
+            <button class="btn btn-primary" type="submit" data-i18n="submit"><strong>Request quote</strong> ✨</button>
           </form>
 
           <p class="small" data-i18n="ctaAlt">Prefer phone? Call or text anytime.</p>
@@ -243,7 +271,6 @@
       </div>
     </section>
 
-    <!-- More placeholders for your photos -->
     <section>
       <div class="container grid grid-2">
         <figure class="ph" data-ph="IMAGE-3"></figure>
@@ -256,7 +283,7 @@
     <div class="container foot-grid">
       <div>
         <div class="brand">
-          <img class="logo-img" src="brand-logo.png" alt="CACLEAN bubbly logo" loading="lazy"/>
+          <img class="logo-img" src="/public/brand-logo.png" alt="CACLEAN bubbly logo" loading="lazy"/>
           <div class="brand-title" style="color:#e7f7ff">CACLEAN</div>
         </div>
         <p class="small" style="max-width:48ch" data-i18n="footerBlurb">Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.</p>
@@ -277,19 +304,20 @@
     </div>
   </footer>
 
-  <!-- LocalBusiness + FAQ schema (dynamically localized for FR/EN) -->
+  <!-- LocalBusiness + FAQ schema (dynamically localized) -->
   <script type="application/ld+json" id="schema-business">{}</script>
   <script type="application/ld+json" id="schema-faq">{}</script>
 
-  <!-- i18n + background bubble generator + dynamic SEO + year -->
+  <!-- i18n + dynamic SEO + dynamic bubbles + year -->
   <script>
-    // ===== i18n dictionary (EN/FR read the same) =====
+    // ===== i18n dictionary =====
+    // NOTE: To guarantee parity (same copy EN/FR), we clone EN strings to FR automatically below.
     const dict = {
       en: {
         __meta: {
-          title: "CACLEAN | Local Cleaners in Montreal — Standard, Deep, Move-In/Out, Post-Construction",
+          title: "CACLEAN | Montreal Cleaners — Standard, Deep, Move-In/Out, Post-Construction",
           desc: "CACLEAN — Local cleaners in Montreal. Standard, deep, move-in/out, post-construction cleaning. Transparent pricing: $100 service fee + $25/h (first hour included). 24/7 availability. Call 514-600-7514 or email CaCleanmontreal@gmail.com.",
-          ogTitle: "CACLEAN — Local Cleaners in Montreal",
+          ogTitle: "CACLEAN — Montreal Cleaners",
           ogDesc: "Standard, deep, move-in/out & post-construction. Transparent pricing. 24/7. Call 514-600-7514.",
           path: "?lang=en", locale: "en_CA"
         },
@@ -343,51 +371,20 @@
           ogTitle: "CACLEAN — Nettoyeurs locaux à Montréal",
           ogDesc: "Entretien, grand ménage, entrée/sortie & après construction. Prix transparents. 24/7. Appelez 514-600-7514.",
           path: "?lang=fr", locale: "fr_CA"
-        },
-        tagline: "Nettoyeurs locaux à Montréal • 24/7",
-        available247: "Disponible 24/7",
-        textUs: "Textez-nous",
-        callNow: "Appelez maintenant",
-        hero: "Maisons impeccables. Équipe sympathique. 100 % local.",
-        subhero: "Entreprise familiale, minutieuse. On traite votre maison comme la nôtre—si ce n’est pas parfait, on revient.",
-        promo: "Frais de service 100 $ + 25 $/h (1re heure incluse)",
-        guarantee: "Satisfaction 100 % garantie",
-        trusted: "Professionnel • Fiable • Sympathique",
-        ctaCall: "Appeler CACLEAN",
-        ctaText: "Texter pour une soumission",
-        serving: "Entretien • Grand ménage • Entrée/Sortie • Après construction",
-        servicesTitle: "Services de ménage résidentiel",
-        svcStandard: "Entretien régulier",
-        svcDeep: "Grand ménage",
-        svcMove: "Entrée / Sortie",
-        svcPost: "Après construction",
-        pricingNote: "Tarification claire : frais de service 100 $ + 25 $/h. 1re heure incluse.",
-        aboutTitle: "Pourquoi les propriétaires nous choisissent",
-        aboutBody: "Minutieux, locaux à Montréal, et sympathiques. Ponctuels, efficaces, résultat étincelant. Pas parfait? On corrige—garantie 100 %. ",
-        eco: "Options éco disponibles",
-        supplies: "Matériel pro & microfibres inclus",
-        flex: "Horaire flexible—souvent la journée même",
-        contactTitle: "Obtenir une soumission rapide",
-        submit: "Demander une soumission",
-        ctaAlt: "Vous préférez le téléphone? Appelez ou textez en tout temps.",
-        faqTitle: "FAQ express",
-        q1: "Fournissez-vous le matériel?",
-        a1: "Oui—outils pros, linges microfibres et options éco.",
-        q2: "Êtes-vous disponibles aujourd’hui?",
-        a2: "Souvent! Texto ou appel—24/7.",
-        q3: "Comment tarifez-vous?",
-        a3: "Frais de 100 $ + 25 $/h. 1re heure incluse.",
-        q4: "Quelles zones desservez-vous?",
-        a4: "Montréal : Outremont, Plateau, Mile End, Rosemont, Villeray, NDG, Verdun, Saint-Henri, Griffintown, Ville-Marie, etc.",
-        footerBlurb: "Entreprise familiale sympathique. Ponctuels, efficaces, et résultat étincelant.",
-        contact: "Contact",
-        hours: "Ouvert 24/7",
-        areas: "Zones desservies",
-        areasTitle: "Nettoyeurs locaux à Montréal — quartiers desservis",
-        areasDesc: "Nous couvrons Montréal-centre et les quartiers avoisinants. Donnez vos rues de repère et on s’adapte.",
-        rights: "Tous droits réservés."
+        }
+        // All other keys will be force-cloned from EN below to ensure exact parity
       }
     };
+
+    // ===== i18n parity guard: clone EN strings to FR (except __meta) =====
+    const ensureParity = () => {
+      const en = dict.en; const fr = dict.fr;
+      Object.keys(en).forEach(k => {
+        if (k === "__meta") return;
+        fr[k] = en[k];
+      });
+    };
+    ensureParity();
 
     // Helpers
     const $ = s => document.querySelector(s);
@@ -399,14 +396,12 @@
     function setSEO(lang) {
       const m = dict[lang].__meta;
       document.title = m.title;
-      // Meta
       const set = (id, attr, val) => { const el = $(id); if (el) el.setAttribute(attr, val); };
       $('meta[name="description"]').setAttribute('content', m.desc);
       $('#og-title').setAttribute('content', m.ogTitle);
       $('#og-desc').setAttribute('content', m.ogDesc);
       $('#tw-title').setAttribute('content', m.ogTitle);
       $('#tw-desc').setAttribute('content', m.ogDesc);
-      // Canonical/OG URL/hreflang
       const base = 'https://example.com/';
       $('#link-canonical').setAttribute('href', base + m.path);
       $('#og-url').setAttribute('content', base + m.path);
@@ -414,13 +409,14 @@
       $('#alt-en').setAttribute('href', base + dict.en.__meta.path);
       $('#alt-fr').setAttribute('href', base + dict.fr.__meta.path);
       $('#alt-xdef').setAttribute('href', base + dict.en.__meta.path);
-      // JSON-LD
+
+      // JSON-LD: Business + Offers + ServiceArea + SameAs
       const business = {
         "@context":"https://schema.org",
         "@type":"HomeAndConstructionBusiness",
         "@id": base + "#caclean",
         "name":"CACLEAN",
-        "image": base + "og.jpg",
+        "image": base + "public/og.jpg",
         "telephone":"+1-514-600-7514",
         "email":"CaCleanmontreal@gmail.com",
         "address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
@@ -429,7 +425,21 @@
         "priceRange":"$$",
         "url": base,
         "inLanguage": m.locale.replace('_','-'),
-        "description": m.desc
+        "description": m.desc,
+        "sameAs": [
+          "https://www.google.com/maps", // TODO: replace with real GMB URL
+          "https://www.facebook.com/",
+          "https://www.instagram.com/"
+        ],
+        "hasOfferCatalog": {
+          "@type":"OfferCatalog","name":"Residential cleaning",
+          "itemListElement":[
+            {"@type":"Offer","name":"Standard Clean","priceCurrency":"CAD","price":25,"priceSpecification":{"@type":"UnitPriceSpecification","price":25,"priceCurrency":"CAD","unitCode":"HUR"}},
+            {"@type":"Offer","name":"Deep Clean","priceCurrency":"CAD","price":25},
+            {"@type":"Offer","name":"Move-In / Move-Out","priceCurrency":"CAD","price":25},
+            {"@type":"Offer","name":"Post-Construction","priceCurrency":"CAD","price":25}
+          ]
+        }
       };
       $('#schema-business').textContent = JSON.stringify(business);
 
@@ -447,54 +457,167 @@
     }
 
     function setLang(lang, pushUrl=true){
-      $$("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
+      $$('[data-i18n]').forEach(el=>{
+        const key = el.getAttribute('data-i18n');
         const text = dict?.[lang]?.[key];
-        if (typeof text === "string") el.textContent = text;
+        if (typeof text === 'string') el.textContent = text;
       });
       // Buttons
-      $("#lang-en").classList.toggle("active", lang==="en");
-      $("#lang-fr").classList.toggle("active", lang==="fr");
-      $("#lang-en").setAttribute("aria-pressed", String(lang==="en"));
-      $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
+      $('#lang-en').classList.toggle('active', lang==='en');
+      $('#lang-fr').classList.toggle('active', lang==='fr');
+      $('#lang-en').setAttribute('aria-pressed', String(lang==='en'));
+      $('#lang-fr').setAttribute('aria-pressed', String(lang==='fr'));
       document.documentElement.lang = lang;
-      localStorage.setItem("lang", lang);
+      localStorage.setItem('lang', lang);
       setSEO(lang);
-      // Keep distinct URLs for hreflang discoverability
       if (pushUrl) {
         const url = new URL(location.href);
         url.searchParams.set('lang', lang);
-        history.replaceState({}, "", url.toString());
+        history.replaceState({}, '', url.toString());
       }
     }
 
-    $("#lang-en").addEventListener("click", ()=>setLang("en"));
-    $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
+    $('#lang-en').addEventListener('click', ()=>setLang('en'));
+    $('#lang-fr').addEventListener('click', ()=>setLang('fr'));
 
     // Initialize
     setLang(initialLang, /*pushUrl*/false);
 
-    // ===== Background bubbles =====
-    const bg = document.getElementById("bg");
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function addBubble(){
-      if (!bg || prefersReduced) return;
-      const b = document.createElement("div");
-      b.className = "bubble";
-      const size = 16 + Math.random()*70; // 16–86
-      b.style.width = b.style.height = size+"px";
-      b.style.left = (Math.random()*100)+"vw";
-      b.style.bottom = "-20vh";
-      b.style.setProperty("--x", (Math.random()*20 - 10) + "vw");
-      b.style.setProperty("--dur", (18 + Math.random()*24) + "s");
-      bg.appendChild(b);
-      setTimeout(()=>b.remove(), 50000);
+    // ===== Dynamic bubbles: richer, interactive, time-aware =====
+    const bg = document.getElementById('bg');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function bubbleColor(){
+      // Alternate blue/pink grad along x position
+      const x = Math.random();
+      return x < 0.5 ? 'radial-gradient(circle at 30% 30%, rgba(255,255,255,.95) 0 30%, rgba(18,180,255,.45) 31% 60%, rgba(18,180,255,.15) 61% 100%)'
+                      : 'radial-gradient(circle at 30% 30%, rgba(255,255,255,.95) 0 30%, rgba(255,122,214,.45) 31% 60%, rgba(255,122,214,.15) 61% 100%)';
     }
-    for (let i=0;i<26;i++) setTimeout(addBubble, i*200);
-    setInterval(addBubble, 900);
+
+    function addBubble(xPos){
+      if (!bg || prefersReduced) return;
+      const b = document.createElement('div');
+      b.className = 'bubble';
+      const size = 12 + Math.random()*88; // 12–100
+      b.style.width = b.style.height = size+'px';
+      b.style.left = (xPos ?? Math.random()*100)+'vw';
+      b.style.bottom = '-20vh';
+      b.style.background = bubbleColor();
+      // speed influenced by size and time
+      const hour = new Date().getHours();
+      const speedFactor = (hour >= 20 || hour < 6) ? 1.2 : 1; // slightly faster at night
+      b.style.setProperty('--x', (Math.random()*20 - 10) + 'vw');
+      b.style.setProperty('--dur', (16 + Math.random()*24) / speedFactor + 's');
+      bg.appendChild(b);
+      setTimeout(()=>b.remove(), 52000);
+    }
+
+    // initial field
+    for (let i=0;i<30;i++) setTimeout(()=>addBubble(), i*180);
+    // continuous
+    let bubbleTimer = setInterval(()=>addBubble(), 900);
+
+    // Pointer interaction: spawn happy bubbles where you move/click
+    let pointerThrottle = 0;
+    window.addEventListener('pointermove', e=>{
+      if (prefersReduced) return;
+      if (Date.now() - pointerThrottle > 100){
+        addBubble((e.clientX / innerWidth) * 100);
+        pointerThrottle = Date.now();
+      }
+    });
+    window.addEventListener('click', e=> addBubble((e.clientX / innerWidth) * 100));
+
+    // Pause on visibility hidden for perf
+    document.addEventListener('visibilitychange', ()=>{
+      if (document.hidden) { clearInterval(bubbleTimer); }
+      else { bubbleTimer = setInterval(()=>addBubble(), 900); }
+    });
 
     // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
+```
+
+---
+
+## netlify.toml
+
+> Balanced security headers for an inline-script site. When you externalize JS/CSS, tighten CSP by removing `'unsafe-inline'` and adding hashes/nonces.
+
+```toml
+[build]
+  publish = "."   # root has index.html
+  command = ""    # static site, no build step
+
+[[headers]]
+  for = "/public/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # CSP note: loosened for inline styles/scripts used here; tighten once externalized
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; font-src https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+
+# Pretty language URLs (keep query param canonicalization consistent with JS SEO)
+[[redirects]]
+  from = "/en"
+  to = "/?lang=en"
+  status = 301
+
+[[redirects]]
+  from = "/fr"
+  to = "/?lang=fr"
+  status = 301
+```
+
+---
+
+## public/robots.txt
+
+```txt
+User-agent: *
+Allow: /
+Sitemap: https://example.com/public/sitemap.xml
+```
+
+---
+
+## public/sitemap.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/?lang=en</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://example.com/?lang=fr</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>
+```
+
+---
+
+### Notes
+
+* Replace `https://example.com/` with your live domain everywhere (canonical/hreflang, JSON-LD, robots, sitemap).
+* Add your real Google Business Profile URL in `sameAs`.
+* Move inline CSS/JS into `/public/*.css` and `/public/*.js` for stricter CSP later.
+* Drop your real images into `/public` and swap the `<figure class="ph">` blocks with `<img loading="lazy">`.
+* Netlify Forms is already connected (`data-netlify`); view submissions in Netlify UI.
+
+```
+```
