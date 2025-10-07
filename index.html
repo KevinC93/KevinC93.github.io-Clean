@@ -1,656 +1,395 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CACLEAN — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
-  <meta name="description" content="CACLEAN — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
-  <meta name="keywords" content="cleaning, house cleaning, deep clean, move out clean, post construction, CACLEAN" />
-  <meta property="og:title" content="CACLEAN — 24/7 Cleaning" />
-  <meta property="og:description" content="Detail-oriented. We treat every home like our own. Call or text to book." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://example.com/" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="canonical" href="https://example.com/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CACLEAN — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
+<meta name="description" content="CACLEAN — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ink:#0f1a3a;
+    --muted:#6b7694;
+    --blue:#1a5fff;      /* brand blue for fashion text on pink */
+    --blue-bg:#0f1e7a;   /* deep blue background */
+    --pink:#ff4fa3;      /* brand pink for fashion text on blue */
+    --pink-bg:#ff5aa9;   /* deep pink background */
+    --card:#ffffff;
+    --shadow:0 12px 30px rgba(15,26,58,.16);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    color:var(--ink); line-height:1.6; overflow-x:hidden;
+  }
 
-  <!--
-    === Netlify + Git quick setup (kept inline so this single file "shows the build") ===
-    1) git init && git add . && git commit -m "init"
-    2) Push to GitHub.
-    3) Netlify: "Add new site" -> "Import from Git". Build command: (none)  Publish dir: (root)
-       (Optional) If you later add tooling, set: Build: `npm run build` and Publish: `dist` (or `.next`)
-    4) Enable Deploy Previews (Netlify does this automatically for PRs).
-    5) Status badge: replace SITE_ID below and uncomment the <img> in the footer "Build" card.
-    6) Forms work via `data-netlify="true"` — no extra backend needed.
-  -->
+  /* === TWO SPONGE TEXTURES (animated, fixed) === */
+  .texture{
+    position:fixed; inset:0 auto 0 0; width:50vw; height:100vh; z-index:-2; pointer-events:none;
+  }
+  .texture.right{left:auto; right:0}
+  .texture svg{display:block; width:100%; height:100%}
+  /* soft “come together” reveal so the halves blend on load */
+  .merge-glow{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(50% 120% at 50% 50%, rgba(255,255,255,.18), transparent 60%),
+      linear-gradient(90deg, rgba(255,255,255,.14), rgba(255,255,255,0) 40%, rgba(255,255,255,.14));
+    opacity:0; animation:reveal .9s ease-out forwards .15s;
+  }
+  @keyframes reveal{from{opacity:0; filter:blur(12px)} to{opacity:1; filter:blur(0)}}
 
-  <style>
-    :root{
-      --ink:#0f1a3a;
-      --ink-2:#1a2240;
-      --muted:#6b7694;
-      --accent:#ff4fa3;
-      --accent-2:#ff86c3;
-      --blue:#1a5fff;
-      --pink:#ff4fa3;
-      --card:#ffffff;
-      --shadow: 0 12px 30px rgba(15,26,58,.16);
-      --radius:18px;
+  .container{max-width:1100px; margin:0 auto; padding:24px}
+  header{
+    position:sticky; top:0; z-index:10; color:#e8ecff;
+    background:rgba(10,14,32,.55); backdrop-filter: saturate(160%) blur(12px);
+    border-bottom:1px solid rgba(255,255,255,.12); overflow:hidden;
+  }
+  .row{display:flex; gap:16px; align-items:center; justify-content:space-between}
+  .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+  .brand img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
 
-      /* Waves (scroll-controlled) */
-      --waveA: 12; /* amplitude px */
-      --waveB: 24;
-      --phase: 0;  /* radians */
-      --water:#0e1b45;
-      --water-2:#0a1537;
+  .nav{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+  .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px}
+  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden}
+  .lang-toggle button{background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
+  .lang-toggle button.active{background:#fff; color:#0d1533}
 
-      /* CTA glow */
-      --glow: radial-gradient(60% 120% at 50% 0%, rgba(255,255,255,.35), rgba(255,255,255,0));
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--ink);
-      line-height:1.6;
+  .hero{position:relative}
+  .hero-inner{padding:72px 24px 96px}
+  .h1{font-size: clamp(32px, 5vw, 56px); line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px}
+  .lead{font-size: clamp(16px, 2.2vw, 20px); color:#1b2650; margin-bottom:18px}
+  .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
+  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:800; box-shadow: var(--shadow)}
 
-      /* Half & half vertical + subtle merge pattern + animated reveal */
-      background:
-        /* merge pattern */
-        radial-gradient(60px 60px at 25% 30%, rgba(255,255,255,.08) 0 30%, transparent 31%) repeat,
-        radial-gradient(50px 50px at 70% 60%, rgba(0,0,0,.06) 0 28%, transparent 29%) repeat,
-        linear-gradient(90deg, var(--blue) 0 50%, var(--pink) 50% 100%);
-      background-size: 160px 160px, 140px 140px, 100% 100%;
-      position:relative;
-      overflow-x:hidden;
-    }
-    body::before{
-      /* Soft crossfade blend to make halves merge */
-      content:"";
-      position:fixed; inset:0; pointer-events:none;
-      background:
-        radial-gradient(50% 120% at 50% 50%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,0) 40%, rgba(255,255,255,.12));
-      mix-blend-mode: soft-light;
-      opacity:0;
-      animation: reveal .9s ease-out forwards .15s;
-    }
-    @keyframes reveal{from{opacity:0; filter:blur(12px)} to{opacity:1; filter:blur(0)}}
+  .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
+    border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none;
+    box-shadow: var(--shadow); position:relative; overflow:hidden; transform: translateZ(0);
+    transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
+  }
+  .btn:hover{transform: translateY(-1px)}
+  .btn:active{transform: translateY(0)}
+  .btn-accent{color:#fff; background: linear-gradient(180deg, var(--pink) 0%, #ff86c3 100%)}
+  .btn-primary{color:#101635; background:linear-gradient(180deg, #fff 0%, #f6f7ff 100%); border:1px solid rgba(0,0,0,.08)}
+  .small{font-size:12px; color:#2a3a74}
+  .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
+  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:14px; text-align:center}
 
-    .container{max-width:1100px; margin:0 auto; padding:24px}
-    header{
-      position:sticky; top:0; z-index:50;
-      background:rgba(10,14,32,.55);
-      color:#e8ecff;
-      backdrop-filter: saturate(160%) blur(12px);
-      border-bottom:1px solid rgba(255,255,255,.12);
-      overflow:hidden; /* to clip waves */
-    }
-    .row{display:flex; gap:16px; align-items:center; justify-content:space-between}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
-    .brand img{width:42px; height:42px; border-radius:12px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
+  section{padding:56px 24px}
+  .grid{display:grid; gap:20px}
+  .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
+  .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow)}
+  .list{margin:0; padding:0; list-style:none}
+  .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
+  .pill{display:inline-block; background:rgba(255,79,163,.1); color:var(--pink); padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-    .nav{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-    .tag{font-size:12px; font-weight:800; background:rgba(255,255,255,.12); color:#fff; padding:4px 8px; border-radius:999px}
+  footer{padding:40px 24px 80px; background:linear-gradient(#0c1536,#0a1230); color:#d7dbef; position:relative}
+  footer a{color:#fff}
+  .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
+  .copyright{opacity:.75; font-size:12px}
 
-    .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.2); border-radius:999px; overflow:hidden}
-    .lang-toggle button{
-      background:transparent; border:0; padding:6px 10px; cursor:pointer; font-weight:800; font-size:12px; color:#fff;
-    }
-    .lang-toggle button.active{background:#fff; color:#0d1533}
+  /* Inputs */
+  .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline: none}
+  .field:focus{border-color: var(--pink); box-shadow: 0 0 0 6px rgba(255,79,163,.15)}
 
-    /* Hero */
-    .hero{position:relative; isolation:isolate}
-    .hero-inner{padding:68px 24px 96px}
-    .h1{
-      font-size: clamp(32px, 5vw, 56px);
-      line-height:1.1; margin:0 0 12px; font-weight:900; letter-spacing:-.3px; color:#0d1533;
-      text-shadow: 0 2px 0 rgba(255,255,255,.4);
-    }
-    .lead{font-size: clamp(16px, 2.2vw, 20px); color:#1b2650; margin-bottom:18px}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
-    .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:8px 12px; border-radius:12px; font-weight:800; box-shadow: var(--shadow)}
+  /* Responsive */
+  @media (max-width:800px){
+    .grid-2{grid-template-columns: 1fr}
+    .kpis{grid-template-columns: 1fr 1fr 1fr}
+    .foot-grid{grid-template-columns: 1fr}
+  }
 
-    .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-    .btn{
-      display:inline-flex; align-items:center; gap:10px; border:0; cursor:pointer; padding:14px 18px;
-      border-radius:16px; font-weight:900; letter-spacing:.2px; text-decoration:none;
-      box-shadow: var(--shadow);
-      position:relative; overflow:hidden;
-      transform: translateZ(0);
-      transition: transform .15s ease, box-shadow .2s ease, opacity .2s ease;
-    }
-    .btn:hover{transform: translateY(-1px)}
-    .btn:active{transform: translateY(0)}
-    .btn-primary{
-      color:#101635;
-      background:
-        linear-gradient(180deg, #fff 0%, #f6f7ff 100%),
-        var(--glow);
-      border:1px solid rgba(0,0,0,.08);
-    }
-    .btn-primary::after{
-      content:""; position:absolute; inset:0;
-      background: linear-gradient(120deg, transparent 0 30%, rgba(255,255,255,.6) 45%, transparent 60%);
-      transform: translateX(-120%);
-      transition: transform .6s ease;
-    }
-    .btn-primary:hover::after{ transform: translateX(120%) }
-    .btn-accent{
-      color:#fff; background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
-    }
-    .btn-outline{background:#fff; color:#0d1533; border:1px solid rgba(15,26,58,.12)}
-    .small{font-size:12px; color:#2a3a74}
-    .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
-    .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:14px; text-align:center}
-
-    /* Sections */
-    section{padding:56px 24px}
-    .grid{display:grid; gap:20px}
-    .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
-    .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow)}
-    .list{margin:0; padding:0; list-style:none}
-    .list li{display:flex; gap:10px; align-items:flex-start; margin:10px 0}
-    .pill{display:inline-block; background:rgba(255,79,163,.1); color:var(--accent); padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
-
-    /* Footer (with waves) */
-    footer{padding:40px 24px 80px; background:linear-gradient(#0c1536,#0a1230); color:#d7dbef; position:relative; overflow:hidden}
-    footer a{color:#fff}
-    .foot-grid{display:grid; gap:20px; grid-template-columns: repeat(3, minmax(0,1fr))}
-    .copyright{opacity:.75; font-size:12px}
-
-    /* Interactive Bubbles Canvas overlay (non-obvious; sits under content except header/footer waves) */
-    #bubble-canvas{position:fixed; inset:0; z-index:0; pointer-events:none; mix-blend-mode:soft-light; opacity:.75}
-
-    /* Header/Footer wave SVGs container */
-    .wave-wrap{position:absolute; left:0; width:100%; pointer-events:none; z-index:-1}
-    .wave-top{top:0; height:100%}
-    .wave-bottom{bottom:0; height:100%}
-
-    /* Accessibility: reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .btn, .btn::after{transition:none}
-      body::before{animation:none; opacity:1}
-    }
-
-    /* Responsive */
-    @media (max-width: 800px){
-      .grid-2{grid-template-columns: 1fr}
-      .kpis{grid-template-columns: 1fr 1fr 1fr}
-      .foot-grid{grid-template-columns: 1fr}
-    }
-
-    /* Floating mobile CTA dock */
-    .cta-dock{
-      position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
-      display:flex; gap:10px; padding:8px; background:rgba(255,255,255,.8);
-      border:1px solid rgba(0,0,0,.08); border-radius:999px; box-shadow: var(--shadow); backdrop-filter: blur(8px);
-      z-index:60;
-    }
-    @media (min-width: 801px){ .cta-dock{display:none} }
-
-    /* subtle focus halos on inputs for “bubble pop” feel */
-    .field{flex:1; padding:12px; border:1px solid rgba(15,26,58,.15); border-radius:12px; outline: none}
-    .field:focus{border-color: var(--accent); box-shadow: 0 0 0 6px rgba(255,79,163,.15)}
-  </style>
+  /* === “Fashion” title coloring depending on side === */
+  .fashion{transition: color .2s ease, text-shadow .2s ease}
+  .fashion.on-blue{color:var(--pink); text-shadow: 0 2px 0 rgba(255,255,255,.35)}
+  .fashion.on-pink{color:var(--blue); text-shadow: 0 2px 0 rgba(255,255,255,.35)}
+</style>
 </head>
 <body>
-  <!-- Interactive bubbles canvas -->
-  <canvas id="bubble-canvas" aria-hidden="true"></canvas>
 
-  <header>
-    <!-- Header waves (scroll-controlled) -->
-    <div class="wave-wrap wave-top" aria-hidden="true">
-      <svg id="wave-header" preserveAspectRatio="none" width="100%" height="120" viewBox="0 0 1000 120">
-        <path id="wavePathHeader" fill="url(#whGrad)"></path>
-        <defs>
-          <linearGradient id="whGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0a1537"/>
-            <stop offset="1" stop-color="#0d1b45"/>
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
+<!-- LEFT sponge (BLUE) -->
+<div class="texture left" aria-hidden="true">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Blue sponge texture background">
+    <defs>
+      <!-- Make blobby mask with turbulence + threshold -->
+      <filter id="spongeBlue" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="9" result="noise">
+          <animate attributeName="baseFrequency" values="0.012;0.018;0.012" dur="12s" repeatCount="indefinite" />
+        </feTurbulence>
+        <!-- Threshold the noise to get pores -->
+        <feColorMatrix in="noise" type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 35 -15" result="holes"/>
+        <feGaussianBlur stdDeviation="0.4" />
+      </filter>
+      <mask id="maskBlue">
+        <rect x="0" y="0" width="100" height="100" fill="white"/>
+        <!-- Darker dots cut out -->
+        <rect x="0" y="0" width="100" height="100" filter="url(#spongeBlue)" fill="black" opacity="0.55"/>
+      </mask>
+      <linearGradient id="blueDepth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#132a9a"/>
+        <stop offset="1" stop-color="var(--blue-bg)"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="100" height="100" fill="url(#blueDepth)" mask="url(#maskBlue)"/>
+  </svg>
+</div>
 
-    <div class="container row">
-      <div class="brand">
-        <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="CACLEAN logo">
-        <div>
-          <div style="font-size:18px">CACLEAN</div>
-          <div class="small" data-i18n="tagline">Detail-oriented cleaning, 24/7</div>
-        </div>
+<!-- RIGHT sponge (PINK) -->
+<div class="texture right" aria-hidden="true">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Pink sponge texture background">
+    <defs>
+      <filter id="spongePink" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.016" numOctaves="3" seed="15" result="noise">
+          <animate attributeName="baseFrequency" values="0.013;0.02;0.013" dur="12s" repeatCount="indefinite" />
+        </feTurbulence>
+        <feColorMatrix in="noise" type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 35 -15" result="holes"/>
+        <feGaussianBlur stdDeviation="0.4" />
+      </filter>
+      <mask id="maskPink">
+        <rect x="0" y="0" width="100" height="100" fill="white"/>
+        <rect x="0" y="0" width="100" height="100" filter="url(#spongePink)" fill="black" opacity="0.55"/>
+      </mask>
+      <linearGradient id="pinkDepth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ff7dbd"/>
+        <stop offset="1" stop-color="var(--pink-bg)"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="100" height="100" fill="url(#pinkDepth)" mask="url(#maskPink)"/>
+  </svg>
+</div>
+
+<div class="merge-glow" aria-hidden="true"></div>
+
+<header>
+  <div class="container row">
+    <div class="brand">
+      <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="CACLEAN logo">
+      <div>
+        <div class="fashion" style="font-size:18px">CACLEAN</div>
+        <div class="small" data-i18n="tagline">Detail-oriented cleaning, 24/7</div>
       </div>
-      <nav class="nav">
-        <span class="tag" data-i18n="available247">Available 24/7</span>
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
-          <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
-        </div>
-        <a class="btn btn-primary" href="tel:+15146007514" data-i18n="callNow"><span aria-hidden="true">📞</span>Call now</a>
-        <a class="btn btn-accent" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs"><span aria-hidden="true">💬</span>Text us</a>
-      </nav>
     </div>
-  </header>
+    <nav class="nav">
+      <span class="tag" data-i18n="available247">Available 24/7</span>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
+        <button id="lang-fr" data-lang="fr" aria-pressed="false">FR</button>
+      </div>
+      <a class="btn btn-primary" href="tel:+15146007514" data-i18n="callNow"><span aria-hidden="true">📞</span>Call now</a>
+      <a class="btn btn-accent" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote" data-i18n="textUs"><span aria-hidden="true">💬</span>Text us</a>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <h1 class="h1 bubble-zone" data-i18n="hero">Obsessively clean. Delightfully easy.</h1>
-        <p class="lead bubble-zone" data-i18n="subhero">
-          Family-run. We treat your home like our own! If you’re not happy, we’re not done.
+<main>
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1 class="h1 fashion" data-i18n="hero">Obsessively clean. Delightfully easy.</h1>
+      <p class="lead" data-i18n="subhero">Family-run. We treat your home like our own! If you’re not happy, we’re not done.</p>
+      <div class="badges">
+        <span class="badge" data-i18n="promo">$100 service fee + $25/h (first hour included)</span>
+        <span class="badge" data-i18n="guarantee">100% satisfaction guaranteed</span>
+        <span class="badge" data-i18n="licensed">Professional • Trusted • Friendly</span>
+      </div>
+      <div class="cta">
+        <a class="btn btn-accent" href="tel:+15146007514"><span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span></a>
+        <a class="btn btn-primary" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote"><span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span></a>
+        <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
+      </div>
+      <div class="kpis" role="list">
+        <div class="kpi" role="listitem"><strong>24/7</strong><div class="small" data-i18n="availability">Availability</div></div>
+        <div class="kpi" role="listitem"><strong>Same-Day</strong><div class="small" data-i18n="sameDay">Often available</div></div>
+        <div class="kpi" role="listitem"><strong>Family</strong><div class="small" data-i18n="familyRun">Run business</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2 class="fashion" style="margin-top:0" data-i18n="servicesTitle">Core services</h2>
+        <ul class="list">
+          <li><span class="pill">Standard Clean</span></li>
+          <li><span class="pill">Deep Clean</span></li>
+          <li><span class="pill">Move-In / Move-Out</span></li>
+          <li><span class="pill">Post-Construction</span></li>
+        </ul>
+        <p class="small" data-i18n="pricingNote">Transparent pricing: $100 service fee + $25/h. First hour included.</p>
+      </div>
+      <div class="card">
+        <h2 class="fashion" style="margin-top:0" data-i18n="aboutTitle">Trust & about us</h2>
+        <p data-i18n="aboutBody">
+          Team of detail-oriented cleaning pros! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.
         </p>
-        <div class="badges">
-          <span class="badge bubble-zone" data-i18n="promo">$100 service fee + $25/h (first hour included)</span>
-          <span class="badge bubble-zone" data-i18n="guarantee">100% satisfaction guaranteed</span>
-          <span class="badge bubble-zone" data-i18n="licensed">Professional • Trusted • Friendly</span>
-        </div>
-        <div class="cta">
-          <a class="btn btn-accent" href="tel:+15146007514">
-            <span aria-hidden="true">✨</span><span data-i18n="ctaCall">Call CACLEAN</span>
-          </a>
-          <a class="btn btn-primary" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">
-            <span aria-hidden="true">💬</span><span data-i18n="ctaText">Text for a quote</span>
-          </a>
-          <span class="small" data-i18n="serving">Standard • Deep • Move-In/Out • Post-Construction</span>
-        </div>
-        <div class="kpis" role="list">
-          <div class="kpi bubble-zone" role="listitem"><strong>24/7</strong><div class="small" data-i18n="availability">Availability</div></div>
-          <div class="kpi bubble-zone" role="listitem"><strong>Same-Day</strong><div class="small" data-i18n="sameDay">Often available</div></div>
-          <div class="kpi bubble-zone" role="listitem"><strong>Family</strong><div class="small" data-i18n="familyRun">Run business</div></div>
-        </div>
+        <ul class="list">
+          <li>✅ <span data-i18n="insured">Dependable</span></li>
+          <li>✅ <span data-i18n="eco">Eco-friendly options available</span></li>
+          <li>✅ <span data-i18n="customPlans">Custom plans for homes & sites</span></li>
+        </ul>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section>
-      <div class="container grid grid-2">
-        <div class="card bubble-zone">
-          <h2 style="margin-top:0" data-i18n="servicesTitle">Core services</h2>
-          <ul class="list">
-            <li><span class="pill">Standard Clean</span></li>
-            <li><span class="pill">Deep Clean</span></li>
-            <li><span class="pill">Move-In / Move-Out</span></li>
-            <li><span class="pill">Post-Construction</span></li>
-          </ul>
-          <p class="small" data-i18n="pricingNote">Transparent pricing: $100 service fee + $25/h. First hour included.</p>
-        </div>
-        <div class="card bubble-zone">
-          <h2 style="margin-top:0" data-i18n="aboutTitle">Trust & about us</h2>
-          <p data-i18n="aboutBody">
-            Team of detail-oriented cleaning pros! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.
-          </p>
-          <ul class="list">
-            <li>✅ <span data-i18n="insured">Dependable</span></li>
-            <li>✅ <span data-i18n="eco">Eco-friendly options available</span></li>
-            <li>✅ <span data-i18n="customPlans">Custom plans for homes & sites</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section aria-labelledby="contact">
-      <div class="container grid grid-2">
-        <div class="card bubble-zone">
-          <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
-          <!-- Netlify-ready contact form -->
-          <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="quote" />
-            <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
-            <div class="row" style="gap:10px; align-items:stretch">
-              <input class="field" name="name" required placeholder="Name" aria-label="Name">
-              <input class="field" name="phone" required placeholder="Phone" aria-label="Phone">
-            </div>
-            <div style="height:10px"></div>
-            <input class="field" name="email" type="email" placeholder="Email (optional)" aria-label="Email" style="width:100%">
-            <div style="height:10px"></div>
-            <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
-            <div style="height:14px"></div>
-            <button class="btn btn-accent" type="submit" data-i18n="submit">Request quote</button>
-            <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
-          </form>
-        </div>
-
-        <!-- Netlify + Git build showcase (static, informative) -->
-        <div class="card">
-          <h2 style="margin-top:0">Built for Netlify + Git</h2>
-          <ul class="list">
-            <li>🔁 Continuous deploys from GitHub (PRs ➜ Deploy Previews)</li>
-            <li>📮 Form handling via <code>data-netlify</code> (no backend needed)</li>
-            <li>⚙️ Add <code>netlify.toml</code> later for functions/redirects</li>
-          </ul>
-          <div class="small" style="opacity:.8">
-            <p style="margin:.6rem 0 .2rem">Status badge (replace <code>SITE_ID</code> & uncomment):</p>
-            <!-- <img src="https://api.netlify.com/api/v1/badges/SITE_ID/deploy-status" alt="Netlify Status" /> -->
-            <p style="margin:.6rem 0 .2rem">Deploy with one command (optional):</p>
-            <pre style="background:#0f1533; color:#e8ecff; padding:12px; border-radius:12px; white-space:pre-wrap">npm i -g netlify-cli
-netlify init   # link to site
-netlify deploy --prod</pre>
+  <section aria-labelledby="contact">
+    <div class="container grid grid-2">
+      <div class="card">
+        <h2 id="contact" class="fashion" style="margin-top:0" data-i18n="contactTitle">Get a quick quote</h2>
+        <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="quote" />
+          <p style="display:none"><label>Don’t fill this out if you’re human: <input name="bot-field"/></label></p>
+          <div class="row" style="gap:10px; align-items:stretch">
+            <input class="field" name="name" required placeholder="Name" aria-label="Name">
+            <input class="field" name="phone" required placeholder="Phone" aria-label="Phone">
           </div>
+          <div style="height:10px"></div>
+          <input class="field" name="email" type="email" placeholder="Email (optional)" aria-label="Email" style="width:100%">
+          <div style="height:10px"></div>
+          <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
+          <div style="height:14px"></div>
+          <button class="btn btn-accent" type="submit" data-i18n="submit">Request quote</button>
+          <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2 class="fashion" style="margin-top:0">Built for Netlify + Git</h2>
+        <ul class="list">
+          <li>🔁 Continuous deploys from GitHub (PRs ➜ Deploy Previews)</li>
+          <li>📮 Form handling via <code>data-netlify</code> (no backend needed)</li>
+          <li>⚙️ Add <code>netlify.toml</code> later for functions/redirects</li>
+        </ul>
+        <div class="small" style="opacity:.85">
+          <!-- Uncomment with your site ID to show the live status badge -->
+          <!-- <img src="https://api.netlify.com/api/v1/badges/SITE_ID/deploy-status" alt="Netlify Status" /> -->
+          <pre style="background:#0f1533; color:#e8ecff; padding:12px; border-radius:12px; white-space:pre-wrap">npm i -g netlify-cli
+netlify init         # link to your Netlify site
+netlify deploy --prod</pre>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer role="contentinfo">
-    <!-- Footer waves -->
-    <div class="wave-wrap wave-bottom" aria-hidden="true">
-      <svg id="wave-footer" preserveAspectRatio="none" width="100%" height="140" viewBox="0 0 1000 140">
-        <path id="wavePathFooter" fill="url(#wfGrad)"></path>
-        <defs>
-          <linearGradient id="wfGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#0d1b45"/>
-            <stop offset="1" stop-color="#0a1437"/>
-          </linearGradient>
-        </defs>
-      </svg>
     </div>
+  </section>
+</main>
 
-    <div class="container foot-grid">
-      <div>
-        <div class="brand">
-          <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" aria-hidden="true">
-          <div style="font-weight:800">CACLEAN</div>
-        </div>
-        <p class="small" style="max-width:42ch" data-i18n="footerBlurb">
-          Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
-        </p>
+<footer role="contentinfo">
+  <div class="container foot-grid">
+    <div>
+      <div class="brand">
+        <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" aria-hidden="true">
+        <div class="fashion" style="font-weight:800">CACLEAN</div>
       </div>
-      <div>
-        <strong data-i18n="contact">Contact</strong><br>
-        <a href="tel:+15146007514">+1 (514) 600-7514</a><br>
-        <a href="mailto:cacleanmontreal@gmail.com">cacleanmontreal@gmail.com</a><br>
-        <span data-i18n="hours">Open 24/7</span>
-      </div>
-      <div>
-        <strong data-i18n="areas">Service areas</strong><br>
-        <span class="small">Greater Montréal • Laval • South Shore</span>
-      </div>
+      <p class="small" style="max-width:42ch" data-i18n="footerBlurb">
+        Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
+      </p>
     </div>
-    <div class="container" style="margin-top:16px">
-      <div class="copyright">© <span id="year"></span> CACLEAN. <span data-i18n="rights">All rights reserved.</span></div>
+    <div>
+      <strong data-i18n="contact">Contact</strong><br>
+      <a href="tel:+15146007514">+1 (514) 600-7514</a><br>
+      <a href="mailto:cacleanmontreal@gmail.com">cacleanmontreal@gmail.com</a><br>
+      <span data-i18n="hours">Open 24/7</span>
     </div>
-  </footer>
+    <div>
+      <strong data-i18n="areas">Service areas</strong><br>
+      <span class="small">Greater Montréal • Laval • South Shore</span>
+    </div>
+  </div>
+  <div class="container" style="margin-top:16px">
+    <div class="copyright">© <span id="year"></span> CACLEAN. <span data-i18n="rights">All rights reserved.</span></div>
+  </div>
+</footer>
 
-  <!-- Local Business Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "CACLEAN",
-    "image": "https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png",
-    "telephone": "+1-514-600-7514",
-    "areaServed": ["Montreal"],
-    "openingHours": "Mo-Su 00:00-23:59",
-    "priceRange": "$$",
-    "url": "https://example.com",
-    "description": "Family-run, 24/7 cleaning: standard, deep, move-in/out, post-construction. $100 service fee + $25/h. First hour included. 100% satisfaction guarantee."
+<!-- Local Business Schema -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"CACLEAN",
+"image":"https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png",
+"telephone":"+1-514-600-7514","areaServed":["Montreal"],
+"openingHours":"Mo-Su 00:00-23:59","priceRange":"$$","url":"https://example.com",
+"description":"Family-run, 24/7 cleaning: standard, deep, move-in/out, post-construction. $100 service fee + $25/h. First hour included. 100% satisfaction guarantee."}
+</script>
+
+<script>
+  // ===== Tiny i18n (EN/FR) =====
+  const dict = {
+    en: { tagline:"Detail-oriented cleaning, 24/7", available247:"Available 24/7", callNow:"Call now", textUs:"Text us",
+      hero:"Obsessively clean. Delightfully easy.",
+      subhero:"Family-run. We treat your home like our own—if you’re not happy, we’re not done.",
+      promo:"$100 service fee + $25/h (first hour included)", guarantee:"100% satisfaction guaranteed",
+      licensed:"Insured • Trusted • Friendly", ctaCall:"Call CACLEAN", ctaText:"Text for a quote",
+      serving:"Standard • Deep • Move-In/Out • Post-Construction",
+      availability:"Availability", sameDay:"Often available", familyRun:"Run business",
+      servicesTitle:"Core services", pricingNote:"Transparent pricing: $100 service fee + $25/h. First hour included.",
+      aboutTitle:"Trust & about us", aboutBody:"Detail-oriented! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.",
+      insured:"Insured & dependable", eco:"Eco-friendly options available", customPlans:"Custom plans for homes & sites",
+      contactTitle:"Get a quick quote", submit:"Request quote", disclaimer:"We reply fast. No spam.",
+      footerBlurb:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
+      contact:"Contact", hours:"Open 24/7", areas:"Service areas", rights:"All rights reserved." },
+    fr: { tagline:"Nettoyage minutieux, 24/7", available247:"Disponible 24/7", callNow:"Appelez maintenant", textUs:"Textez-nous",
+      hero:"Obsessivement propre. Tellement simple.",
+      subhero:"Entreprise familiale de « maniaques du ménage ». On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
+      promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)", guarantee:"Satisfaction 100 % garantie",
+      licensed:"Assuré • Fiable • Sympathique", ctaCall:"Appeler CACLEAN", ctaText:"Texter pour une soumission",
+      serving:"Entretien • Grand ménage • Déménagement • Après construction",
+      availability:"Disponibilité", sameDay:"Souvent aujourd’hui", familyRun:"Entreprise familiale",
+      servicesTitle:"Services principaux", pricingNote:"Tarif clair : frais de service 100 $ + 25 $/h. 1re heure incluse.",
+      aboutTitle:"Confiance & à propos", aboutBody:"Équipe minutieuse! Nos entretiens surpassent la norme parce qu’on traite chaque maison comme la nôtre. Pas satisfaits? On revient. Entreprise familiale. Satisfaction garantie.",
+      insured:"Assuré & fiable", eco:"Options éco disponibles", customPlans:"Plans sur mesure pour maisons & chantiers",
+      contactTitle:"Obtenir une soumission rapide", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
+      footerBlurb:"Entreprise familiale sympathique. Ponctuels, efficaces, étincelant garanti.",
+      contact:"Contact", hours:"Ouvert 24/7", areas:"Zones desservies", rights:"Tous droits réservés." }
+  };
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  function setLang(lang){
+    $$("[data-i18n]").forEach(el=>{
+      const k = el.getAttribute("data-i18n"); const t = dict?.[lang]?.[k];
+      if (typeof t==="string") el.textContent = t;
+    });
+    $("#lang-en").classList.toggle("active", lang==="en");
+    $("#lang-fr").classList.toggle("active", lang==="fr");
+    $("#lang-en").setAttribute("aria-pressed", lang==="en");
+    $("#lang-fr").setAttribute("aria-pressed", lang==="fr");
+    document.documentElement.lang = lang; localStorage.setItem("lang", lang);
   }
-  </script>
+  $("#lang-en").addEventListener("click", ()=>setLang("en"));
+  $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
+  setLang(localStorage.getItem("lang") || "en");
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-  <!-- i18n + Bubbles + Scroll Waves -->
-  <script>
-    // ===== Tiny i18n =====
-    const dict = {
-      en: {
-        tagline: "Detail-oriented cleaning, 24/7",
-        available247: "Available 24/7",
-        textUs: "Text us",
-        callNow: "Call now",
-        hero: "Obsessively clean. Delightfully easy.",
-        subhero: "Family-run. We treat your home like our own—if you’re not happy, we’re not done.",
-        promo: "$100 service fee + $25/h (first hour included)",
-        guarantee: "100% satisfaction guaranteed",
-        licensed: "Insured • Trusted • Friendly",
-        ctaCall: "Call CACLEAN",
-        ctaText: "Text for a quote",
-        serving: "Standard • Deep • Move-In/Out • Post-Construction",
-        availability: "Availability",
-        sameDay: "Often available",
-        familyRun: "Run business",
-        servicesTitle: "Core services",
-        pricingNote: "Transparent pricing: $100 service fee + $25/h. First hour included.",
-        aboutTitle: "Trust & about us",
-        aboutBody:
-          "Detail-oriented! Our regular cleans outperform others because we treat every home like our own. We’re not happy if you aren’t happy. Family-run. 100% guaranteed satisfaction.",
-        insured: "Insured & dependable",
-        eco: "Eco-friendly options available",
-        customPlans: "Custom plans for homes & sites",
-        contactTitle: "Get a quick quote",
-        submit: "Request quote",
-        disclaimer: "We reply fast. No spam.",
-        faqTitle: "Quick FAQs",
-        q1: "Do you bring supplies?",
-        a1: "Yes—pro tools, microfiber towels & eco-friendly options.",
-        q2: "Are you available today?",
-        a2: "Often! Text or call for a slot—24/7.",
-        q3: "How do you price?",
-        a3: "$100 service fee + $25/h. First hour included.",
-        q4: "What areas do you serve?",
-        a4: "Montréal • Laval • South Shore",
-        ctaAlt: "Prefer phone? Call or text anytime.",
-        footerBlurb: "Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
-        contact: "Contact",
-        hours: "Open 24/7",
-        areas: "Service areas",
-        rights: "All rights reserved."
-      },
-      fr: {
-        tagline: "Nettoyage minutieux, 24/7",
-        available247: "Disponible 24/7",
-        textUs: "Textez-nous",
-        callNow: "Appelez maintenant",
-        hero: "Obsessivement propre. Tellement simple.",
-        subhero: "Entreprise familiale de « maniaques du ménage ». On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
-        promo: "Frais de service 100 $ + 25 $/h (1re heure incluse)",
-        guarantee: "Satisfaction 100 % garantie",
-        licensed: "Assuré • Fiable • Sympathique",
-        ctaCall: "Appeler CACLEAN",
-        ctaText: "Texter pour une soumission",
-        serving: "Entretien • Grand ménage • Déménagement • Après construction",
-        availability: "Disponibilité",
-        sameDay: "Souvent aujourd’hui",
-        familyRun: "Entreprise familiale",
-        servicesTitle: "Services principaux",
-        pricingNote: "Tarif clair : frais de service 100 $ + 25 $/h. 1re heure incluse.",
-        aboutTitle: "Confiance & à propos",
-        aboutBody:
-          "Équipe minutieuse! Nos entretiens surpassent la norme parce qu’on traite chaque maison comme la nôtre. Pas satisfaits? On revient. Entreprise familiale. Satisfaction garantie.",
-        insured: "Assuré & fiable",
-        eco: "Options éco disponibles",
-        customPlans: "Plans sur mesure pour maisons & chantiers",
-        contactTitle: "Obtenir une soumission rapide",
-        submit: "Envoyer la demande",
-        disclaimer: "Réponse rapide. Aucun pourriel.",
-        faqTitle: "FAQ express",
-        q1: "Fournissez-vous le matériel?",
-        a1: "Oui—outils pros, linges microfibres & options éco.",
-        q2: "Êtes-vous disponible aujourd’hui?",
-        a2: "Souvent! Texto ou appel—24/7.",
-        q3: "Comment tarifez-vous?",
-        a3: "100 $ de frais + 25 $/h. 1re heure incluse.",
-        q4: "Quelles zones desservez-vous?",
-        a4: "Montréal • Laval • Rive-Sud",
-        ctaAlt: "Préférez le téléphone? Appelez ou textez à tout moment.",
-        footerBlurb: "Entreprise familiale sympathique. Ponctuels, efficaces, étincelant garanti.",
-        contact: "Contact",
-        hours: "Ouvert 24/7",
-        areas: "Zones desservies",
-        rights: "Tous droits réservés."
-      }
-    };
-    const $ = s => document.querySelector(s);
-    const $$ = s => Array.from(document.querySelectorAll(s));
-    function setLang(lang){
-      $$("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        const text = dict?.[lang]?.[key];
-        if (typeof text === "string") el.textContent = text;
-      });
-      $("#lang-en").classList.toggle("active", lang==="en");
-      $("#lang-fr").classList.toggle("active", lang==="fr");
-      $("#lang-en").setAttribute("aria-pressed", lang==="en");
-      $("#lang-fr").setAttribute("aria-pressed", lang==="fr");
-      document.documentElement.lang = lang;
-      localStorage.setItem("lang", lang);
-    }
-    $("#lang-en").addEventListener("click", ()=>setLang("en"));
-    $("#lang-fr").addEventListener("click", ()=>setLang("fr"));
-    setLang(localStorage.getItem("lang") || "en");
-    document.getElementById("year").textContent = new Date().getFullYear();
+  // ===== Fashion title auto-color (blue text over pink side, pink text over blue side) =====
+  function updateFashionColors(){
+    const mid = window.innerWidth / 2;
+    $$(".fashion").forEach(el=>{
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const onLeftHalf = cx < mid; // left = BLUE background
+      el.classList.toggle("on-blue", onLeftHalf);
+      el.classList.toggle("on-pink", !onLeftHalf);
+      // Keep contrast if inside dark header/footer: allow manual override if needed later
+    });
+  }
+  updateFashionColors();
+  addEventListener("resize", updateFashionColors);
+  addEventListener("scroll", updateFashionColors, {passive:true});
 
-    // ===== Floating mobile CTA dock
-    const dock = document.createElement('div');
-    dock.className = 'cta-dock';
-    dock.innerHTML = `
-      <a class="btn btn-accent" href="tel:+15146007514">📞 Call</a>
-      <a class="btn btn-primary" href="sms:+15146007514?&body=Hi%20CACLEAN%2C%20I%27d%20like%20a%20quote">💬 Text</a>`;
-    document.body.appendChild(dock);
+  // If user has reduced motion enabled, stop texture animation but keep visuals
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduced.matches) {
+    document.querySelectorAll("animate").forEach(a => a.parentNode.removeChild(a));
+  }
+</script>
 
-    // ===== Interactive Bubbles (Canvas) =====
-    (() => {
-      const canvas = document.getElementById('bubble-canvas');
-      const ctx = canvas.getContext('2d');
-      let dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-      let W, H;
-      const bubbles = [];
-      const MAX = 120;
-      const zones = () => $$('.bubble-zone').map(el => el.getBoundingClientRect());
-      const mouse = { x: -9999, y: -9999, down: false, hoverRects: [] };
-
-      function resize(){
-        W = canvas.width = Math.floor(innerWidth * dpr);
-        H = canvas.height = Math.floor(innerHeight * dpr);
-        canvas.style.width = innerWidth+'px';
-        canvas.style.height = innerHeight+'px';
-      }
-      resize(); addEventListener('resize', resize);
-
-      function rand(min,max){ return Math.random()*(max-min)+min }
-      function spawn(n=8){
-        for(let i=0;i<n;i++){
-          bubbles.push({
-            x: rand(0,W), y: rand(0,H),
-            r: rand(6,26)*dpr,
-            vx: rand(-0.2,0.2)*dpr, vy: rand(-0.4,0.1)*dpr,
-            a: rand(0.06,0.15), // alpha
-            hue: Math.random()<.5 ? 215 : 325 // blue/pinkish
-          });
-          if (bubbles.length > MAX) bubbles.shift();
-        }
-      }
-      spawn(MAX);
-
-      function updateMouseZones(){
-        mouse.hoverRects = zones().map(r => ({
-          x: r.x*dpr, y: r.y*dpr, w: r.width*dpr, h: r.height*dpr
-        }));
-      }
-      updateMouseZones(); addEventListener('resize', updateMouseZones);
-      addEventListener('scroll', updateMouseZones, {passive:true});
-
-      addEventListener('mousemove', e=>{
-        mouse.x = e.clientX*dpr; mouse.y = e.clientY*dpr;
-      }, {passive:true});
-      addEventListener('mousedown', ()=> mouse.down = true);
-      addEventListener('mouseup', ()=> mouse.down = false);
-
-      function repel(b, cx, cy, power=180*dpr){
-        const dx = b.x - cx, dy = b.y - cy;
-        const dist2 = dx*dx + dy*dy + 0.0001;
-        const f = power / dist2;
-        b.vx += dx * f; b.vy += dy * f;
-      }
-
-      function tick(){
-        ctx.clearRect(0,0,W,H);
-
-        for(const b of bubbles){
-          // gentle buoyancy up
-          b.vy -= 0.002*dpr;
-          // mouse repel
-          repel(b, mouse.x, mouse.y, mouse.down ? 360*dpr : 200*dpr);
-          // repel from hovered bubble-zones (their rect edges)
-          for(const r of mouse.hoverRects){
-            const cx = Math.max(r.x, Math.min(b.x, r.x+r.w));
-            const cy = Math.max(r.y, Math.min(b.y, r.y+r.h));
-            repel(b, cx, cy, 260*dpr);
-          }
-
-          // integrate
-          b.x += b.vx; b.y += b.vy;
-          b.vx *= 0.985; b.vy *= 0.985;
-
-          // wrap on edges
-          if (b.x < -50*dpr) b.x = W + 50*dpr;
-          if (b.x > W + 50*dpr) b.x = -50*dpr;
-          if (b.y < -80*dpr) { b.y = H + 10*dpr; b.vy = rand(-0.1,0.2)*dpr }
-
-          // draw
-          const g = ctx.createRadialGradient(b.x, b.y, b.r*0.1, b.x, b.y, b.r);
-          g.addColorStop(0, `hsla(${b.hue}, 85%, 80%, ${b.a})`);
-          g.addColorStop(1, `hsla(${b.hue}, 85%, 60%, 0)`);
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
-          ctx.fill();
-
-          // spec highlight
-          ctx.globalAlpha = 0.5*b.a;
-          ctx.fillStyle = '#ffffff';
-          ctx.beginPath();
-          ctx.arc(b.x - b.r*0.35, b.y - b.r*0.35, b.r*0.2, 0, Math.PI*2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-
-        requestAnimationFrame(tick);
-      }
-      tick();
-
-      // Re-spawn when focusing inputs (pop effect)
-      $$('.field').forEach(el=>{
-        el.addEventListener('focus', ()=> spawn(12));
-        el.addEventListener('mouseenter', ()=> spawn(8));
-      });
-      $$('.bubble-zone').forEach(el=>{
-        el.addEventListener('mouseenter', ()=> spawn(6));
-      });
-    })();
-
-    // ===== Scroll-controlled Waves (header & footer) =====
-    (() => {
-      const ph = document.getElementById('wavePathHeader');
-      const pf = document.getElementById('wavePathFooter');
-      function wavePath(width=1000, height=120, amp=16, phase=0, invert=false){
-        const points = [];
-        const steps = 24;
-        for(let i=0;i<=steps;i++){
-          const t = i/steps;
-          const x = t*width;
-          const y = (height/2) + Math.sin(t*2*Math.PI + phase)*amp + (invert? 10 : -10);
-          points.push([x, y]);
-        }
-        const top = invert ? `L ${width} 0 L 0 0 Z` : `L ${width} ${height} L 0 ${height} Z`;
-        return `M 0 ${invert?0:height} L 0 ${points[0][1]} ` +
-               points.map(([x,y])=>`L ${x.toFixed(2)} ${y.toFixed(2)}`).join(' ') +
-               ` L ${width} ${points.at(-1)[1].toFixed(2)} ` + top;
-      }
-      function render(){
-        const sc = Math.min(1, Math.max(0, window.scrollY / (document.body.scrollHeight - innerHeight)));
-        const phase = sc * Math.PI * 4;            // more scroll -> more phase
-        const ampH = 10 + sc * 18;                 // header amplitude increases slightly
-        const ampF = 16 + (1-sc) * 22;             // footer opposite
-        ph.setAttribute('d', wavePath(1000, 120, ampH, phase, false));
-        pf.setAttribute('d', wavePath(1000, 140, ampF, -phase*0.8, true));
-        requestAnimationFrame(render);
-      }
-      render();
-    })();
-  </script>
-
-  <!-- Optional analytics (privacy-friendly). Replace with your Plausible domain and uncomment.
-  <script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script> -->
-
+<!-- Optional analytics (privacy-friendly). Replace with your Plausible domain and uncomment.
+<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script> -->
 </body>
 </html>
