@@ -48,7 +48,7 @@
   .hdr-left img{width:56px; height:56px; border-radius:14px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
   @media (max-width:520px){ .hdr-left img{width:48px; height:48px} }
 
-  /* Center banner becomes the ONLY callout in header */
+  /* Center banner */
   .center-banner{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -65,14 +65,14 @@
   .center-banner .subtitle{position:relative; margin-top:2px; font-weight:900; font-size:16px}
   .center-banner .phone{position:relative; margin-top:4px; font-weight:900; font-size:18px; text-decoration:none; color:#fff}
 
-  /* Right: only language toggle now */
+  /* Right: language toggle */
   .hdr-right{display:flex; align-items:center; gap:10px; flex-shrink:0}
   .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden; backdrop-filter:saturate(120%) blur(2px);}
   .lang-toggle button{background:transparent; border:0; padding:8px 12px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
   .lang-toggle button.active{background:#fff; color:#0d1533}
 
   /* ===== Main ===== */
-  .hero{position:relative; color:#fff;} /* make on-image text white */
+  .hero{position:relative; color:#fff;} /* on-image text white */
   .hero-inner{padding:72px 24px 96px}
   .h1{
     font-size: clamp(32px, 6.2vw, 56px);
@@ -81,11 +81,19 @@
     text-wrap: balance;
   }
   .lead{font-size: clamp(17px, 2.6vw, 21px); color:#f1f4ff; margin-bottom:18px}
-  .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 26px}
-  .badge{background:#fff; border:1px solid rgba(15,26,58,.08); padding:10px 14px; border-radius:14px; font-weight:800; box-shadow: var(--shadow); font-size:15px; color:var(--ink)}
+
+  /* In-your-face badges */
+  .badges{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 26px}
+  .badge{
+    background:var(--grad); border:0; padding:12px 16px; border-radius:16px;
+    font-weight:900; font-size:16px; color:#fff; letter-spacing:.2px;
+    box-shadow: 0 12px 30px rgba(26,95,255,.35), 0 6px 16px rgba(255,79,163,.22);
+    text-shadow:0 1px 10px rgba(0,0,0,.25);
+  }
+
   .cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
   .small{font-size:14px}
-  .hero .small{color:#e9eeff} /* white-ish on image */
+  .hero .small{color:#e9eeff}
 
   .btn{
     display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; cursor:pointer; padding:14px 20px;
@@ -106,11 +114,16 @@
   @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.02);opacity:.7} }
   @media (prefers-reduced-motion: reduce){ .btn-call::after{animation:none} .btn, .btn:hover{transform:none} }
 
+  /* KPI cards -> CTA gradient */
   .kpis{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:26px}
-  .kpi{background:#fff; border:1px solid rgba(15,26,58,.08); border-radius:14px; padding:16px; text-align:center; color:var(--ink)}
-  .kpi strong{font-size:18px}
+  .kpi{
+    background:var(--grad); border:0; border-radius:18px; padding:16px; text-align:center; color:#fff;
+    box-shadow: 0 12px 30px rgba(26,95,255,.35), 0 6px 16px rgba(255,79,163,.22);
+  }
+  .kpi strong{font-size:18px; display:block}
+  .kpi .small{color:#ffffff; opacity:.95; font-weight:800; letter-spacing:.2px}
 
-  section{padding:56px 24px; color:var(--ink)} /* default sections use dark on light */
+  section{padding:56px 24px; color:var(--ink)}
   .grid{display:grid; gap:20px}
   .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
   .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow); color:var(--ink)}
@@ -145,7 +158,7 @@
     .hdr-right{gap:8px}
     .btn{padding:12px 16px; font-size:15px}
     .btn-call{min-width:0}
-    .badges .badge{font-size:14px}
+    .badges .badge{font-size:15px}
     .cta{gap:10px}
     .kpis{grid-template-columns: 1fr 1fr}
     .kpi strong{font-size:17px}
@@ -159,19 +172,18 @@
 
 <header>
   <div class="container hdr">
-    <!-- Left: logo (slightly bigger) -->
     <div class="hdr-left">
       <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca-Clean logo">
     </div>
 
-    <!-- Center: ONLY phone section -->
+    <!-- Center banner -->
     <div class="center-banner" role="heading" aria-level="1">
-      <div class="title">Home looking mean?</div>
-      <div class="subtitle">Call Ca-Clean</div>
+      <div class="title" data-i18n="bannerTitle">We don’t just clean — we Ca-Clean.</div>
+      <div class="subtitle" data-i18n="bannerSub">Book your shine today.</div>
       <a class="phone" href="tel:+15146007514" aria-label="Call Ca-Clean 514-600-7514">514-600-7514</a>
     </div>
 
-    <!-- Right: language toggle (call button removed) -->
+    <!-- Language toggle -->
     <div class="hdr-right">
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
@@ -184,13 +196,13 @@
 <main>
   <section class="hero" aria-label="Hero">
     <div class="container hero-inner">
-      <h1 class="h1" data-i18n="hero">Obsessively clean. So simple.</h1>
-      <p class="lead" data-i18n="subhero">Family business. We treat your home like our own—if you’re not satisfied, we continue.</p>
+      <h1 class="h1" data-i18n="hero">We Don’t Cut Corners... We Scrub Them</h1>
+      <p class="lead" data-i18n="subhero">Family business  We treat your home like our own—if you’re not satisfied, were not done!</p>
 
       <div class="badges" role="list">
         <span class="badge" role="listitem" data-i18n="promo">Service Fee $100 + $25/hr (1st hour included)</span>
         <span class="badge" role="listitem" data-i18n="guarantee">100% satisfaction guaranteed</span>
-        <span class="badge" role="listitem" data-i18n="licensed">Insured • Reliable • Friendly</span>
+        <span class="badge" role="listitem" data-i18n="qualities">Reliable • Friendly</span>
       </div>
 
       <div class="cta">
@@ -210,22 +222,11 @@
     <div class="container grid grid-2">
       <div class="card">
         <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
-        <!-- Netlify form -->
-        <form name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="quote" />
-          <p style="display:none"><label>Don’t fill this out: <input name="bot-field"/></label></p>
-          <div class="row" style="gap:10px; align-items:stretch; display:flex; flex-wrap:wrap">
-            <input class="field" name="name" required placeholder="Name" aria-label="Name" autocomplete="name">
-            <input class="field" name="phone" required placeholder="Phone" aria-label="Phone" inputmode="tel" autocomplete="tel">
-          </div>
-          <div style="height:10px"></div>
-          <input class="field" name="email" type="email" placeholder="Email (optional)" aria-label="Email" style="width:100%" autocomplete="email">
-          <div style="height:10px"></div>
-          <textarea class="field" name="details" rows="4" placeholder="Tell us about your place (sq ft, rooms, timing)…" aria-label="Project details" style="width:100%"></textarea>
-          <div style="height:14px"></div>
-          <button class="btn btn-call" type="submit" data-i18n="submit">Send inquiry</button>
-          <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
-        </form>
+        <!-- Embedded JotForm -->
+        <div id="jotform-embed">
+          <script type="text/javascript" src="https://form.jotform.com/jsform/252805178934263"></script>
+        </div>
+        <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
       </div>
 
       <div class="card">
@@ -282,11 +283,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // i18n
   const dict = {
     en: {
-      hero:"Obsessively clean. So simple.",
-      subhero:"Family business. We treat your home like our own—if you’re not satisfied, we continue.",
+      bannerTitle:"We don’t just clean — we Ca-Clean.",
+      bannerSub:"Book your shine today.",
+      hero:"We Don’t Cut Corners... We Scrub Them",
+      subhero:"Family business  We treat your home like our own—if you’re not satisfied, were not done!",
       promo:"Service Fee $100 + $25/hr (1st hour included)",
       guarantee:"100% satisfaction guaranteed",
-      licensed:"Insured • Reliable • Friendly",
+      qualities:"Reliable • Friendly",
       ctaCall:"Call Ca-Clean",
       serving:"Standard • Deep • Move-In/Out • Post-Construction",
       availability:"Availability", sameDay:"Often available", familyRun:"Run business",
@@ -298,19 +301,21 @@ document.addEventListener('DOMContentLoaded', () => {
       rights:"All rights reserved."
     },
     fr: {
-      hero:"Obsessivement propre. Tellement simple.",
-      subhero:"Entreprise familiale. On traite votre maison comme la nôtre—si vous n’êtes pas satisfait, on continue.",
+      bannerTitle:"On ne fait pas que nettoyer — on Ca-Clean.",
+      bannerSub:"Réservez votre éclat aujourd’hui.",
+      hero:"On ne coupe pas les coins… on les frotte.",
+      subhero:"Entreprise familiale  Nous traitons votre maison comme la nôtre — si vous n’êtes pas satisfait, on n’a pas fini !",
       promo:"Frais de service 100 $ + 25 $/h (1re heure incluse)",
       guarantee:"Satisfaction 100 % garantie",
-      licensed:"Assuré • Fiable • Sympathique",
+      qualities:"Fiable • Sympathique",
       ctaCall:"Appeler Ca-Clean",
       serving:"Entretien • Grand ménage • Déménagement • Après construction",
-      availability:"Disponibilité", sameDay:"Souvent aujourd’hui", familyRun:"Entreprise familiale",
+      availability:"Disponibilité", sameDay:"Souvent disponible", familyRun:"Entreprise familiale",
       contactTitle:"Envoyer une demande", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
-      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres & options éco.",
-      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent! Appelez pour un créneau—24/7.",
-      q3:"Comment tarifez-vous?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
-      q4:"Quelles zones desservez-vous?", a4:"Grand Montréal • Laval • Rive-Sud",
+      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres et options éco.",
+      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent ! Appelez pour un créneau — 24/7.",
+      q3:"Comment tarifez-vous ?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
+      q4:"Quelles zones desservez-vous ?", a4:"Grand Montréal • Laval • Rive-Sud",
       rights:"Tous droits réservés."
     }
   };
