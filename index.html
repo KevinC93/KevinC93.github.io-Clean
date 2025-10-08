@@ -48,7 +48,7 @@
   .hdr-left img{width:56px; height:56px; border-radius:14px; object-fit:cover; box-shadow:var(--shadow); background:#fff}
   @media (max-width:520px){ .hdr-left img{width:48px; height:48px} }
 
-  /* Center banner (header content you requested) */
+  /* Center banner */
   .center-banner{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -61,19 +61,15 @@
     background:linear-gradient(120deg, rgba(0,0,0,.45), rgba(0,0,0,.28));
     pointer-events:none;
   }
-  .center-banner .subtitle{position:relative; font-weight:900; font-size:16px}
+  .center-banner .title{position:relative; font-weight:900; letter-spacing:.2px; font-size:18px}
+  .center-banner .subtitle{position:relative; margin-top:2px; font-weight:900; font-size:16px}
   .center-banner .phone{position:relative; margin-top:4px; font-weight:900; font-size:18px; text-decoration:none; color:#fff}
 
-  /* Right: language toggle (black text) */
+  /* Right: language toggle */
   .hdr-right{display:flex; align-items:center; gap:10px; flex-shrink:0}
-  .lang-toggle{
-    display:inline-flex; border:1px solid rgba(0,0,0,.25); border-radius:999px; overflow:hidden;
-    background:rgba(255,255,255,.9); backdrop-filter:saturate(120%) blur(2px);
-  }
-  .lang-toggle button{
-    background:transparent; border:0; padding:8px 12px; cursor:pointer; font-weight:800; font-size:12px; color:#000;
-  }
-  .lang-toggle button.active{background:#000; color:#fff}
+  .lang-toggle{display:inline-flex; border:1px solid rgba(255,255,255,.35); border-radius:999px; overflow:hidden; backdrop-filter:saturate(120%) blur(2px);}
+  .lang-toggle button{background:transparent; border:0; padding:8px 12px; cursor:pointer; font-weight:800; font-size:12px; color:#fff}
+  .lang-toggle button.active{background:#fff; color:#0d1533}
 
   /* ===== Main ===== */
   .hero{position:relative; color:#fff;} /* on-image text white */
@@ -86,7 +82,7 @@
   }
   .lead{font-size: clamp(17px, 2.6vw, 21px); color:#f1f4ff; margin-bottom:18px}
 
-  /* Prominent badges */
+  /* In-your-face badges */
   .badges{display:flex; gap:12px; flex-wrap:wrap; margin:14px 0 26px}
   .badge{
     background:var(--grad); border:0; padding:12px 16px; border-radius:16px;
@@ -132,13 +128,14 @@
   .grid-2{grid-template-columns: repeat(2, minmax(0,1fr))}
   .card{background:var(--card); border:1px solid rgba(15,26,58,.08); border-radius:var(--radius); padding:20px; box-shadow: var(--shadow); color:var(--ink)}
   .card .small{color:var(--muted)}
+  .list{margin:0; padding:0; list-style:none}
+  .list li{display:flex; gap:10px; align-items:flex-start; margin:12px 0}
+  .pill{display:inline-block; background:rgba(255,79,163,.1); color:#ff4fa3; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px}
 
-  /* ===== Footer (black text, readable on white) ===== */
-  footer{
-    position:relative; padding:28px 24px 32px; background:#fff; color:#000; border-top:1px solid rgba(0,0,0,.08);
-  }
-  footer a{color:inherit; text-decoration:none}
-  footer a:hover{text-decoration:underline}
+  /* ===== Footer ===== */
+  footer{position:relative; padding:24px 24px 28px; background:transparent; color:#e7ebff}
+  footer::before{content:""; position:absolute; inset:0; z-index:-1; background: var(--bgimg) center bottom / cover no-repeat;}
+  footer a{color:#fff}
   .foot-grid{display:grid; gap:16px; grid-template-columns: repeat(3, minmax(0,1fr))}
   .copyright{opacity:.9; font-size:12px}
 
@@ -152,6 +149,10 @@
     .kpis{grid-template-columns: 1fr 1fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
     .hero-inner{padding:64px 20px 80px}
+    .center-banner{min-width:240px; padding:8px 14px}
+    .center-banner .title{font-size:16px}
+    .center-banner .subtitle{font-size:15px}
+    .center-banner .phone{font-size:17px}
   }
   @media (max-width: 520px){
     .hdr-right{gap:8px}
@@ -175,13 +176,14 @@
       <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="Ca-Clean logo">
     </div>
 
-    <!-- Header content: ONLY what you asked to keep -->
-    <div class="center-banner" role="region" aria-label="Call to book">
+    <!-- Center banner -->
+    <div class="center-banner" role="heading" aria-level="1">
+      <div class="title" data-i18n="bannerTitle">We don’t just clean — we Ca-Clean.</div>
       <div class="subtitle" data-i18n="bannerSub">Book your shine today.</div>
       <a class="phone" href="tel:+15146007514" aria-label="Call Ca-Clean 514-600-7514">514-600-7514</a>
     </div>
 
-    <!-- Language toggle (black text) -->
+    <!-- Language toggle -->
     <div class="hdr-right">
       <div class="lang-toggle" role="group" aria-label="Language">
         <button id="lang-en" class="active" data-lang="en" aria-pressed="true">EN</button>
@@ -226,7 +228,16 @@
         </div>
         <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
       </div>
-      <!-- FAQ section removed as requested -->
+
+      <div class="card">
+        <h2 style="margin-top:0" data-i18n="faqTitle">Quick FAQs</h2>
+        <ul class="list">
+          <li>❓ <strong data-i18n="q1">Do you bring supplies?</strong><br><span class="small" data-i18n="a1">Yes—pro tools, microfiber towels & eco-friendly options.</span></li>
+          <li>❓ <strong data-i18n="q2">Are you available today?</strong><br><span class="small" data-i18n="a2">Often! Call for a slot—24/7.</span></li>
+          <li>❓ <strong data-i18n="q3">How do you price?</strong><br><span class="small" data-i18n="a3">$100 service fee + $25/h. First hour included.</span></li>
+          <li>❓ <strong data-i18n="q4">What areas do you serve?</strong><br><span class="small" data-i18n="a4">Greater Montréal • Laval • South Shore</span></li>
+        </ul>
+      </div>
     </div>
   </section>
 </main>
@@ -238,19 +249,19 @@
         <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" width="36" height="36" style="border-radius:10px; box-shadow:var(--shadow)">
         <strong>Ca-Clean</strong>
       </div>
-      <p class="small" style="max-width:48ch" data-i18n="footBlurb">
+      <p class="small" style="max-width:42ch">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
       </p>
     </div>
     <div>
-      <strong data-i18n="footContact">Contact</strong><br>
+      <strong>Contact</strong><br>
       <a href="tel:+15146007514">+1 (514) 600-7514</a><br>
       <a href="mailto:cacleanmontreal@gmail.com">cacleanmontreal@gmail.com</a><br>
-      <span data-i18n="open247">Open 24/7</span>
+      <span>Open 24/7</span>
     </div>
     <div>
-      <strong data-i18n="areasTitle">Service areas</strong><br>
-      <span class="small" data-i18n="areasList">Greater Montréal • Laval • South Shore</span>
+      <strong>Service areas</strong><br>
+      <span class="small">Greater Montréal • Laval • South Shore</span>
     </div>
   </div>
   <div class="container" style="margin-top:8px">
@@ -272,6 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // i18n
   const dict = {
     en: {
+      bannerTitle:"We don’t just clean — we Ca-Clean.",
       bannerSub:"Book your shine today.",
       hero:"We Don’t Cut Corners... We Scrub Them",
       subhero:"Family business  We treat your home like our own—if you’re not satisfied, were not done!",
@@ -282,15 +294,14 @@ document.addEventListener('DOMContentLoaded', () => {
       serving:"Standard • Deep • Move-In/Out • Post-Construction",
       availability:"Availability", sameDay:"Often available", familyRun:"Run business",
       contactTitle:"Send inquiry", submit:"Send inquiry", disclaimer:"We reply fast. No spam.",
-      // Footer
-      footBlurb:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
-      footContact:"Contact",
-      open247:"Open 24/7",
-      areasTitle:"Service areas",
-      areasList:"Greater Montréal • Laval • South Shore",
+      faqTitle:"Quick FAQs", q1:"Do you bring supplies?", a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
+      q2:"Are you available today?", a2:"Often! Call for a slot—24/7.",
+      q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
+      q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
       rights:"All rights reserved."
     },
     fr: {
+      bannerTitle:"On ne fait pas que nettoyer — on Ca-Clean.",
       bannerSub:"Réservez votre éclat aujourd’hui.",
       hero:"On ne coupe pas les coins… on les frotte.",
       subhero:"Entreprise familiale  Nous traitons votre maison comme la nôtre — si vous n’êtes pas satisfait, on n’a pas fini !",
@@ -301,12 +312,10 @@ document.addEventListener('DOMContentLoaded', () => {
       serving:"Entretien • Grand ménage • Déménagement • Après construction",
       availability:"Disponibilité", sameDay:"Souvent disponible", familyRun:"Entreprise familiale",
       contactTitle:"Envoyer une demande", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
-      // Footer
-      footBlurb:"Service de ménage familial et convivial. Ponctuels, appliqués, et un résultat étincelant.",
-      footContact:"Contact",
-      open247:"Ouvert 24/7",
-      areasTitle:"Secteurs desservis",
-      areasList:"Grand Montréal • Laval • Rive-Sud",
+      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres et options éco.",
+      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent ! Appelez pour un créneau — 24/7.",
+      q3:"Comment tarifez-vous ?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
+      q4:"Quelles zones desservez-vous ?", a4:"Grand Montréal • Laval • Rive-Sud",
       rights:"Tous droits réservés."
     }
   };
