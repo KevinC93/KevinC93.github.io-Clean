@@ -6,7 +6,7 @@
 <title>Ca-Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
 <meta name="description" content="Ca-Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
 <meta name="theme-color" content="#1a5fff" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3C/svg%3E">
 <style>
   :root{
     --ink:#0f1a3a; --muted:#2a3a74;
@@ -17,9 +17,7 @@
     --grad: linear-gradient(135deg, var(--blue), var(--pink));
     --focus: 0 0 0 6px rgba(26,95,255,.18), 0 0 0 2px rgba(255,79,163,.22) inset;
   }
-  @media (max-width: 720px){
-    :root{ --hdrH: 100px; }
-  }
+  @media (max-width: 720px){ :root{ --hdrH: 100px; } }
 
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -222,10 +220,8 @@
     <div class="container grid grid-2">
       <div class="card">
         <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
-        <!-- Embedded JotForm -->
-        <div id="jotform-embed">
-          <script type="text/javascript" src="https://form.jotform.com/jsform/252805178934263"></script>
-        </div>
+        <!-- Embedded JotForm (language switches with toggle) -->
+        <div id="jotform-embed"></div>
         <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
       </div>
 
@@ -249,19 +245,19 @@
         <img src="https://i.postimg.cc/yx0wCw1M/Chat-GPT-Image-Oct-7-2025-11-41-01-AM.png" alt="" width="36" height="36" style="border-radius:10px; box-shadow:var(--shadow)">
         <strong>Ca-Clean</strong>
       </div>
-      <p class="small" style="max-width:42ch">
+      <p class="small" style="max-width:42ch" data-i18n="footDesc">
         Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.
       </p>
     </div>
     <div>
-      <strong>Contact</strong><br>
+      <strong data-i18n="contact">Contact</strong><br>
       <a href="tel:+15146007514">+1 (514) 600-7514</a><br>
       <a href="mailto:cacleanmontreal@gmail.com">cacleanmontreal@gmail.com</a><br>
-      <span>Open 24/7</span>
+      <span data-i18n="open">Open 24/7</span>
     </div>
     <div>
-      <strong>Service areas</strong><br>
-      <span class="small">Greater Montréal • Laval • South Shore</span>
+      <strong data-i18n="areas">Service areas</strong><br>
+      <span class="small" data-i18n="areaNames">Greater Montréal • Laval • South Shore</span>
     </div>
   </div>
   <div class="container" style="margin-top:8px">
@@ -298,6 +294,12 @@ document.addEventListener('DOMContentLoaded', () => {
       q2:"Are you available today?", a2:"Often! Call for a slot—24/7.",
       q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
       q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
+      // Footer keys (added)
+      footDesc:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
+      contact:"Contact",
+      open:"Open 24/7",
+      areas:"Service areas",
+      areaNames:"Greater Montréal • Laval • South Shore",
       rights:"All rights reserved."
     },
     fr: {
@@ -312,10 +314,16 @@ document.addEventListener('DOMContentLoaded', () => {
       serving:"Entretien • Grand ménage • Déménagement • Après construction",
       availability:"Disponibilité", sameDay:"Souvent disponible", familyRun:"Entreprise familiale",
       contactTitle:"Envoyer une demande", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
-      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel?", a1:"Oui—outils pros, linges microfibres et options éco.",
-      q2:"Êtes-vous disponible aujourd’hui?", a2:"Souvent ! Appelez pour un créneau — 24/7.",
+      faqTitle:"FAQ express", q1:"Fournissez-vous le matériel ?", a1:"Oui — outils pros, linges microfibres et options éco.",
+      q2:"Êtes-vous disponible aujourd’hui ?", a2:"Souvent ! Appelez pour un créneau — 24/7.",
       q3:"Comment tarifez-vous ?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
       q4:"Quelles zones desservez-vous ?", a4:"Grand Montréal • Laval • Rive-Sud",
+      // Footer keys (added)
+      footDesc:"Service de nettoyage familial et amical. Nous arrivons à l’heure, travaillons dur et laissons tout impeccable.",
+      contact:"Contact",
+      open:"Ouvert 24 h / 24, 7 j / 7",
+      areas:"Secteurs desservis",
+      areaNames:"Grand Montréal • Laval • Rive-Sud",
       rights:"Tous droits réservés."
     }
   };
@@ -328,19 +336,34 @@ document.addEventListener('DOMContentLoaded', () => {
       const txt = dict?.[lang]?.[key];
       if (typeof txt === "string") el.textContent = txt;
     });
-    $("#lang-en").classList.toggle("active", lang==="en");
-    $("#lang-fr").classList.toggle("active", lang==="fr");
-    $("#lang-en").setAttribute("aria-pressed", String(lang==="en"));
-    $("#lang-fr").setAttribute("aria-pressed", String(lang==="fr"));
+    // toggle state
+    $("#lang-en")?.classList.toggle("active", lang==="en");
+    $("#lang-fr")?.classList.toggle("active", lang==="fr");
+    $("#lang-en")?.setAttribute("aria-pressed", String(lang==="en"));
+    $("#lang-fr")?.setAttribute("aria-pressed", String(lang==="fr"));
     document.documentElement.lang = lang;
+    // reload JotForm with language
+    loadJotForm(lang);
   }
 
-  // Persist language across refresh
+  // Inject JotForm with language param (en/fr)
+  function loadJotForm(lang){
+    const mount = document.getElementById("jotform-embed");
+    if(!mount) return;
+    mount.innerHTML = ""; // clear previous iframe/script
+    const s = document.createElement("script");
+    // Use the jsform endpoint with ?language=
+    s.src = "https://form.jotform.com/jsform/252805178934263?language=" + (lang === "fr" ? "fr" : "en");
+    s.type = "text/javascript";
+    mount.appendChild(s);
+  }
+
+  // Persist language across refresh (default EN)
   const saved = localStorage.getItem("lang") || "en";
   applyLang(saved);
 
-  $("#lang-en").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); });
-  $("#lang-fr").addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); });
+  $("#lang-en")?.addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","en"); applyLang("en"); });
+  $("#lang-fr")?.addEventListener("click", (e)=>{ e.preventDefault(); localStorage.setItem("lang","fr"); applyLang("fr"); });
 
   // Year
   $("#year").textContent = new Date().getFullYear();
