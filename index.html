@@ -576,32 +576,6 @@
 </script>
 
 <script>
-  <script>
-(function relocateJotformBranding(){
-  const mount = document.getElementById('jotform-source');
-  if (!mount) return;
-  function moveOnce(){
-    const el = document.querySelector(
-      '#brandingFooter, .jotform-branding, .jf-branding-footer, .for-form-branding-footer, [data-component="branding"]'
-    );
-    if (el && !mount.contains(el)) {
-      mount.appendChild(el);
-      // keep it visually inside the card
-      el.style.marginTop = '12px';
-      el.style.position = 'relative';
-      el.style.left = '0';
-      el.style.right = '0';
-    }
-  }
-  // try a few times as Jotform injects late
-  let tries = 0;
-  const t = setInterval(() => {
-    moveOnce();
-    if (++tries > 15) clearInterval(t);
-  }, 200);
-})();
-</script>
-
 document.addEventListener('DOMContentLoaded', () => {
   // ===== Site i18n (unchanged) =====
   const dict = {
