@@ -6,7 +6,7 @@
 <title>Ca-Clean — 24/7 Cleaning • Standard, Deep, Move-In/Out, Post-Construction</title>
 <meta name="description" content="Ca-Clean — 24/7 cleaning pros. Standard, deep, move-in/out & post-construction. $100 service fee + $25/h (first hour included). 100% satisfaction guaranteed." />
 <meta name="theme-color" content="#1a5fff" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%231a2240' d='M20 8h24v10H20z'/%3E%3Cpath fill='%23ff4fa3' d='M18 18h28l2 10H16z'/%3E%3C/svg%3E">
 <style>
   :root{
     --ink:#0f1a3a; --muted:#2a3a74;
@@ -17,7 +17,9 @@
     --grad: linear-gradient(135deg, var(--blue), var(--pink));
     --focus: 0 0 0 6px rgba(26,95,255,.18), 0 0 0 2px rgba(255,79,163,.22) inset;
   }
-  @media (max-width: 720px){ :root{ --hdrH: 100px; } }
+  @media (max-width: 720px){
+    :root{ --hdrH: 100px; }
+  }
 
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -176,7 +178,7 @@
 
     <!-- Center banner -->
     <div class="center-banner" role="heading" aria-level="1">
-      <div class="title" data-i18n="bannerTitle">We don’t just clean — we Ca-Clean.</div>
+      <!-- Removed the slogan per request -->
       <div class="subtitle" data-i18n="bannerSub">Book your shine today.</div>
       <a class="phone" href="tel:+15146007514" aria-label="Call Ca-Clean 514-600-7514">514-600-7514</a>
     </div>
@@ -219,8 +221,8 @@
   <section aria-labelledby="contact">
     <div class="container grid grid-2">
       <div class="card">
-        <h2 id="contact" style="margin-top:0" data-i18n="contactTitle">Send inquiry</h2>
-        <!-- Embedded JotForm (language switches with toggle) -->
+        <!-- Removed the "Send inquiry" heading per request -->
+        <!-- Embedded JotForm (language switches with toggle; ALL texts show in chosen language if translations exist on Jotform) -->
         <div id="jotform-embed"></div>
         <div class="small" style="margin-top:8px" data-i18n="disclaimer">We reply fast. No spam.</div>
       </div>
@@ -279,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // i18n
   const dict = {
     en: {
-      bannerTitle:"We don’t just clean — we Ca-Clean.",
       bannerSub:"Book your shine today.",
       hero:"We Don’t Cut Corners... We Scrub Them",
       subhero:"Family business  We treat your home like our own—if you’re not satisfied, were not done!",
@@ -289,12 +290,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ctaCall:"Call Ca-Clean",
       serving:"Standard • Deep • Move-In/Out • Post-Construction",
       availability:"Availability", sameDay:"Often available", familyRun:"Run business",
-      contactTitle:"Send inquiry", submit:"Send inquiry", disclaimer:"We reply fast. No spam.",
+      disclaimer:"We reply fast. No spam.",
       faqTitle:"Quick FAQs", q1:"Do you bring supplies?", a1:"Yes—pro tools, microfiber towels & eco-friendly options.",
       q2:"Are you available today?", a2:"Often! Call for a slot—24/7.",
       q3:"How do you price?", a3:"$100 service fee + $25/h. First hour included.",
       q4:"What areas do you serve?", a4:"Greater Montréal • Laval • South Shore",
-      // Footer keys (added)
+      // Footer keys
       footDesc:"Friendly, family-run cleaning. We show up on time, work hard, and leave it sparkling.",
       contact:"Contact",
       open:"Open 24/7",
@@ -303,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
       rights:"All rights reserved."
     },
     fr: {
-      bannerTitle:"On ne fait pas que nettoyer — on Ca-Clean.",
       bannerSub:"Réservez votre éclat aujourd’hui.",
       hero:"On ne coupe pas les coins… on les frotte.",
       subhero:"Entreprise familiale  Nous traitons votre maison comme la nôtre — si vous n’êtes pas satisfait, on n’a pas fini !",
@@ -313,12 +313,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ctaCall:"Appeler Ca-Clean",
       serving:"Entretien • Grand ménage • Déménagement • Après construction",
       availability:"Disponibilité", sameDay:"Souvent disponible", familyRun:"Entreprise familiale",
-      contactTitle:"Envoyer une demande", submit:"Envoyer la demande", disclaimer:"Réponse rapide. Aucun pourriel.",
+      disclaimer:"Réponse rapide. Aucun pourriel.",
       faqTitle:"FAQ express", q1:"Fournissez-vous le matériel ?", a1:"Oui — outils pros, linges microfibres et options éco.",
       q2:"Êtes-vous disponible aujourd’hui ?", a2:"Souvent ! Appelez pour un créneau — 24/7.",
       q3:"Comment tarifez-vous ?", a3:"100 $ de frais + 25 $/h. 1re heure incluse.",
       q4:"Quelles zones desservez-vous ?", a4:"Grand Montréal • Laval • Rive-Sud",
-      // Footer keys (added)
+      // Footer keys
       footDesc:"Service de nettoyage familial et amical. Nous arrivons à l’heure, travaillons dur et laissons tout impeccable.",
       contact:"Contact",
       open:"Ouvert 24 h / 24, 7 j / 7",
@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $("#lang-en")?.setAttribute("aria-pressed", String(lang==="en"));
     $("#lang-fr")?.setAttribute("aria-pressed", String(lang==="fr"));
     document.documentElement.lang = lang;
-    // reload JotForm with language
+    // reload JotForm with language (ALL form system text + labels when translations exist on Jotform)
     loadJotForm(lang);
   }
 
@@ -350,9 +350,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadJotForm(lang){
     const mount = document.getElementById("jotform-embed");
     if(!mount) return;
-    mount.innerHTML = ""; // clear previous iframe/script
+    mount.innerHTML = ""; // clear previous embed
     const s = document.createElement("script");
-    // Use the jsform endpoint with ?language=
     s.src = "https://form.jotform.com/jsform/252805178934263?language=" + (lang === "fr" ? "fr" : "en");
     s.type = "text/javascript";
     mount.appendChild(s);
