@@ -144,7 +144,7 @@
   /* === Mobile === */
   @media (max-width: 900px){
     .grid-2{grid-template-columns: 1fr}
-    .kpis{grid-template-columns: 1fr 1fr 1fr}
+    .kpis{grid-template-columns: 1fr 1 fr 1fr}
     .foot-grid{grid-template-columns: 1fr}
     .hero-inner{padding:64px 20px 80px}
     .center-banner{min-width:240px; padding:8px 14px}
@@ -163,19 +163,23 @@
   }
   @media (max-width: 360px){ .kpis{grid-template-columns: 1fr} }
 
-  /* === Scope Jotform branding INSIDE the form card only === */
-  /* Hide global Jotform branding by default… */
-  #brandingFooter,
-  .jf-branding-footer,
-  .jotform-branding,
-  .for-form-branding-footer { display:none !important; }
+  /* ====== JOTFORM BRANDING SCOPING ======
+     1) Hide all branding globally
+     2) Re-enable ONLY inside #jotform-source
+  */
+  /* 1) Global hard-hide (covers late-injected fixed footers too) */
+  body > #brandingFooter,
+  body :is(#brandingFooter,.jf-branding-footer,.jotform-branding,.for-form-branding-footer,.jf-branding-fixed-footer,#stageFooter,[data-component="branding"]) {
+    display:none !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+  }
 
-  /* …then re-enable ONLY when it's inside #jotform-source */
-  #jotform-source #brandingFooter,
-  #jotform-source .jf-branding-footer,
-  #jotform-source .jotform-branding,
-  #jotform-source .for-form-branding-footer{
+  /* 2) Re-enable ONLY within our form mount */
+  #jotform-source :is(#brandingFooter,.jf-branding-footer,.jotform-branding,.for-form-branding-footer,.jf-branding-fixed-footer,[data-component="branding"]) {
     display:flex !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
     position:relative !important;
     inset:auto !important;
     left:auto !important;
@@ -185,8 +189,8 @@
     max-width:100% !important;
     margin-top:12px !important;
     padding:8px 0 !important;
-    box-shadow:none !important;
     background:transparent !important;
+    box-shadow:none !important;
     z-index:auto !important;
   }
 </style>
@@ -283,7 +287,7 @@
             });
 
             setTimeout(function() {
-              JotForm.paymentExtrasOnTheFly([null,{"name":"heading","qid":"1","text":"Schedule a Call Back!","type":"control_head"},null,null,{"name":"fullName","qid":"4","text":"Full Name","type":"control_fullname"},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"submit97","qid":"97","text":"Submit","type":"control_button"},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"address","qid":"161","text":"Property Address","type":"control_address"},null,null,null,{"description":"","name":"whatServices","qid":"165","text":"What services do you need?","type":"control_checkbox"},{"description":"","mde":"No","name":"additionalDetails","qid":"166","subLabel":"","text":"Additional Details.","type":"control_textarea","wysiwyg":"Disable"},{"description":"","name":"howOften","qid":"167","text":"How often do you need cleaning?","type":"control_checkbox"},{"description":"","name":"phoneNumber","qid":"168","text":"Phone Number","type":"control_phone"},null,null,null,null,null,{"description":"","name":"bestTime","qid":"174","text":"Best time to contact you?","type":"control_time"},null,null,null,{"description":"","name":"doYou178","qid":"178","subLabel":"We don't charge extra!","text":"Do you have pets?","type":"control_textbox"}]);
+              JotForm.paymentExtrasOnTheFly([null,{"name":"heading","qid":"1","text":"Schedule a Call Back!","type":"control_head"},null,null,{"name":"fullName","qid":"4","text":"Full Name","type":"control_fullname"},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"submit97","qid":"97","text":"Submit","type":"control_button"},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,{"name":"address","qid":"161","text":"Property Address","type":"control_address"},null,null,null,{"description":"","name":"whatServices","qid":"165","text":"What services do you need?","type":"control_checkbox"},{"description":"","mde":"No","name":"additionalDetails","qid":"166","subLabel":"","text":"Additional Details.","type":"control_textarea","wysiwyg":"Disable"},{"description":"","name":"howOften","qid":"167","text":"How often do you need cleaning?","type":"control_checkbox"},{"description":"","name":"phoneNumber","qid":"168","text":"Phone Number","type":"control_phone"},null,null,null,null,null,{"description":"","name":"bestTime","qid":"174","text":"Best time to contact you?","type":"control_time"},null,null,null,{"description":"","name":"doYou178","qid":"178","subLabel":"We don't charge extra!","text":"Do you have pets?","type":"control_textbox"}]);
             }, 20);
           </script>
 
@@ -486,7 +490,7 @@
                 <li class="form-line" data-type="control_button" id="id_97">
                   <div id="cid_97" class="form-input-wide" data-layout="full">
                     <div class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField">
-                      <button id="input_97" type="submit" class="form-submit-button form-submit-button-inbox-400 submit-button jf-form-buttons jsTest-submitField legacy-submit" data-component="button" data-content="" data-jt="submitBtn">Submit</button>
+                      <button id="input_97" type="submit" class="form-submit-button form-submit-button-inbox-400 submit-button jf-form-buttons jsTest-submitField legacy-submit" data-component="button" data-jt="submitBtn">Submit</button>
                     </div>
                   </div>
                 </li>
@@ -579,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hero:"On ne coupe pas les coins… on les frotte.",
       subhero:"Entreprise familiale. Nous traitons votre maison comme la nôtre — si vous n’êtes pas satisfait, on n’a pas fini !",
       promo:"Frais de service : 150 $ + 25 $/h (1re heure incluse).",
-      guarantee:"Satisfaction garantie à 100 %.",
+      guarantee:"Satisfaction garantie à 100 %. ",
       qualities:"Fiable • Sympathique.",
       ctaCall:"Appeler Ca-Clean",
       serving:"Entretien • Grand ménage • Déménagement • Après construction.",
@@ -679,31 +683,49 @@ document.addEventListener('DOMContentLoaded', () => {
       JotForm.alterTexts(jfSysFr);
       JotForm.texts = Object.assign({}, JotForm.texts, jfSysFr, { submitButtonText:"Envoyer" });
     }else{
-      // minimal reset to EN
       JotForm.alterTexts({"submitButtonText":"Submit","nextButtonText":"Next","prevButtonText":"Previous","doneButton":"Done","pleaseWait":"Please wait...","required":"This field is required."});
     }
   }
 
-  // === STRICT: keep Jotform branding only inside the form card ===
+  // ====== BRANDING CONTAINMENT ======
+  function normalizeBrandingEl(el){
+    try{
+      el.style.position = 'relative';
+      el.style.left = el.style.right = el.style.bottom = 'auto';
+      el.style.width = 'auto';
+      el.style.maxWidth = '100%';
+      el.style.marginTop = '12px';
+      el.style.background = 'transparent';
+      el.style.boxShadow = 'none';
+      el.style.zIndex = 'auto';
+      el.style.pointerEvents = 'auto';
+      el.removeAttribute('data-fixed'); // in case JF marks it
+    }catch(e){}
+  }
+
   function moveBrandingIntoForm(){
     const mount = document.getElementById('jotform-source');
     if(!mount) return;
-    const selectors = ['#brandingFooter','.jotform-branding','.jf-branding-footer','.for-form-branding-footer','[data-component="branding"]'];
-    const found = selectors.map(q=>Array.from(document.querySelectorAll(q))).flat();
+    const selectors = [
+      '#brandingFooter',
+      '.jf-branding-footer',
+      '.jotform-branding',
+      '.for-form-branding-footer',
+      '.jf-branding-fixed-footer',
+      '#stageFooter',
+      '[data-component="branding"]'
+    ];
+    const found = selectors.flatMap(q => Array.from(document.querySelectorAll(q)));
 
     found.forEach(el=>{
-      // Skip if it’s already inside the mount
-      if(mount.contains(el)) return;
-      try {
+      // If already inside mount, just normalize and skip
+      if(mount.contains(el)){ normalizeBrandingEl(el); return; }
+
+      // Otherwise, append into the Jotform source container
+      try{
         mount.appendChild(el);
-        // Normalize any injected fixed footer styling
-        Object.assign(el.style, {
-          position:'relative',
-          left:'0', right:'0', bottom:'auto',
-          width:'auto', maxWidth:'100%',
-          marginTop:'12px', background:'transparent', boxShadow:'none', zIndex:'auto'
-        });
-      } catch(e){}
+        normalizeBrandingEl(el);
+      }catch(e){}
     });
   }
 
@@ -725,7 +747,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let tries = 0;
   const t = setInterval(()=>{
     applyLang(localStorage.getItem("lang") || "en");
-    if(++tries>30) clearInterval(t);
+    if(++tries>40) clearInterval(t);
   }, 200);
 
   // Also run on load in case branding script injects late
